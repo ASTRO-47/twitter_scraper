@@ -72,7 +72,12 @@ async def scrape_following(page, username: str) -> List[Dict]:
 
 async def scrape_twitter(username: str) -> Dict:
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(
+    headless=False,
+    executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+)
+
+        # browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()
         await page.goto(f"https://x.com/{username}")
         user_profile = await scrape_user_profile(page, username)
