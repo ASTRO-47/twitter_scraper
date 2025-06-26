@@ -5,20 +5,28 @@ from playwright.async_api import async_playwright
 SCREENSHOTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
 os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
 
-async def scrape_user_profile(page, username: str) -> Dict:
+async def scrape_user_profile(page, username: str) -> dict:
     await page.goto(f"https://x.com/{username}")
     await page.wait_for_selector('div[data-testid="UserName"]', timeout=10000)
-    name = await page.locator('div[data-testid="UserName"] span').nth(0).inner_text()
-    bio = ""
+    # Get the display name (the name shown on the profile)
+    display_name = await page.locator('div[data-testid="UserName"] span').nth(0).inner_text()
+    # Get the bio (may be empty)
     try:
         bio = await page.locator('div[data-testid="UserDescription"]').inner_text()
     except:
         bio = ""
-    return {"username": name, "bio": bio}
+    print(f"Username: {display_name}")
+    print(f"Bio: {bio}")
+    return {"username": display_name, "bio": bio}
 
 async def scrape_tweets(page, username: str) -> List[Dict]:
     await page.goto(f"https://x.com/{username}")
-    await page.wait_for_selector('article', timeout=10000)
+    try:
+        await page.wait_for_selector('article', timeout=10000)
+    except Exception as e:
+        print("No tweets found or tweets are not visible.")
+        await page.screenshot(path="debug_no_tweets.png")
+        return []
     tweets = []
     tweet_elements = await page.locator('article').all()
     for i, tweet in enumerate(tweet_elements[:5]):  # Get up to 5 tweets
@@ -72,10 +80,9 @@ async def scrape_following(page, username: str) -> List[Dict]:
 
 async def scrape_twitter(username: str) -> Dict:
     async with async_playwright() as p:
-        browser = await p.chromium.launch(
-    headless=False,
-    executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-)
+        browser = await p.chromium.launch(headless=False)
+
+
 
         # browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()

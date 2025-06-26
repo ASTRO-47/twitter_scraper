@@ -5,7 +5,3 @@ aiofiles
 pydantic 
 
 
-
-
-
-export PLAYWRIGHT_BROWSERS_PATH="/goinfre/iez-zagh/playwright-browsers"
