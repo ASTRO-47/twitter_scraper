@@ -1,0 +1,42 @@
+{
+  "user_profile": {
+    "username": "string",                     // The username of the profile
+    "bio": "string"                           // The bio of the user
+  },
+  "tweets": [
+    {
+      "tweet_content": "string",              // The content of a tweet
+      "tweet_screenshot": "url_or_path"       // The screenshot of the tweet (URL or file path)
+    }
+  ], "tweet_content": "string", 
+  "retweets": [
+    {
+      "retweet_content": "string",            // The content of the retweet
+      "retweet_username": "string",           // The username of the profile who retweeted
+      "retweet_profile_bio": "string",        // The bio of the profile who retweeted
+      "retweet_screenshot": "url_or_path",    // Screenshot of the retweet
+      "retweet_main_content": "string"        // The original content of the tweet being retweeted
+    }
+  ],
+  "likes": [
+    {
+      "liked_tweet_content": "string",        // Content of a liked tweet
+      "liked_tweet_username": "string",       // The username of the profile who posted the liked tweet
+      "liked_tweet_profile_bio": "string",    // The bio of the profile who posted the liked tweet
+      "liked_tweet_screenshot": "url_or_path", // Screenshot of liked tweet
+      "liked_main_content": "string"          // The original content of the liked tweet
+    }
+  ],
+  "following": [
+    {
+      "following_name": "string",             // The name of the following user
+      "following_bio": "string"               // The bio of the following user
+    }
+  ],
+  "followers": [
+    {
+      "follower_name": "string",              // The name of the follower user
+      "follower_bio": "string"                // The bio of the follower user
+    }
+  ]
+}

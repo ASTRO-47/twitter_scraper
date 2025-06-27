@@ -1,6 +1,7 @@
 import os
 from typing import List, Dict
 from playwright.async_api import async_playwright
+from fastapi.responses import JSONResponse
 
 SCREENSHOTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
 os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
@@ -80,11 +81,7 @@ async def scrape_following(page, username: str) -> List[Dict]:
 
 async def scrape_twitter(username: str) -> Dict:
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-
-
-
-        # browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
         await page.goto(f"https://x.com/{username}")
         user_profile = await scrape_user_profile(page, username)
@@ -95,6 +92,8 @@ async def scrape_twitter(username: str) -> Dict:
         return {
             "user_profile": user_profile,
             "tweets": tweets,
-            "followers": followers,
-            "following": following
-        } 
+            "retweets": [],
+            "likes": [],
+            "following": following,
+            "followers": followers
+        }
