@@ -11,13 +11,31 @@ COOKIES_FILE = os.path.join(os.path.dirname(__file__), 'twitter_cookies.json')
 
 async def safe_wait_for_selector(page, selector, timeout=10000, description="element"):
     try:
-        await page.wait_for_selector(selector, timeout=timeout)
+        await page.wait_for_selector(selector, timeout=timeout, state="attached")
         return True
     except TimeoutError:
         print(f"Timeout waiting for {description}")
         return False
     except Exception as e:
         print(f"Error waiting for {description}: {str(e)}")
+        return False
+
+async def wait_for_profile_load(page, username: str) -> bool:
+    try:
+        # Wait for either tweets or empty state
+        try:
+            await page.wait_for_selector('article[data-testid="tweet"]', timeout=15000)
+            return True
+        except TimeoutError:
+            try:
+                await page.wait_for_selector('div[data-testid="emptyState"]', timeout=5000)
+                print(f"Profile {username} not found or has no tweets")
+                return False
+            except TimeoutError:
+                print(f"Timeout waiting for profile {username} to load")
+                return False
+    except Exception as e:
+        print(f"Error waiting for profile load: {str(e)}")
         return False
 
 async def scrape_user_profile(page, username: str) -> dict:
@@ -42,44 +60,115 @@ async def scrape_user_profile(page, username: str) -> dict:
 async def scrape_tweets(page, username: str) -> List[Dict]:
     tweets = []
     try:
-        if page.url != f"https://twitter.com/{username}":
-            await page.goto(f"https://twitter.com/{username}")
-            await page.wait_for_load_state("domcontentloaded")
-            await asyncio.sleep(2)
-        
-        if not await safe_wait_for_selector(page, 'article', description="tweets"):
+        # Navigate to profile with better error handling
+        try:
+            await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded", timeout=30000)
+            if not await wait_for_profile_load(page, username):
+                return tweets
+                
+        except Exception as e:
+            print(f"Error accessing profile {username}: {str(e)}")
             return tweets
         
-        tweet_elements = await page.locator('article').all()
-        for i, tweet in enumerate(tweet_elements[:5]):
+        last_height = await page.evaluate("document.body.scrollHeight")
+        processed_tweets = set()
+        no_new_tweets_count = 0
+        max_no_new_tweets = 3
+        
+        while True:
             try:
-                # Try to get tweet text
-                try:
-                    content_element = tweet.locator('div[data-testid="tweetText"]').first
-                    content = await content_element.inner_text()
-                except Exception as e:
-                    print(f"Could not get tweet text for tweet {i+1}: {str(e)}")
-                    content = ""
+                # Get all visible tweets with timeout
+                tweet_elements = await page.locator('article[data-testid="tweet"]').all()
+                if not tweet_elements:
+                    print("No tweets found on page")
+                    break
+                    
+                initial_tweet_count = len(tweets)
                 
-                # Try to get screenshot
-                try:
-                    screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_tweet{i+1}.png")
-                    await tweet.screenshot(path=screenshot_path)
-                except Exception as e:
-                    print(f"Could not get screenshot for tweet {i+1}: {str(e)}")
-                    screenshot_path = ""
+                for tweet in tweet_elements:
+                    try:
+                        # Get tweet ID or some unique identifier
+                        tweet_html = await tweet.inner_html()
+                        tweet_hash = hash(tweet_html)
+                        
+                        if tweet_hash in processed_tweets:
+                            continue
+                            
+                        processed_tweets.add(tweet_hash)
+                        
+                        # Check if it's a retweet
+                        retweet_indicator = tweet.locator('div[data-testid="socialContext"]')
+                        if await retweet_indicator.count() > 0:
+                            continue
+                        
+                        # Get tweet content
+                        content = ""
+                        try:
+                            content_element = tweet.locator('div[data-testid="tweetText"]')
+                            if await content_element.count() > 0:
+                                content = await content_element.inner_text()
+                        except Exception as e:
+                            print(f"Could not get tweet text: {str(e)}")
+                        
+                        # Get screenshot
+                        screenshot_path = ""
+                        try:
+                            screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_tweet_{len(tweets)+1}.png")
+                            await tweet.screenshot(path=screenshot_path)
+                        except Exception as e:
+                            print(f"Could not get screenshot: {str(e)}")
+                        
+                        if content or screenshot_path:
+                            tweets.append({
+                                "tweet_content": content,
+                                "tweet_screenshot": screenshot_path
+                            })
+                            print(f"Added tweet {len(tweets)}")
+                    
+                    except Exception as e:
+                        print(f"Error processing tweet: {str(e)}")
+                        continue
                 
-                # Only add tweet if we got either content or screenshot
-                if content or screenshot_path:
-                    tweets.append({
-                        "tweet_content": content,
-                        "tweet_screenshot": screenshot_path
-                    })
+                # Check if we found any new tweets
+                if len(tweets) == initial_tweet_count:
+                    no_new_tweets_count += 1
+                else:
+                    no_new_tweets_count = 0
+                    print(f"Found {len(tweets)} tweets so far")
+                
+                # Stop if we haven't found new tweets in several scrolls
+                if no_new_tweets_count >= max_no_new_tweets:
+                    print("No new tweets found after multiple scrolls, stopping")
+                    break
+                
+                # Scroll down with timeout
+                try:
+                    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    await asyncio.sleep(2)
+                    
+                    # Check if we've reached the bottom
+                    new_height = await page.evaluate("document.body.scrollHeight")
+                    if new_height == last_height:
+                        no_new_tweets_count += 1
+                    else:
+                        last_height = new_height
+                        
+                except Exception as e:
+                    print(f"Error scrolling: {str(e)}")
+                    no_new_tweets_count += 1
+                
             except Exception as e:
-                print(f"Error processing tweet {i+1}: {str(e)}")
-                continue
+                print(f"Error during tweet collection: {str(e)}")
+                no_new_tweets_count += 1
+            
+            # Emergency break if something goes wrong
+            if no_new_tweets_count >= max_no_new_tweets:
+                break
+                
     except Exception as e:
         print(f"Error scraping tweets: {str(e)}")
+    
+    print(f"Total tweets scraped: {len(tweets)}")
     return tweets
 
 async def scrape_likes(page, username: str) -> List[Dict]:
@@ -211,70 +300,142 @@ async def scrape_following(page, username: str) -> List[Dict]:
 async def scrape_retweets(page, username: str) -> List[Dict]:
     retweets = []
     try:
-        if page.url != f"https://twitter.com/{username}":
-            await page.goto(f"https://twitter.com/{username}")
-            await page.wait_for_load_state("domcontentloaded")
-            await asyncio.sleep(2)
-        
-        if not await safe_wait_for_selector(page, 'article', description="retweets"):
+        # Navigate to profile with better error handling
+        try:
+            await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded", timeout=30000)
+            if not await wait_for_profile_load(page, username):
+                return retweets
+                
+        except Exception as e:
+            print(f"Error accessing profile {username}: {str(e)}")
             return retweets
         
-        tweet_elements = await page.locator('article').all()
-        for i, tweet in enumerate(tweet_elements[:10]):
+        last_height = await page.evaluate("document.body.scrollHeight")
+        processed_retweets = set()
+        no_new_retweets_count = 0
+        max_no_new_retweets = 3
+        
+        while True:
             try:
-                # Check if it's a retweet
-                retweet_indicator = tweet.locator('span:has-text("Reposted")')
-                if not await retweet_indicator.count():
-                    continue
-                
-                # Try to get content
-                try:
-                    content_element = tweet.locator('div[data-testid="tweetText"]').first
-                    content = await content_element.inner_text()
-                except Exception as e:
-                    print(f"Could not get retweet text for retweet {i+1}: {str(e)}")
-                    content = ""
-                
-                # Try to get username
-                try:
-                    name_element = tweet.locator('div[data-testid="User-Name"] > div:first-child > div:first-child > span').first
-                    username = await name_element.inner_text()
-                except Exception as e:
-                    print(f"Could not get username for retweet {i+1}: {str(e)}")
-                    username = ""
-                
-                # Try to get screenshot
-                try:
-                    screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_retweet{i+1}.png")
-                    await tweet.screenshot(path=screenshot_path)
-                except Exception as e:
-                    print(f"Could not get screenshot for retweet {i+1}: {str(e)}")
-                    screenshot_path = ""
-                
-                # Try to get original content
-                try:
-                    main_content_element = tweet.locator('div[data-testid="tweetText"]').nth(1)
-                    main_content = await main_content_element.inner_text()
-                except Exception as e:
-                    print(f"Could not get original content for retweet {i+1}: {str(e)}")
-                    main_content = content
-                
-                # Only add retweet if we got some content
-                if content or username or screenshot_path:
-                    retweets.append({
-                        "retweet_content": content,
-                        "retweet_username": username,
-                        "retweet_screenshot": screenshot_path,
-                        "retweet_main_content": main_content
-                    })
-                
-                if len(retweets) >= 5:
+                # Get all visible tweets with timeout
+                tweet_elements = await page.locator('article[data-testid="tweet"]').all()
+                if not tweet_elements:
+                    print("No tweets found on page")
                     break
+                    
+                initial_retweet_count = len(retweets)
+                
+                for tweet in tweet_elements:
+                    try:
+                        # Get tweet ID or some unique identifier
+                        tweet_html = await tweet.inner_html()
+                        tweet_hash = hash(tweet_html)
+                        
+                        if tweet_hash in processed_retweets:
+                            continue
+                            
+                        processed_retweets.add(tweet_hash)
+                        
+                        # Check if it's a retweet
+                        retweet_indicator = tweet.locator('div[data-testid="socialContext"]')
+                        if await retweet_indicator.count() == 0:
+                            continue
+                        
+                        # Get retweet data
+                        content = ""
+                        username = ""
+                        bio = ""
+                        main_content = ""
+                        
+                        # Get retweet content with timeout
+                        try:
+                            content_element = tweet.locator('div[data-testid="tweetText"]')
+                            if await content_element.count() > 0:
+                                content = await content_element.inner_text()
+                        except Exception as e:
+                            print(f"Could not get retweet text: {str(e)}")
+                        
+                        # Get username with timeout
+                        try:
+                            name_element = tweet.locator('div[data-testid="User-Name"] span').first
+                            if await name_element.count() > 0:
+                                username = await name_element.inner_text()
+                        except Exception as e:
+                            print(f"Could not get username: {str(e)}")
+                        
+                        # Get screenshot
+                        screenshot_path = ""
+                        try:
+                            screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_retweet_{len(retweets)+1}.png")
+                            await tweet.screenshot(path=screenshot_path)
+                        except Exception as e:
+                            print(f"Could not get screenshot: {str(e)}")
+                        
+                        # Get original tweet content with timeout
+                        try:
+                            main_content_element = tweet.locator('div[data-testid="tweetText"]').nth(1)
+                            if await main_content_element.count() > 0:
+                                main_content = await main_content_element.inner_text()
+                            else:
+                                main_content = content
+                        except Exception as e:
+                            print(f"Could not get original content: {str(e)}")
+                            main_content = content
+                        
+                        if content or username or screenshot_path:
+                            retweets.append({
+                                "retweet_content": content,
+                                "retweet_username": username,
+                                "retweet_profile_bio": bio,
+                                "retweet_screenshot": screenshot_path,
+                                "retweet_main_content": main_content
+                            })
+                            print(f"Added retweet {len(retweets)}")
+                    
+                    except Exception as e:
+                        print(f"Error processing retweet: {str(e)}")
+                        continue
+                
+                # Check if we found any new retweets
+                if len(retweets) == initial_retweet_count:
+                    no_new_retweets_count += 1
+                else:
+                    no_new_retweets_count = 0
+                    print(f"Found {len(retweets)} retweets so far")
+                
+                # Stop if we haven't found new retweets in several scrolls
+                if no_new_retweets_count >= max_no_new_retweets:
+                    print("No new retweets found after multiple scrolls, stopping")
+                    break
+                
+                # Scroll down with timeout
+                try:
+                    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    await asyncio.sleep(2)
+                    
+                    # Check if we've reached the bottom
+                    new_height = await page.evaluate("document.body.scrollHeight")
+                    if new_height == last_height:
+                        no_new_retweets_count += 1
+                    else:
+                        last_height = new_height
+                        
+                except Exception as e:
+                    print(f"Error scrolling: {str(e)}")
+                    no_new_retweets_count += 1
+                
             except Exception as e:
-                print(f"Error processing retweet {i+1}: {str(e)}")
-                continue
+                print(f"Error during retweet collection: {str(e)}")
+                no_new_retweets_count += 1
+            
+            # Emergency break if something goes wrong
+            if no_new_retweets_count >= max_no_new_retweets:
+                break
+                
     except Exception as e:
         print(f"Error scraping retweets: {str(e)}")
+    
+    print(f"Total retweets scraped: {len(retweets)}")
     return retweets
 
 async def scrape_twitter(username: str) -> Dict:
