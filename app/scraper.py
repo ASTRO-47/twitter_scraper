@@ -41,22 +41,43 @@ async def wait_for_profile_load(page, username: str) -> bool:
 
 async def scrape_user_profile(page, username: str) -> dict:
     try:
-        await page.goto(f"https://twitter.com/{username}")
-        await page.wait_for_load_state("domcontentloaded")
-        await asyncio.sleep(2)
+        print(f"Navigating to profile page for @{username}...")
+        await page.goto(f"https://twitter.com/{username}", wait_until="networkidle")
+        await asyncio.sleep(3)
         
-        if not await safe_wait_for_selector(page, 'div[data-testid="UserName"]', description="profile"):
+        if not await safe_wait_for_selector(page, 'div[data-testid="UserName"]', description="profile", timeout=10000):
+            print(f"Could not load profile for @{username}")
             return {"username": username, "bio": ""}
         
-        display_name = await page.locator('div[data-testid="UserName"] span').nth(0).inner_text()
-        
+        # Get display name
+        display_name = ""
         try:
-            bio = await page.locator('div[data-testid="UserDescription"]').inner_text()
-        except Exception:
-            bio = ""
-            
-        return {"username": display_name, "bio": bio}
+            name_element = page.locator('div[data-testid="UserName"] span').first
+            if await name_element.count() > 0:
+                display_name = await name_element.inner_text()
+        except Exception as e:
+            print(f"Error getting display name: {str(e)}")
         
+        # Get bio with retry
+        bio = ""
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                bio_element = page.locator('div[data-testid="UserDescription"]')
+                if await bio_element.count() > 0:
+                    bio = await bio_element.inner_text()
+                    if bio:
+                        break
+                await asyncio.sleep(1)
+            except Exception as e:
+                print(f"Error getting bio (attempt {attempt + 1}): {str(e)}")
+                await asyncio.sleep(1)
+            
+        return {
+            "username": display_name or username,
+            "bio": bio
+        }
+
     except Exception as e:
         print(f"Error scraping profile: {str(e)}")
         return {"username": username, "bio": ""}
@@ -387,348 +408,197 @@ async def scrape_tweets(page, username: str) -> Tuple[List[Dict[str, str]], List
     return tweets, retweets
 
 async def scrape_likes(page, username: str) -> List[Dict]:
-    likes = []
-    try:
-        print(f"\nAccessing likes page for @{username}...")
-        await page.goto(f"https://twitter.com/{username}/likes")
-        await page.wait_for_load_state("domcontentloaded")
-        await asyncio.sleep(3)  # Give more time for the page to load
-        
-        # Wait for either tweets or empty state
-        try:
-            await page.wait_for_selector('article[data-testid="tweet"]', timeout=15000)
-        except TimeoutError:
-            try:
-                await page.wait_for_selector('div[data-testid="emptyState"]', timeout=5000)
-                print("No likes found")
-                return likes
-            except TimeoutError:
-                print("Could not load likes page")
-                return likes
-
-        # Get all visible liked tweets
-        print("Scanning liked tweets...")
-        liked_tweets = await page.locator('article[data-testid="tweet"]').all()
-        
-        for i, tweet in enumerate(liked_tweets, 1):
-            try:
-                print(f"Processing like {i}...")
-                
-                # Get tweet content
-                content = ""
-                try:
-                    content_element = tweet.locator('div[data-testid="tweetText"]')
-                    if await content_element.count() > 0:
-                        content = await content_element.inner_text()
-                except Exception as e:
-                    print(f"Error getting like content: {str(e)}")
-
-                # Get username
-                username = ""
-                try:
-                    # Try multiple selectors for username
-                    username_selectors = [
-                        'div[data-testid="User-Name"] span span',
-                        'div[data-testid="User-Name"] div[dir="ltr"] span',
-                        'div[data-testid="User-Name"] a[role="link"] div span'
-                    ]
-                    
-                    for selector in username_selectors:
-                        name_element = tweet.locator(selector).first
-                        if await name_element.count() > 0:
-                            username = await name_element.inner_text()
-                            if username:
-                                break
-                except Exception as e:
-                    print(f"Error getting like username: {str(e)}")
-
-                # Get bio
-                bio = ""
-                try:
-                    bio_element = tweet.locator('div[data-testid="UserDescription"]')
-                    if await bio_element.count() > 0:
-                        bio = await bio_element.inner_text()
-                except Exception as e:
-                    print(f"Error getting like bio: {str(e)}")
-
-                # Take screenshot
-                screenshot_path = ""
-                try:
-                    screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_like_{i}.png")
-                    await tweet.screenshot(path=screenshot_path)
-                except Exception as e:
-                    print(f"Error taking screenshot: {str(e)}")
-
-                # Only add if we got some content
-                if content or username:
-                    likes.append({
-                        "liked_tweet_content": content,
-                        "liked_tweet_username": username,
-                        "liked_tweet_profile_bio": bio,
-                        "liked_tweet_screenshot": screenshot_path,
-                        "liked_main_content": content
-                    })
-                    print(f"Successfully processed like {i}")
-
-            except Exception as e:
-                print(f"Error processing like {i}: {str(e)}")
-                continue
-
-            # Don't process too many at once
-            if i >= 10:  # Limit to 10 likes for now
-                break
-
-        print(f"Found {len(likes)} likes")
-        
-    except Exception as e:
-        print(f"Error scraping likes: {str(e)}")
-    
-    return likes
+    # Commented out for now as it needs further investigation
+    return []
 
 async def scrape_followers(page, username: str) -> List[Dict]:
     followers = []
     try:
-        print(f"\nAccessing followers page for @{username}...")
-        await page.goto(f"https://twitter.com/{username}/followers", wait_until="networkidle")
-        await asyncio.sleep(5)  # Give more time for initial load
+        # Navigate to followers page
+        await page.goto(f"https://twitter.com/{username}/followers")
+        await asyncio.sleep(2)
 
-        # Wait for content to load and verify we're on the right page
-        try:
-            # First verify we're on the followers page
-            if not await safe_wait_for_selector(page, '[data-testid="primaryColumn"]', timeout=10000):
-                print("Could not verify followers page loaded")
-                return followers
-
-            # Scroll and collect followers
-            last_height = await page.evaluate('document.body.scrollHeight')
-            max_scrolls = 10  # Increased for more thorough collection
-            scroll_count = 0
-            processed_usernames = set()
-            no_new_users_count = 0
-
-            while scroll_count < max_scrolls and no_new_users_count < 3:
-                # Wait for user cells to be visible
-                await safe_wait_for_selector(page, 'div[data-testid="UserCell"]', timeout=5000)
-                await asyncio.sleep(2)  # Additional wait for dynamic content
-
-                # Get all user cells in the current view
-                cells = await page.locator('div[data-testid="UserCell"]').all()
-                initial_count = len(followers)
+        # Initialize scroll tracking
+        last_height = await page.evaluate('document.body.scrollHeight')
+        processed_usernames = set()
+        scroll_count = 0
+        max_scrolls = 20  # Increase max scrolls
+        
+        while scroll_count < max_scrolls:
+            # Get all visible user cells
+            cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
+            
+            if not cells:
+                print("No follower cells found")
+                break
                 
-                print(f"\nFound {len(cells)} user cells in current view")
-
-                for cell in cells:
-                    try:
-                        # Get username from profile link
-                        username = ""
-                        try:
-                            # Look for the username in the profile link
-                            links = await cell.locator('a[role="link"]').all()
-                            for link in links:
-                                href = await link.get_attribute('href')
-                                if href and '/' in href and not href.endswith('/followers') and not href.endswith('/following'):
-                                    potential_username = href.strip('/').split('/')[-1]
-                                    if potential_username and potential_username not in processed_usernames:
-                                        username = potential_username
-                                        break
-                        except Exception as e:
-                            print(f"Error getting follower username: {str(e)}")
-
-                        if not username or username in processed_usernames:
-                            continue
-
-                        # Get display name
-                        name = ""
-                        try:
-                            # Try multiple selectors for the name
-                            name_selectors = [
-                                'div[data-testid="User-Name"] span span',
-                                'div[data-testid="User-Name"] > div:first-child span',
-                                'div[data-testid="User-Name"] div[dir="ltr"] span'
-                            ]
-                            for selector in name_selectors:
-                                name_element = cell.locator(selector).first
-                                if await name_element.count() > 0:
-                                    name = await name_element.inner_text()
-                                    if name:
-                                        break
-                        except Exception as e:
-                            print(f"Error getting follower name: {str(e)}")
-
-                        # Get bio
-                        bio = ""
-                        try:
-                            bio_element = cell.locator('div[data-testid="UserDescription"]')
-                            if await bio_element.count() > 0:
-                                bio = await bio_element.inner_text()
-                        except Exception as e:
-                            print(f"Error getting follower bio: {str(e)}")
-
-                        # Add to followers list
-                        followers.append({
-                            "follower_username": username,
-                            "follower_name": name,
-                            "follower_bio": bio
-                        })
-                        processed_usernames.add(username)
-                        print(f"Added follower: {username} ({name})")
-
-                    except Exception as e:
-                        print(f"Error processing follower cell: {str(e)}")
+            # Process visible cells
+            for cell in cells:
+                try:
+                    # Get username (look for the link containing the username)
+                    username = ""
+                    links = await cell.query_selector_all('a[role="link"]')
+                    for link in links:
+                        href = await link.get_attribute('href')
+                        if href and '/' in href:
+                            potential_username = href.strip('/').split('/')[-1]
+                            if potential_username and potential_username not in processed_usernames:
+                                username = potential_username
+                                break
+                    
+                    if not username or username in processed_usernames:
                         continue
-
-                new_followers = len(followers) - initial_count
-                print(f"Found {new_followers} new followers in this scroll")
-
-                if new_followers == 0:
-                    no_new_users_count += 1
-                else:
-                    no_new_users_count = 0
-
-                # Scroll down
-                await page.evaluate('window.scrollBy(0, window.innerHeight * 0.8)')
-                await asyncio.sleep(2)
-
-                # Check if we've reached the bottom
-                new_height = await page.evaluate('document.body.scrollHeight')
-                if new_height == last_height:
-                    no_new_users_count += 1
-                else:
-                    last_height = new_height
-
-                scroll_count += 1
-                print(f"Completed scroll {scroll_count}/{max_scrolls}")
-
-        except Exception as e:
-            print(f"Error during followers collection: {str(e)}")
-
+                        
+                    # Get display name
+                    name = ""
+                    try:
+                        name_element = await cell.query_selector('div[data-testid="User-Name"] span')
+                        if name_element:
+                            name = await name_element.inner_text()
+                    except Exception:
+                        pass
+                        
+                    # Get bio directly from the cell
+                    bio = ""
+                    try:
+                        bio_element = await cell.query_selector('div[data-testid="UserDescription"]')
+                        if bio_element:
+                            bio = await bio_element.inner_text()
+                    except Exception:
+                        pass
+                        
+                    # Add to followers list
+                    followers.append({
+                        "follower_username": username,
+                        "follower_name": name,
+                        "follower_bio": bio
+                    })
+                    processed_usernames.add(username)
+                    print(f"Added follower: @{username}")
+                    
+                except Exception as e:
+                    print(f"Error processing follower cell: {str(e)}")
+                    continue
+            
+            # Scroll down
+            await page.evaluate('window.scrollBy(0, window.innerHeight)')
+            await asyncio.sleep(1)
+            
+            # Check if we've reached the bottom
+            new_height = await page.evaluate('document.body.scrollHeight')
+            if new_height == last_height:
+                # Try one more scroll before breaking
+                await page.evaluate('window.scrollBy(0, window.innerHeight)')
+                await asyncio.sleep(1)
+                newest_height = await page.evaluate('document.body.scrollHeight')
+                if newest_height == new_height:
+                    print("Reached end of followers list")
+                    break
+            last_height = new_height
+            scroll_count += 1
+            
+            # Print progress
+            print(f"Collected {len(followers)} followers so far...")
+            
     except Exception as e:
-        print(f"Error accessing followers page: {str(e)}")
-
-    print(f"\nTotal followers collected: {len(followers)}")
+        print(f"Error in followers scraping: {str(e)}")
+        
+    print(f"Total followers collected: {len(followers)}")
     return followers
 
 async def scrape_following(page, username: str) -> List[Dict]:
     following = []
     try:
-        print(f"\nAccessing following page for @{username}...")
-        await page.goto(f"https://twitter.com/{username}/following", wait_until="networkidle")
-        await asyncio.sleep(5)  # Give more time for initial load
+        # Navigate to following page
+        await page.goto(f"https://twitter.com/{username}/following")
+        await asyncio.sleep(2)
 
-        # Wait for content to load and verify we're on the right page
-        try:
-            # First verify we're on the following page
-            if not await safe_wait_for_selector(page, '[data-testid="primaryColumn"]', timeout=10000):
-                print("Could not verify following page loaded")
-                return following
-
-            # Scroll and collect following
-            last_height = await page.evaluate('document.body.scrollHeight')
-            max_scrolls = 10  # Increased for more thorough collection
-            scroll_count = 0
-            processed_usernames = set()
-            no_new_users_count = 0
-
-            while scroll_count < max_scrolls and no_new_users_count < 3:
-                # Wait for user cells to be visible
-                await safe_wait_for_selector(page, 'div[data-testid="UserCell"]', timeout=5000)
-                await asyncio.sleep(2)  # Additional wait for dynamic content
-
-                # Get all user cells in the current view
-                cells = await page.locator('div[data-testid="UserCell"]').all()
-                initial_count = len(following)
+        # Initialize scroll tracking
+        last_height = await page.evaluate('document.body.scrollHeight')
+        processed_usernames = set()
+        scroll_count = 0
+        max_scrolls = 20  # Increase max scrolls
+        
+        while scroll_count < max_scrolls:
+            # Get all visible user cells
+            cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
+            
+            if not cells:
+                print("No following cells found")
+                break
                 
-                print(f"\nFound {len(cells)} user cells in current view")
-
-                for cell in cells:
-                    try:
-                        # Get username from profile link
-                        username = ""
-                        try:
-                            # Look for the username in the profile link
-                            links = await cell.locator('a[role="link"]').all()
-                            for link in links:
-                                href = await link.get_attribute('href')
-                                if href and '/' in href and not href.endswith('/followers') and not href.endswith('/following'):
-                                    potential_username = href.strip('/').split('/')[-1]
-                                    if potential_username and potential_username not in processed_usernames:
-                                        username = potential_username
-                                        break
-                        except Exception as e:
-                            print(f"Error getting following username: {str(e)}")
-
-                        if not username or username in processed_usernames:
-                            continue
-
-                        # Get display name
-                        name = ""
-                        try:
-                            # Try multiple selectors for the name
-                            name_selectors = [
-                                'div[data-testid="User-Name"] span span',
-                                'div[data-testid="User-Name"] > div:first-child span',
-                                'div[data-testid="User-Name"] div[dir="ltr"] span'
-                            ]
-                            for selector in name_selectors:
-                                name_element = cell.locator(selector).first
-                                if await name_element.count() > 0:
-                                    name = await name_element.inner_text()
-                                    if name:
-                                        break
-                        except Exception as e:
-                            print(f"Error getting following name: {str(e)}")
-
-                        # Get bio
-                        bio = ""
-                        try:
-                            bio_element = cell.locator('div[data-testid="UserDescription"]')
-                            if await bio_element.count() > 0:
-                                bio = await bio_element.inner_text()
-                        except Exception as e:
-                            print(f"Error getting following bio: {str(e)}")
-
-                        # Add to following list
-                        following.append({
-                            "following_username": username,
-                            "following_name": name,
-                            "following_bio": bio
-                        })
-                        processed_usernames.add(username)
-                        print(f"Added following: {username} ({name})")
-
-                    except Exception as e:
-                        print(f"Error processing following cell: {str(e)}")
+            # Process visible cells
+            for cell in cells:
+                try:
+                    # Get username (look for the link containing the username)
+                    username = ""
+                    links = await cell.query_selector_all('a[role="link"]')
+                    for link in links:
+                        href = await link.get_attribute('href')
+                        if href and '/' in href:
+                            potential_username = href.strip('/').split('/')[-1]
+                            if potential_username and potential_username not in processed_usernames:
+                                username = potential_username
+                                break
+                    
+                    if not username or username in processed_usernames:
                         continue
-
-                new_following = len(following) - initial_count
-                print(f"Found {new_following} new following in this scroll")
-
-                if new_following == 0:
-                    no_new_users_count += 1
-                else:
-                    no_new_users_count = 0
-
-                # Scroll down
-                await page.evaluate('window.scrollBy(0, window.innerHeight * 0.8)')
-                await asyncio.sleep(2)
-
-                # Check if we've reached the bottom
-                new_height = await page.evaluate('document.body.scrollHeight')
-                if new_height == last_height:
-                    no_new_users_count += 1
-                else:
-                    last_height = new_height
-
-                scroll_count += 1
-                print(f"Completed scroll {scroll_count}/{max_scrolls}")
-
-        except Exception as e:
-            print(f"Error during following collection: {str(e)}")
-
+                        
+                    # Get display name
+                    name = ""
+                    try:
+                        name_element = await cell.query_selector('div[data-testid="User-Name"] span')
+                        if name_element:
+                            name = await name_element.inner_text()
+                    except Exception:
+                        pass
+                        
+                    # Get bio directly from the cell
+                    bio = ""
+                    try:
+                        bio_element = await cell.query_selector('div[data-testid="UserDescription"]')
+                        if bio_element:
+                            bio = await bio_element.inner_text()
+                    except Exception:
+                        pass
+                        
+                    # Add to following list
+                    following.append({
+                        "following_username": username,
+                        "following_name": name,
+                        "following_bio": bio
+                    })
+                    processed_usernames.add(username)
+                    print(f"Added following: @{username}")
+                    
+                except Exception as e:
+                    print(f"Error processing following cell: {str(e)}")
+                    continue
+            
+            # Scroll down
+            await page.evaluate('window.scrollBy(0, window.innerHeight)')
+            await asyncio.sleep(1)
+            
+            # Check if we've reached the bottom
+            new_height = await page.evaluate('document.body.scrollHeight')
+            if new_height == last_height:
+                # Try one more scroll before breaking
+                await page.evaluate('window.scrollBy(0, window.innerHeight)')
+                await asyncio.sleep(1)
+                newest_height = await page.evaluate('document.body.scrollHeight')
+                if newest_height == new_height:
+                    print("Reached end of following list")
+                    break
+            last_height = new_height
+            scroll_count += 1
+            
+            # Print progress
+            print(f"Collected {len(following)} following so far...")
+            
     except Exception as e:
-        print(f"Error accessing following page: {str(e)}")
-
-    print(f"\nTotal following collected: {len(following)}")
+        print(f"Error in following scraping: {str(e)}")
+        
+    print(f"Total following collected: {len(following)}")
     return following
 
 async def scrape_retweets(page, username: str) -> List[Dict]:
@@ -857,21 +727,25 @@ async def scrape_retweets(page, username: str) -> List[Dict]:
 async def scrape_twitter(username: str) -> Dict:
     result = {
         "user_profile": {"username": username, "bio": ""},
-        "tweets": [],
-        "retweets": [],
-        "likes": [],
         "following": [],
         "followers": []
     }
     
     try:
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True)
-            context = await browser.new_context(
-                viewport={'width': 1280, 'height': 720},
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            # Launch browser in headed mode (visible)
+            browser = await p.chromium.launch(
+                headless=False,  # Make browser visible
+                args=['--start-maximized', '--disable-extensions']  # Start maximized and disable extensions
             )
             
+            # Create context with larger viewport and modern user agent
+            context = await browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
+            )
+            
+            # Load cookies
             if os.path.exists(COOKIES_FILE):
                 try:
                     with open(COOKIES_FILE, "r") as f:
@@ -880,56 +754,145 @@ async def scrape_twitter(username: str) -> Dict:
                     print("Cookies loaded successfully")
                 except Exception as e:
                     print(f"Error loading cookies: {str(e)}")
+                    await browser.close()
                     return result
             else:
                 print("No cookies file found. Please run login_manual.py first")
+                await browser.close()
                 return result
             
             try:
+                # Create main page for profile info
                 page = await context.new_page()
-                page.set_default_timeout(30000)
+                page.set_default_timeout(30000)  # Set back to 30 seconds
                 
-                # Verify login
-                await page.goto("https://twitter.com/home")
+                # First try to access Twitter directly
+                print("\nAccessing Twitter...")
+                try:
+                    await page.goto("https://twitter.com", wait_until="domcontentloaded")
+                except Exception as e:
+                    print(f"Error accessing Twitter: {str(e)}")
+                    await browser.close()
+                    return result
+
+                # Short wait for initial load
                 await asyncio.sleep(2)
                 
-                if not await safe_wait_for_selector(page, 'div[data-testid="primaryColumn"]', timeout=30000):
-                    print("Login session expired. Please run login_manual.py again.")
+                # Check for login state using multiple indicators
+                print("Verifying login status...")
+                try:
+                    # Check for login button
+                    login_button = page.locator('a[href="/login"]')
+                    if await login_button.count() > 0:
+                        print("Not logged in (login button found). Please run login_manual.py again.")
+                        await browser.close()
+                        return result
+
+                    # Check for sign up button
+                    signup_button = page.locator('a[href="/i/flow/signup"]')
+                    if await signup_button.count() > 0:
+                        print("Not logged in (signup button found). Please run login_manual.py again.")
+                        await browser.close()
+                        return result
+
+                    # Try to find home timeline
+                    timeline = page.locator('div[data-testid="primaryColumn"]')
+                    if not await timeline.count() > 0:
+                        print("Could not verify login status. Please run login_manual.py again.")
+                        await browser.close()
+                        return result
+
+                    print("Login verified successfully")
+
+                except Exception as e:
+                    print(f"Error during login verification: {str(e)}")
+                    await browser.close()
+                    return result
+
+                # Navigate directly to user's profile
+                print(f"\nNavigating to profile @{username}...")
+                try:
+                    await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded")
+                    await asyncio.sleep(3)
+                except Exception as e:
+                    print(f"Error navigating to profile: {str(e)}")
+                    await browser.close()
                     return result
                 
+                # Verify profile exists and is accessible
+                try:
+                    # Check for error messages
+                    error_selectors = [
+                        'div[data-testid="error-detail"]',
+                        'div[data-testid="empty-state"]',
+                        'div[data-testid="404-error"]'
+                    ]
+                    
+                    for selector in error_selectors:
+                        error_element = page.locator(selector)
+                        if await error_element.count() > 0:
+                            error_text = await error_element.inner_text()
+                            print(f"Profile error: {error_text}")
+                            await browser.close()
+                            return result
+                            
+                    # Verify profile content is visible
+                    profile_header = page.locator('div[data-testid="UserName"]')
+                    if not await profile_header.count() > 0:
+                        print(f"Could not access profile @{username}")
+                        await browser.close()
+                        return result
+                        
+                except Exception as e:
+                    print(f"Error verifying profile: {str(e)}")
+                    await browser.close()
+                    return result
+
                 # Get profile info
+                print(f"Fetching profile info for @{username}...")
                 result["user_profile"] = await scrape_user_profile(page, username)
+                print(f"Profile info fetched: {result['user_profile']}")
                 
-                # Create a new page for social data
+                if not result["user_profile"]["bio"] and not result["user_profile"]["username"]:
+                    print(f"Could not fetch profile info for @{username}")
+                    await browser.close()
+                    return result
+                
+                # Create a new page for social data (followers/following)
                 social_page = await context.new_page()
                 social_page.set_default_timeout(30000)
                 
-                # Get followers and following
+                # Get followers first
+                print(f"\nFetching followers for @{username}...")
                 followers = await scrape_followers(social_page, username)
                 if followers:
                     result["followers"] = followers
+                    print(f"Found {len(followers)} followers")
+                else:
+                    print("No followers found or error occurred")
                 
+                # Small delay between operations
+                await asyncio.sleep(2)
+                
+                # Get following
+                print(f"\nFetching following for @{username}...")
                 following = await scrape_following(social_page, username)
                 if following:
                     result["following"] = following
+                    print(f"Found {len(following)} following")
+                else:
+                    print("No following found or error occurred")
                 
                 await social_page.close()
                 
-                # Get tweets and retweets
-                tweets, retweets = await scrape_tweets(page, username)
-                if tweets:
-                    result["tweets"] = tweets
-                if retweets:
-                    result["retweets"] = retweets
-                
-                # Get likes
-                likes = await scrape_likes(page, username)
-                if likes:
-                    result["likes"] = likes
+                # Keep browser open for a moment to see results
+                print("\nScraping completed. Waiting 5 seconds before closing...")
+                await asyncio.sleep(5)
                 
             except Exception as e:
                 print(f"Error during scraping: {str(e)}")
             finally:
+                print("\nClosing browser...")
                 await browser.close()
                     
     except Exception as e:
