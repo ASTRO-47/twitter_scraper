@@ -6,7 +6,7 @@ COOKIES_FILE = "twitter_cookies.json"
 
 async def main():
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         page = await context.new_page()
         await page.goto("https://x.com/login")

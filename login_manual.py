@@ -17,7 +17,7 @@ with sync_playwright() as p:
     # Launch the browser with a new context
     browser = p.chromium.launch_persistent_context(
         PROFILE_DIR,
-        headless=False,
+        headless=False,  # Must be False to allow manual login
         viewport={'width': 1280, 'height': 720}
     )
     
