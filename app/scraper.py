@@ -835,10 +835,10 @@ async def scrape_twitter(username: str) -> Dict:
     
     try:
         async with async_playwright() as p:
-            # Launch browser in headed mode (visible)
+            # Launch browser in headless mode
             browser = await p.chromium.launch(
-                headless=False,  # Make browser visible
-                args=['--start-maximized']  # Start maximized
+                headless=True,  # Run in headless mode
+                args=['--disable-extensions']
             )
             
             # Create context with larger viewport and modern user agent
@@ -959,6 +959,21 @@ async def scrape_twitter(username: str) -> Dict:
                     print(f"Could not fetch profile info for @{username}")
                     await browser.close()
                     return result
+                
+                # Get tweets and retweets
+                print(f"\nFetching tweets and retweets for @{username}...")
+                tweets, retweets = await scrape_tweets(page, username)
+                if tweets:
+                    result["tweets"] = tweets
+                    print(f"Found {len(tweets)} tweets")
+                else:
+                    print("No tweets found or error occurred")
+                    
+                if retweets:
+                    result["retweets"] = retweets
+                    print(f"Found {len(retweets)} retweets")
+                else:
+                    print("No retweets found or error occurred")
                 
                 # Create a new page for social data (followers/following)
                 social_page = await context.new_page()
