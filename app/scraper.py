@@ -1002,9 +1002,8 @@ async def scrape_twitter(username: str) -> Dict:
                 
                 await social_page.close()
                 
-                # Keep browser open for a moment to see results
-                print("\nScraping completed. Waiting 5 seconds before closing...")
-                await asyncio.sleep(5)
+                # Scraping completed
+                print("\nScraping completed successfully!")
                 
             except Exception as e:
                 print(f"Error during scraping: {str(e)}")
