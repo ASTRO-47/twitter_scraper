@@ -504,8 +504,7 @@ async def scrape_followers(page, username: str) -> List[Dict]:
                         
                     # Add to followers list
                     followers.append({
-                        "follower_username": username,
-                        "follower_name": name or username,  # Use username as fallback
+                        "follower_name": name or username,  # Use username as fallback if no display name
                         "follower_bio": bio or ""
                     })
                     processed_usernames.add(username)
@@ -636,8 +635,7 @@ async def scrape_following(page, username: str) -> List[Dict]:
                         
                     # Add to following list
                     following.append({
-                        "following_username": username,
-                        "following_name": name or username,  # Use username as fallback
+                        "following_name": name or username,  # Use username as fallback if no display name
                         "following_bio": bio or ""
                     })
                     processed_usernames.add(username)
