@@ -35,6 +35,6 @@ class TwitterScrapeResponse(BaseModel):
     user_profile: UserProfile
     tweets: List[Tweet]
     retweets: List[Retweet]
-    likes: List[Like]
-    following: List[Following]
-    followers: List[Follower] 
+    likes: Optional[List[Like]] = []
+    following: Optional[List[Following]] = []
+    followers: Optional[List[Follower]] = [] 
