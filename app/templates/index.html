@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitter Scraper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+        }
+        h1 {
+            color: #1DA1F2;
+            margin-bottom: 30px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #1DA1F2;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1991db;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: monospace;
+            overflow-y: auto;
+            max-height: 500px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .status {
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Twitter Scraper</h1>
+        <input type="text" id="username" placeholder="Enter Twitter username">
+        <br>
+        <button onclick="scrape()">Scrape</button>
+        <div class="status" id="status"></div>
+        <pre id="result"></pre>
+    </div>
+
+    <script>
+        async function scrape() {
+            const username = document.getElementById('username').value;
+            const result = document.getElementById('result');
+            const status = document.getElementById('status');
+            
+            // Clear previous results
+            result.textContent = '';
+            status.textContent = 'Scraping in progress...';
+            
+            try {
+                const response = await fetch(`/scrape/${encodeURIComponent(username)}`);
+                const data = await response.json();
+                
+                // Clear status and show data
+                status.textContent = '';
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                status.textContent = '';
+                result.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html> 

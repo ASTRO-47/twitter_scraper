@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 import json
+from fastapi.middleware.cors import CORSMiddleware
 from app.scraper import scrape_twitter
 from app.models import TwitterScrapeResponse
 
@@ -15,6 +16,14 @@ class PrettyJSONResponse(JSONResponse):
         ).encode("utf-8")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/", response_class=HTMLResponse)
 async def form():
@@ -65,82 +74,41 @@ async def form():
                 font-size: 1rem;
                 cursor: pointer;
                 transition: all 0.2s;
-                min-width: 120px;
             }
-            button:hover:not(:disabled) {
+            button:hover {
                 background: #0d8ddb;
             }
-            button:disabled {
-                background: #9fd0f1;
-                cursor: not-allowed;
-            }
-            .loading {
-                display: none;
-                margin-top: 1rem;
-                color: #1da1f2;
-            }
-            .spinner {
-                display: inline-block;
-                width: 20px;
-                height: 20px;
-                border: 3px solid #f3f3f3;
-                border-top: 3px solid #1da1f2;
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-                margin-right: 8px;
-                vertical-align: middle;
-            }
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+            #result {
+                margin-top: 20px;
+                text-align: left;
+                white-space: pre-wrap;
+                font-family: monospace;
+                max-height: 500px;
+                overflow-y: auto;
+                padding: 10px;
             }
         </style>
     </head>
     <body>
         <div class="card">
             <h2>Twitter Scraper</h2>
-            <form id="scrapeForm" onsubmit="handleSubmit(event)">
-                <input name="username" type="text" placeholder="Enter Twitter username" required><br>
-                <button type="submit" id="scrapeButton">Scrape</button>
-            </form>
-            <div id="loading" class="loading">
-                <div class="spinner"></div>
-                <span>Scraping in progress...</span>
-            </div>
+            <input id="username" type="text" placeholder="Enter Twitter username" required>
+            <button onclick="scrape()">Scrape</button>
+            <pre id="result"></pre>
         </div>
 
         <script>
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const button = document.getElementById('scrapeButton');
-            const loading = document.getElementById('loading');
-            const username = form.username.value;
-            
-            // Disable button and show loading
-            button.disabled = true;
-            loading.style.display = 'block';
+        async function scrape() {
+            const username = document.getElementById('username').value;
+            const result = document.getElementById('result');
+            result.textContent = 'Scraping in progress...';
             
             try {
-                const response = await fetch(`/scrape?username=${encodeURIComponent(username)}`);
+                const response = await fetch(`/scrape/${encodeURIComponent(username)}`);
                 const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.detail || 'Failed to scrape data');
-                }
-                
-                // Handle successful response
-                console.log('Scraping completed:', data);
-                alert('Scraping completed successfully!');
-                
+                result.textContent = JSON.stringify(data, null, 2);
             } catch (error) {
-                console.error('Error:', error);
-                alert('Error: ' + error.message);
-            } finally {
-                // Re-enable button and hide loading
-                button.disabled = false;
-                loading.style.display = 'none';
+                result.textContent = `Error: ${error.message}`;
             }
         }
         </script>
@@ -148,10 +116,16 @@ async def form():
     </html>
     """
 
-@app.get("/scrape", response_model=TwitterScrapeResponse, response_class=PrettyJSONResponse)
+@app.get("/scrape/{username}")
 async def scrape(username: str):
     try:
-        data = await scrape_twitter(username)
-        return data
+        result = await scrape_twitter(username)
+        return JSONResponse(
+            content=result,
+            headers={
+                "Content-Type": "application/json",
+                "X-Content-Type-Options": "nosniff"
+            }
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) 
