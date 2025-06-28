@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 import json
+import os
 from fastapi.middleware.cors import CORSMiddleware
 from app.scraper import scrape_twitter
 from app.models import TwitterScrapeResponse
@@ -95,22 +96,59 @@ async def form():
             <input id="username" type="text" placeholder="Enter Twitter username" required>
             <button onclick="scrape()">Scrape</button>
             <pre id="result"></pre>
+            <div id="screenshotsLink" style="display: none; margin-top: 20px;">
+                <a id="viewScreenshotsBtn" href="#" style="color: #1da1f2; text-decoration: none; font-weight: bold; font-size: 16px; padding: 10px 20px; border: 2px solid #1da1f2; border-radius: 6px; display: inline-block;">
+                    📸 View Screenshots for this User
+                </a>
+            </div>
         </div>
 
         <script>
         async function scrape() {
             const username = document.getElementById('username').value;
             const result = document.getElementById('result');
+            const screenshotsLink = document.getElementById('screenshotsLink');
+            
+            if (!username.trim()) {
+                result.textContent = 'Please enter a username';
+                return;
+            }
+            
             result.textContent = 'Scraping in progress...';
+            screenshotsLink.style.display = 'none'; // Hide link during scraping
             
             try {
+                console.log('Starting scrape for:', username);
                 const response = await fetch(`/scrape/${encodeURIComponent(username)}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
+                console.log('Scrape completed, data received');
+                
+                // Display JSON results
                 result.textContent = JSON.stringify(data, null, 2);
+                
+                // Show screenshots link
+                const viewScreenshotsBtn = document.getElementById('viewScreenshotsBtn');
+                viewScreenshotsBtn.href = `/view-screenshots/${username}`;
+                screenshotsLink.style.display = 'block';
+                
             } catch (error) {
+                console.error('Scrape error:', error);
                 result.textContent = `Error: ${error.message}`;
+                screenshotsLink.style.display = 'none'; // Hide link on error
             }
         }
+        
+        // Add enter key support
+        document.getElementById('username').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                scrape();
+            }
+        });
         </script>
     </body>
     </html>
@@ -128,4 +166,161 @@ async def scrape(username: str):
             }
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e)) 
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/screenshots/{username}")
+async def get_screenshots(username: str):
+    """Get list of screenshots for a specific user"""
+    screenshots_dir = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
+    user_screenshots = []
+    
+    if os.path.exists(screenshots_dir):
+        for filename in os.listdir(screenshots_dir):
+            if filename.startswith(f"{username}_"):
+                user_screenshots.append(filename)
+    
+    return JSONResponse(content={"screenshots": user_screenshots})
+
+@app.get("/screenshot/{filename}")
+async def get_screenshot(filename: str):
+    """Serve a specific screenshot file"""
+    screenshots_dir = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
+    file_path = os.path.join(screenshots_dir, filename)
+    
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="image/png")
+    else:
+        raise HTTPException(status_code=404, detail="Screenshot not found")
+
+@app.get("/view-screenshots/{username}")
+async def view_screenshots_page(username: str):
+    """Simple page to view screenshots for a user"""
+    return HTMLResponse(f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Screenshots for @{username}</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background: #f5f5f5;
+            }}
+            .header {{
+                text-align: center;
+                margin-bottom: 30px;
+            }}
+            .screenshots {{
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }}
+            .screenshot {{
+                background: white;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }}
+            .screenshot img {{
+                width: 100%;
+                height: auto;
+                border-radius: 4px;
+                cursor: pointer;
+            }}
+            .screenshot .name {{
+                margin-top: 10px;
+                font-size: 14px;
+                color: #666;
+                text-align: center;
+            }}
+            .modal {{
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.9);
+            }}
+            .modal img {{
+                margin: auto;
+                display: block;
+                max-width: 90%;
+                max-height: 90%;
+                margin-top: 5%;
+            }}
+            .close {{
+                position: absolute;
+                top: 15px;
+                right: 35px;
+                color: white;
+                font-size: 40px;
+                cursor: pointer;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Screenshots for @{username}</h1>
+            <a href="/" style="color: #1da1f2; text-decoration: none;">← Back to Scraper</a>
+        </div>
+        
+        <div id="screenshots" class="screenshots">
+            <p>Loading screenshots...</p>
+        </div>
+        
+        <div id="modal" class="modal">
+            <span class="close">&times;</span>
+            <img id="modalImg">
+        </div>
+        
+        <script>
+        async function loadScreenshots() {{
+            try {{
+                const response = await fetch('/screenshots/{username}');
+                const data = await response.json();
+                
+                const container = document.getElementById('screenshots');
+                if (data.screenshots && data.screenshots.length > 0) {{
+                    container.innerHTML = '';
+                    data.screenshots.forEach(screenshot => {{
+                        const div = document.createElement('div');
+                        div.className = 'screenshot';
+                        div.innerHTML = `
+                            <img src="/screenshot/${{screenshot}}" alt="${{screenshot}}" onclick="openModal(this.src)">
+                            <div class="name">${{screenshot}}</div>
+                        `;
+                        container.appendChild(div);
+                    }});
+                }} else {{
+                    container.innerHTML = '<p>No screenshots found for this user.</p>';
+                }}
+            }} catch (error) {{
+                document.getElementById('screenshots').innerHTML = '<p>Error loading screenshots.</p>';
+            }}
+        }}
+        
+        function openModal(src) {{
+            document.getElementById('modalImg').src = src;
+            document.getElementById('modal').style.display = 'block';
+        }}
+        
+        document.querySelector('.close').onclick = function() {{
+            document.getElementById('modal').style.display = 'none';
+        }}
+        
+        window.onclick = function(event) {{
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {{
+                modal.style.display = 'none';
+            }}
+        }}
+        
+        loadScreenshots();
+        </script>
+    </body>
+    </html>
+    """)
