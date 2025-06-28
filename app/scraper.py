@@ -449,32 +449,69 @@ async def scrape_followers(page, username: str) -> List[Dict]:
                     if not username or username in processed_usernames:
                         continue
                         
-                    # Get display name
+                    # Get display name - try multiple selectors
                     name = ""
                     try:
-                        name_element = await cell.query_selector('div[data-testid="User-Name"] span')
+                        # Try primary name selector
+                        name_element = await cell.query_selector('div[data-testid="User-Name"] div:first-child span span')
                         if name_element:
                             name = await name_element.inner_text()
-                    except Exception:
-                        pass
                         
-                    # Get bio directly from the cell
+                        # If not found, try secondary selector
+                        if not name:
+                            name_element = await cell.query_selector('div[data-testid="User-Name"] div span')
+                            if name_element:
+                                name = await name_element.inner_text()
+                                
+                        # Clean up name
+                        if name:
+                            name = name.strip()
+                            # Remove verified badge text if present
+                            name = name.replace("·", "").strip()
+                    except Exception as e:
+                        print(f"Error getting name for @{username}: {str(e)}")
+                        
+                    # Get bio - try multiple approaches
                     bio = ""
                     try:
+                        # Try primary bio selector
                         bio_element = await cell.query_selector('div[data-testid="UserDescription"]')
                         if bio_element:
                             bio = await bio_element.inner_text()
-                    except Exception:
-                        pass
+                        
+                        # If not found, try professional category
+                        if not bio:
+                            prof_element = await cell.query_selector('div[data-testid="UserProfessionalCategory"]')
+                            if prof_element:
+                                bio = await prof_element.inner_text()
+                        
+                        # If still not found, try generic text content
+                        if not bio:
+                            text_elements = await cell.query_selector_all('div[dir="auto"]')
+                            for element in text_elements:
+                                text = await element.inner_text()
+                                if text and len(text) > 5 and not text.startswith('@') and 'Follow' not in text:
+                                    bio = text
+                                    break
+                                    
+                        # Clean up bio
+                        if bio:
+                            bio = bio.strip()
+                            # Remove common unwanted text
+                            bio = bio.replace("Follow", "").strip()
+                    except Exception as e:
+                        print(f"Error getting bio for @{username}: {str(e)}")
                         
                     # Add to followers list
                     followers.append({
                         "follower_username": username,
-                        "follower_name": name,
-                        "follower_bio": bio
+                        "follower_name": name or username,  # Use username as fallback
+                        "follower_bio": bio or ""
                     })
                     processed_usernames.add(username)
-                    print(f"Added follower: @{username}")
+                    print(f"Added follower: @{username}" + (f" ({name})" if name else ""))
+                    if bio:
+                        print(f"Bio: {bio[:50]}..." if len(bio) > 50 else f"Bio: {bio}")
                     
                 except Exception as e:
                     print(f"Error processing follower cell: {str(e)}")
@@ -544,32 +581,69 @@ async def scrape_following(page, username: str) -> List[Dict]:
                     if not username or username in processed_usernames:
                         continue
                         
-                    # Get display name
+                    # Get display name - try multiple selectors
                     name = ""
                     try:
-                        name_element = await cell.query_selector('div[data-testid="User-Name"] span')
+                        # Try primary name selector
+                        name_element = await cell.query_selector('div[data-testid="User-Name"] div:first-child span span')
                         if name_element:
                             name = await name_element.inner_text()
-                    except Exception:
-                        pass
                         
-                    # Get bio directly from the cell
+                        # If not found, try secondary selector
+                        if not name:
+                            name_element = await cell.query_selector('div[data-testid="User-Name"] div span')
+                            if name_element:
+                                name = await name_element.inner_text()
+                                
+                        # Clean up name
+                        if name:
+                            name = name.strip()
+                            # Remove verified badge text if present
+                            name = name.replace("·", "").strip()
+                    except Exception as e:
+                        print(f"Error getting name for @{username}: {str(e)}")
+                        
+                    # Get bio - try multiple approaches
                     bio = ""
                     try:
+                        # Try primary bio selector
                         bio_element = await cell.query_selector('div[data-testid="UserDescription"]')
                         if bio_element:
                             bio = await bio_element.inner_text()
-                    except Exception:
-                        pass
+                        
+                        # If not found, try professional category
+                        if not bio:
+                            prof_element = await cell.query_selector('div[data-testid="UserProfessionalCategory"]')
+                            if prof_element:
+                                bio = await prof_element.inner_text()
+                        
+                        # If still not found, try generic text content
+                        if not bio:
+                            text_elements = await cell.query_selector_all('div[dir="auto"]')
+                            for element in text_elements:
+                                text = await element.inner_text()
+                                if text and len(text) > 5 and not text.startswith('@') and 'Follow' not in text:
+                                    bio = text
+                                    break
+                                    
+                        # Clean up bio
+                        if bio:
+                            bio = bio.strip()
+                            # Remove common unwanted text
+                            bio = bio.replace("Follow", "").strip()
+                    except Exception as e:
+                        print(f"Error getting bio for @{username}: {str(e)}")
                         
                     # Add to following list
                     following.append({
                         "following_username": username,
-                        "following_name": name,
-                        "following_bio": bio
+                        "following_name": name or username,  # Use username as fallback
+                        "following_bio": bio or ""
                     })
                     processed_usernames.add(username)
-                    print(f"Added following: @{username}")
+                    print(f"Added following: @{username}" + (f" ({name})" if name else ""))
+                    if bio:
+                        print(f"Bio: {bio[:50]}..." if len(bio) > 50 else f"Bio: {bio}")
                     
                 except Exception as e:
                     print(f"Error processing following cell: {str(e)}")
@@ -733,10 +807,10 @@ async def scrape_twitter(username: str) -> Dict:
     
     try:
         async with async_playwright() as p:
-            # Launch browser in headed mode (visible)
+            # Launch browser in headless mode
             browser = await p.chromium.launch(
-                headless=False,  # Make browser visible
-                args=['--start-maximized', '--disable-extensions']  # Start maximized and disable extensions
+                headless=True,  # Run in headless mode
+                args=['--disable-extensions']
             )
             
             # Create context with larger viewport and modern user agent
