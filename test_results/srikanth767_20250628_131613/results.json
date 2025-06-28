@@ -1,0 +1,33 @@
+{
+  "user_profile": {
+    "username": "srikanth chellaboina",
+    "bio": ""
+  },
+  "tweets": [
+    {
+      "tweet_content": "#youtube_ipl  hey guys any website where u can watch ipl",
+      "tweet_screenshot": "/home/iez-zagh/Desktop/twitter_scraper/app/../screenshots/srikanth767_tweet_1.png"
+    },
+    {
+      "tweet_content": "hello#youtube_ipl",
+      "tweet_screenshot": "/home/iez-zagh/Desktop/twitter_scraper/app/../screenshots/srikanth767_tweet_2.png"
+    },
+    {
+      "tweet_content": "u guys suck cant even 1 reply where i can watch ipl live except u tube",
+      "tweet_screenshot": "/home/iez-zagh/Desktop/twitter_scraper/app/../screenshots/srikanth767_tweet_3.png"
+    },
+    {
+      "tweet_content": "plz guys tell where to watch ipl not in utube anything else",
+      "tweet_screenshot": "/home/iez-zagh/Desktop/twitter_scraper/app/../screenshots/srikanth767_tweet_4.png"
+    },
+    {
+      "tweet_content": "guys can we watch ipl anywhere else plz tell me i want it the site",
+      "tweet_screenshot": "/home/iez-zagh/Desktop/twitter_scraper/app/../screenshots/srikanth767_tweet_5.png"
+    },
+    {
+      "tweet_content": "#youtube_ipl guys where can we watch live streming",
+      "tweet_screenshot": "/home/iez-zagh/Desktop/twitter_scraper/app/../screenshots/srikanth767_tweet_6.png"
+    }
+  ],
+  "retweets": []
+}

@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250628_131613",
+  "stats": {
+    "tweets": {
+      "total": 6,
+      "empty": 0,
+      "with_quotes": 0
+    },
+    "retweets": {
+      "total": 0,
+      "empty": 0,
+      "missing_usernames": 0
+    }
+  }
+}
