@@ -42,8 +42,8 @@ async def wait_for_profile_load(page, username: str) -> bool:
 async def scrape_user_profile(page, username: str) -> dict:
     try:
         print(f"Navigating to profile page for @{username}...")
-        await page.goto(f"https://twitter.com/{username}", wait_until="networkidle")
-        await asyncio.sleep(3)
+        await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded")
+        await asyncio.sleep(1)
         
         if not await safe_wait_for_selector(page, 'div[data-testid="UserName"]', description="profile", timeout=10000):
             print(f"Could not load profile for @{username}")
@@ -422,9 +422,10 @@ async def scrape_followers(page, username: str) -> List[Dict]:
         last_height = await page.evaluate('document.body.scrollHeight')
         processed_usernames = set()
         scroll_count = 0
-        max_scrolls = 20  # Increase max scrolls
+        no_new_content_count = 0
+        max_no_new_content = 3  # Number of scrolls without new content before stopping
         
-        while scroll_count < max_scrolls:
+        while True:  # Keep scrolling until we truly reach the end
             # Get all visible user cells
             cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
             
@@ -432,6 +433,8 @@ async def scrape_followers(page, username: str) -> List[Dict]:
                 print("No follower cells found")
                 break
                 
+            initial_count = len(followers)
+            
             # Process visible cells
             for cell in cells:
                 try:
@@ -516,6 +519,17 @@ async def scrape_followers(page, username: str) -> List[Dict]:
                     print(f"Error processing follower cell: {str(e)}")
                     continue
             
+            # Check if we found any new followers
+            if len(followers) == initial_count:
+                no_new_content_count += 1
+            else:
+                no_new_content_count = 0  # Reset counter if we found new followers
+            
+            # Stop if we haven't found new followers in several scrolls
+            if no_new_content_count >= max_no_new_content:
+                print("No new followers found after multiple scrolls, reached the end")
+                break
+            
             # Scroll down
             await page.evaluate('window.scrollBy(0, window.innerHeight)')
             await asyncio.sleep(1)
@@ -523,13 +537,8 @@ async def scrape_followers(page, username: str) -> List[Dict]:
             # Check if we've reached the bottom
             new_height = await page.evaluate('document.body.scrollHeight')
             if new_height == last_height:
-                # Try one more scroll before breaking
-                await page.evaluate('window.scrollBy(0, window.innerHeight)')
-                await asyncio.sleep(1)
-                newest_height = await page.evaluate('document.body.scrollHeight')
-                if newest_height == new_height:
-                    print("Reached end of followers list")
-                    break
+                print("Reached end of followers list")
+                break
             last_height = new_height
             scroll_count += 1
             
@@ -553,9 +562,10 @@ async def scrape_following(page, username: str) -> List[Dict]:
         last_height = await page.evaluate('document.body.scrollHeight')
         processed_usernames = set()
         scroll_count = 0
-        max_scrolls = 20  # Increase max scrolls
+        no_new_content_count = 0
+        max_no_new_content = 3  # Number of scrolls without new content before stopping
         
-        while scroll_count < max_scrolls:
+        while True:  # Keep scrolling until we truly reach the end
             # Get all visible user cells
             cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
             
@@ -563,6 +573,8 @@ async def scrape_following(page, username: str) -> List[Dict]:
                 print("No following cells found")
                 break
                 
+            initial_count = len(following)
+            
             # Process visible cells
             for cell in cells:
                 try:
@@ -647,6 +659,17 @@ async def scrape_following(page, username: str) -> List[Dict]:
                     print(f"Error processing following cell: {str(e)}")
                     continue
             
+            # Check if we found any new following
+            if len(following) == initial_count:
+                no_new_content_count += 1
+            else:
+                no_new_content_count = 0  # Reset counter if we found new following
+            
+            # Stop if we haven't found new following in several scrolls
+            if no_new_content_count >= max_no_new_content:
+                print("No new following found after multiple scrolls, reached the end")
+                break
+            
             # Scroll down
             await page.evaluate('window.scrollBy(0, window.innerHeight)')
             await asyncio.sleep(1)
@@ -654,13 +677,8 @@ async def scrape_following(page, username: str) -> List[Dict]:
             # Check if we've reached the bottom
             new_height = await page.evaluate('document.body.scrollHeight')
             if new_height == last_height:
-                # Try one more scroll before breaking
-                await page.evaluate('window.scrollBy(0, window.innerHeight)')
-                await asyncio.sleep(1)
-                newest_height = await page.evaluate('document.body.scrollHeight')
-                if newest_height == new_height:
-                    print("Reached end of following list")
-                    break
+                print("Reached end of following list")
+                break
             last_height = new_height
             scroll_count += 1
             
