@@ -421,19 +421,20 @@ async def scrape_followers(page, username: str) -> List[Dict]:
         # Initialize scroll tracking
         last_height = await page.evaluate('document.body.scrollHeight')
         processed_usernames = set()
-        scroll_count = 0
-        no_new_content_count = 0
-        max_no_new_content = 3  # Number of scrolls without new content before stopping
+        previous_count = 0
+        same_count_iterations = 0
         
         while True:  # Keep scrolling until we truly reach the end
             # Get all visible user cells
             cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
             
             if not cells:
-                print("No follower cells found")
-                break
-                
-            initial_count = len(followers)
+                if same_count_iterations >= 3:  # Try a few times before giving up
+                    print("No more follower cells found after multiple attempts")
+                    break
+                same_count_iterations += 1
+                await asyncio.sleep(2)  # Wait a bit longer
+                continue
             
             # Process visible cells
             for cell in cells:
@@ -519,32 +520,37 @@ async def scrape_followers(page, username: str) -> List[Dict]:
                     print(f"Error processing follower cell: {str(e)}")
                     continue
             
-            # Check if we found any new followers
-            if len(followers) == initial_count:
-                no_new_content_count += 1
+            # Check if we're still finding new followers
+            current_count = len(followers)
+            if current_count == previous_count:
+                same_count_iterations += 1
             else:
-                no_new_content_count = 0  # Reset counter if we found new followers
+                same_count_iterations = 0
+                previous_count = current_count
             
-            # Stop if we haven't found new followers in several scrolls
-            if no_new_content_count >= max_no_new_content:
-                print("No new followers found after multiple scrolls, reached the end")
-                break
+            # Only stop if we've gone several iterations without finding new followers
+            if same_count_iterations >= 3:
+                # Try one final aggressive scroll
+                await page.evaluate('window.scrollTo(0, document.body.scrollHeight + 1000)')
+                await asyncio.sleep(2)
+                
+                # Check if this found any new content
+                new_height = await page.evaluate('document.body.scrollHeight')
+                if new_height == last_height:
+                    print("Reached end of followers list")
+                    break
+                    
+                last_height = new_height
+                same_count_iterations = 0
+                continue
             
             # Scroll down
-            await page.evaluate('window.scrollBy(0, window.innerHeight)')
-            await asyncio.sleep(1)
-            
-            # Check if we've reached the bottom
-            new_height = await page.evaluate('document.body.scrollHeight')
-            if new_height == last_height:
-                print("Reached end of followers list")
-                break
-            last_height = new_height
-            scroll_count += 1
+            await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+            await asyncio.sleep(2)  # Increased wait time to ensure content loads
             
             # Print progress
             print(f"Collected {len(followers)} followers so far...")
-            
+
     except Exception as e:
         print(f"Error in followers scraping: {str(e)}")
         
@@ -561,19 +567,20 @@ async def scrape_following(page, username: str) -> List[Dict]:
         # Initialize scroll tracking
         last_height = await page.evaluate('document.body.scrollHeight')
         processed_usernames = set()
-        scroll_count = 0
-        no_new_content_count = 0
-        max_no_new_content = 3  # Number of scrolls without new content before stopping
+        previous_count = 0
+        same_count_iterations = 0
         
         while True:  # Keep scrolling until we truly reach the end
             # Get all visible user cells
             cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
             
             if not cells:
-                print("No following cells found")
-                break
-                
-            initial_count = len(following)
+                if same_count_iterations >= 3:  # Try a few times before giving up
+                    print("No more following cells found after multiple attempts")
+                    break
+                same_count_iterations += 1
+                await asyncio.sleep(2)  # Wait a bit longer
+                continue
             
             # Process visible cells
             for cell in cells:
@@ -659,32 +666,37 @@ async def scrape_following(page, username: str) -> List[Dict]:
                     print(f"Error processing following cell: {str(e)}")
                     continue
             
-            # Check if we found any new following
-            if len(following) == initial_count:
-                no_new_content_count += 1
+            # Check if we're still finding new following
+            current_count = len(following)
+            if current_count == previous_count:
+                same_count_iterations += 1
             else:
-                no_new_content_count = 0  # Reset counter if we found new following
+                same_count_iterations = 0
+                previous_count = current_count
             
-            # Stop if we haven't found new following in several scrolls
-            if no_new_content_count >= max_no_new_content:
-                print("No new following found after multiple scrolls, reached the end")
-                break
+            # Only stop if we've gone several iterations without finding new following
+            if same_count_iterations >= 3:
+                # Try one final aggressive scroll
+                await page.evaluate('window.scrollTo(0, document.body.scrollHeight + 1000)')
+                await asyncio.sleep(2)
+                
+                # Check if this found any new content
+                new_height = await page.evaluate('document.body.scrollHeight')
+                if new_height == last_height:
+                    print("Reached end of following list")
+                    break
+                    
+                last_height = new_height
+                same_count_iterations = 0
+                continue
             
             # Scroll down
-            await page.evaluate('window.scrollBy(0, window.innerHeight)')
-            await asyncio.sleep(1)
-            
-            # Check if we've reached the bottom
-            new_height = await page.evaluate('document.body.scrollHeight')
-            if new_height == last_height:
-                print("Reached end of following list")
-                break
-            last_height = new_height
-            scroll_count += 1
+            await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+            await asyncio.sleep(2)  # Increased wait time to ensure content loads
             
             # Print progress
             print(f"Collected {len(following)} following so far...")
-            
+
     except Exception as e:
         print(f"Error in following scraping: {str(e)}")
         
@@ -823,10 +835,10 @@ async def scrape_twitter(username: str) -> Dict:
     
     try:
         async with async_playwright() as p:
-            # Launch browser in headless mode
+            # Launch browser in headed mode (visible)
             browser = await p.chromium.launch(
-                headless=True,  # Run in headless mode
-                args=['--disable-extensions']
+                headless=False,  # Make browser visible
+                args=['--start-maximized']  # Start maximized
             )
             
             # Create context with larger viewport and modern user agent
