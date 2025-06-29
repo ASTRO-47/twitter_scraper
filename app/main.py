@@ -88,6 +88,28 @@ async def form():
                 overflow-y: auto;
                 padding: 10px;
             }
+            /* Spinner overlay styles */
+            #spinnerOverlay {
+                display: none;
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(255,255,255,0.7);
+                z-index: 9999;
+                justify-content: center;
+                align-items: center;
+            }
+            .spinner {
+                border: 6px solid #e1e8ed;
+                border-top: 6px solid #1da1f2;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
         </style>
     </head>
     <body>
@@ -102,48 +124,53 @@ async def form():
                 </a>
             </div>
         </div>
-
+        <div id="spinnerOverlay">
+            <div class="spinner"></div>
+        </div>
         <script>
+        let currentAbortController = null;
+        function showSpinner(show) {
+            document.getElementById('spinnerOverlay').style.display = show ? 'flex' : 'none';
+        }
         async function scrape() {
             const username = document.getElementById('username').value;
             const result = document.getElementById('result');
             const screenshotsLink = document.getElementById('screenshotsLink');
-            
             if (!username.trim()) {
                 result.textContent = 'Please enter a username';
                 return;
             }
-            
+            // Abort any previous fetch
+            if (currentAbortController) currentAbortController.abort();
+            const abortController = new AbortController();
+            currentAbortController = abortController;
+            showSpinner(true);
             result.textContent = 'Scraping in progress...';
-            screenshotsLink.style.display = 'none'; // Hide link during scraping
-            
+            screenshotsLink.style.display = 'none';
             try {
-                console.log('Starting scrape for:', username);
-                const response = await fetch(`/scrape/${encodeURIComponent(username)}`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
+                const response = await fetch(`/scrape/${encodeURIComponent(username)}`, { signal: abortController.signal });
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
-                console.log('Scrape completed, data received');
-                
-                // Display JSON results
                 result.textContent = JSON.stringify(data, null, 2);
-                
-                // Show screenshots link
                 const viewScreenshotsBtn = document.getElementById('viewScreenshotsBtn');
                 viewScreenshotsBtn.href = `/view-screenshots/${username}`;
                 screenshotsLink.style.display = 'block';
-                
             } catch (error) {
-                console.error('Scrape error:', error);
-                result.textContent = `Error: ${error.message}`;
-                screenshotsLink.style.display = 'none'; // Hide link on error
+                if (error.name === 'AbortError') {
+                    result.textContent = 'Scraping cancelled.';
+                } else {
+                    result.textContent = `Error: ${error.message}`;
+                }
+                screenshotsLink.style.display = 'none';
+            } finally {
+                showSpinner(false);
+                currentAbortController = null;
             }
         }
-        
-        // Add enter key support
+        // Cancel fetch if user refreshes or leaves
+        window.addEventListener('beforeunload', function() {
+            if (currentAbortController) currentAbortController.abort();
+        });
         document.getElementById('username').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 scrape();
