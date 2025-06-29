@@ -44,49 +44,54 @@ async def form():
             }
             .card {
                 background: #fff;
-                padding: 2rem 2.5rem;
-                border-radius: 12px;
-                box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+                padding: 3rem 4rem;
+                border-radius: 16px;
+                box-shadow: 0 4px 32px rgba(0,0,0,0.10);
                 text-align: center;
+                min-width: 400px;
+                max-width: 600px;
             }
             h2 {
-                margin-bottom: 1.5rem;
+                margin-bottom: 2rem;
                 color: #1da1f2;
+                font-size: 2.2rem;
             }
             input[type='text'] {
-                padding: 0.7rem 1rem;
-                border: 1px solid #e1e8ed;
-                border-radius: 6px;
-                width: 220px;
-                font-size: 1rem;
-                margin-bottom: 1rem;
+                padding: 1rem 1.5rem;
+                border: 1.5px solid #e1e8ed;
+                border-radius: 8px;
+                width: 320px;
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
                 outline: none;
                 transition: border 0.2s;
             }
             input[type='text']:focus {
-                border: 1.5px solid #1da1f2;
+                border: 2px solid #1da1f2;
             }
             button {
                 background: #1da1f2;
                 color: #fff;
                 border: none;
-                border-radius: 6px;
-                padding: 0.7rem 1.5rem;
-                font-size: 1rem;
+                border-radius: 8px;
+                padding: 1rem 2.5rem;
+                font-size: 1.2rem;
                 cursor: pointer;
                 transition: all 0.2s;
+                margin-bottom: 1rem;
             }
             button:hover {
                 background: #0d8ddb;
             }
             #result {
-                margin-top: 20px;
+                margin-top: 28px;
                 text-align: left;
                 white-space: pre-wrap;
                 font-family: monospace;
-                max-height: 500px;
+                max-height: 600px;
                 overflow-y: auto;
-                padding: 10px;
+                padding: 16px;
+                font-size: 1.08rem;
             }
             /* Spinner overlay styles */
             #spinnerOverlay {
@@ -102,8 +107,8 @@ async def form():
                 border: 6px solid #e1e8ed;
                 border-top: 6px solid #1da1f2;
                 border-radius: 50%;
-                width: 48px;
-                height: 48px;
+                width: 56px;
+                height: 56px;
                 animation: spin 1s linear infinite;
             }
             @keyframes spin {
