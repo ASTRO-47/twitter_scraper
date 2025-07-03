@@ -1,0 +1,541 @@
+{
+  "user_profile": {
+    "username": "BEAJ Ousama",
+    "bio": "Fullstack Javascript Developer\n \n@1337FIL\n  Student"
+  },
+  "following": [
+    {
+      "following_name": "Nihadb_",
+      "following_bio": "IDGAF"
+    },
+    {
+      "following_name": "mohalil_el",
+      "following_bio": "Backend dev"
+    },
+    {
+      "following_name": "remotehey",
+      "following_bio": "Bootstrapped 250k+ Remotejobs @ http://remotehey.com ! FREE-Version for weekly new remote jobs  Only $𝟬 per month for the magic match! (Limited Time!)"
+    },
+    {
+      "following_name": "JobFound5",
+      "following_bio": "Discover top remote, US, UK, and global job opportunities. Get hired for the role that fits your skills."
+    },
+    {
+      "following_name": "namesanas",
+      "following_bio": "http://bannerfa.st http://findroomie.co | prev \n@FilamentFinance"
+    },
+    {
+      "following_name": "RTEWpkqQbmU9KbL",
+      "following_bio": ""
+    },
+    {
+      "following_name": "KukharetsMaria",
+      "following_bio": "Founding Designer at http://leaderx.live"
+    },
+    {
+      "following_name": "NanouuSymeon",
+      "following_bio": "|| Game Team Lead \n@vaslabs\n  || Coding Tutor & Content Creator  || For Collaboration: nakibarbie1017@gmail.com"
+    },
+    {
+      "following_name": "supabase",
+      "following_bio": "The Postgres development platform.  http://supabase.com  http://github.com/supabase  http://youtube.com/supabase  http://discord.supabase.com"
+    },
+    {
+      "following_name": "ModestMitkus",
+      "following_bio": "Building digital product businesses and sharing the process with others. ✴︎ Building: http://rankpill.com | http://createsell.com | http://pathpages.com ($500k/year)"
+    },
+    {
+      "following_name": "AzeddineBlidi",
+      "following_bio": "28 yo , kenitra , Developer  ."
+    },
+    {
+      "following_name": "Yahya028213611",
+      "following_bio": ""
+    },
+    {
+      "following_name": "ChouaibJalili4",
+      "following_bio": "Full Stack Student Developpers. It is never too late to be what you might have been."
+    },
+    {
+      "following_name": "yozof_",
+      "following_bio": "Software engineer student UX/UI Designer"
+    },
+    {
+      "following_name": "achraf__sabbar",
+      "following_bio": "Freelance Full-Stack Developer · currently studying at \n@1337FIL"
+    },
+    {
+      "following_name": "_iMeriem",
+      "following_bio": "I live in the wires"
+    },
+    {
+      "following_name": "JlemMustapha",
+      "following_bio": "Student at \n@1337FIL\n manga/manhwa enjoyer"
+    },
+    {
+      "following_name": "delba_oliveira",
+      "following_bio": "DX Engineer \n@nextjs\n at \n@vercel\n ▲ learn: https://nextjs.org/learn docs: http://nextjs.org/docs videos: http://youtube.com/delba"
+    },
+    {
+      "following_name": "jsjoeio",
+      "following_bio": "http://bit.ly/days-without-app…  http://coworkwithfriends.com  http://speakargentinianspanish.com  http://howmuchtomake.org  http://vimforvscode.com  http://tscourse.com"
+    },
+    {
+      "following_name": "choubari_",
+      "following_bio": "Developer. Professional YouTube Procrastinator!"
+    },
+    {
+      "following_name": "DevMuzzammil",
+      "following_bio": "Co-Founder http://reengage.app"
+    },
+    {
+      "following_name": "waitin4agi_",
+      "following_bio": "waiting for agi. i live to experiment. don't take me too seriously I am an idiot. trying to build distractions (content, AI tools, games) for a post AGI world."
+    },
+    {
+      "following_name": "SullyOmarr",
+      "following_bio": "prev ottogrid (acq cohere)"
+    },
+    {
+      "following_name": "asimdotshrestha",
+      "following_bio": "web agents \n@reworkdai\n (yc s23 + ai grant)"
+    },
+    {
+      "following_name": "itsPaulAi",
+      "following_bio": "AI and tech Educator – Build better and faster using AI and No-Code – http://Blueshellai.com founder"
+    },
+    {
+      "following_name": "tsoding",
+      "following_bio": "Recreational Programming - http://twitch.tv/tsoding - https://youtube.com/@TsodingDaily - https://youtube.com/@Tsoding ⠀⢀⣰⣾⡿⣶⣿⠿⣶ ⢠⣼⣿⣿⣷⣿⣿⣶⠉ ⢸⣿⣿⣿⣿⣿⣿⠀⠀"
+    },
+    {
+      "following_name": "JazzFall",
+      "following_bio": ""
+    },
+    {
+      "following_name": "FabrizioRomano",
+      "following_bio": "Here we go! © fabrizio.romano93@gmail.com"
+    },
+    {
+      "following_name": "nol_tech",
+      "following_bio": "Infosec"
+    },
+    {
+      "following_name": "nerraou",
+      "following_bio": "Software engineer | \n@1337FIL\n Student I believe that 'You really understand something until you program it'"
+    },
+    {
+      "following_name": "rust_foundation",
+      "following_bio": "The nonprofit steward the Rust programming lang & its community  This account is not currently active. bsky: http://rustfoundation.org Mastodon: rustfoundation"
+    },
+    {
+      "following_name": "Harmach_",
+      "following_bio": "figuring it out as I go  • product @ rocket • ops \n@a99studio\n • \n@WomenTechmakers\n ambassador"
+    },
+    {
+      "following_name": "42Lausanne",
+      "following_bio": "École d'informatique 100% gratuite et ouverte à toutes et à tous, sans limite d'âge ni condition de diplôme. Born to code? Rejoins nous ! #42Network"
+    },
+    {
+      "following_name": "42AbuDhabi",
+      "following_bio": "42 Abu Dhabi, a revolutionary new coding school. Tuition Free, Gamified learning Methodology & No coding experience required. Apply Today."
+    },
+    {
+      "following_name": "1337FIL",
+      "following_bio": "Software engineer | \n@1337FIL\n Student I believe that 'You really understand something until you program it'"
+    },
+    {
+      "following_name": "pURKYFM3az",
+      "following_bio": "The nonprofit steward the Rust programming lang & its community  This account is not currently active. bsky: http://rustfoundation.org Mastodon: rustfoundation"
+    },
+    {
+      "following_name": "a99studio",
+      "following_bio": "figuring it out as I go  • product @ rocket • ops \n@a99studio\n • \n@WomenTechmakers\n ambassador"
+    },
+    {
+      "following_name": "search?q=%2342Network&src=hashtag_click",
+      "following_bio": "École d'informatique 100% gratuite et ouverte à toutes et à tous, sans limite d'âge ni condition de diplôme. Born to code? Rejoins nous ! #42Network"
+    },
+    {
+      "following_name": "ElaziziYoussouf",
+      "following_bio": "Human first!  CSS/JS/React/RN, open-source  Mobile tribe lead at \n@obytesio\n  | \n@geeksblabla\n team member  | part-time blogger"
+    },
+    {
+      "following_name": "laytoun",
+      "following_bio": "DJ (Docker & Java), OSS & community. One of \n@java_champions\n \n@GoogleDevExpert\n & Docker Captains! \n@geeksblabla\n godfather! Backend & stuff \n@Spotify\n. F1 fanatic"
+    },
+    {
+      "following_name": "simonholdorf",
+      "following_bio": "AI Enthusiast, Coder, Worked for Big Tech | Music Producer"
+    },
+    {
+      "following_name": "PhillipWylie",
+      "following_bio": "xIoT Security Evangelist \n@phosphorusinc\n | Offensive Security Expert | Phillip Wylie Show Podcast Host \n@thehackermaker\n | \n@pentesterblue\n coauthor"
+    },
+    {
+      "following_name": "ustayready",
+      "following_bio": "Targeted Ops Red Team @ TrustedSec | Hacking since Renegade BBS backdoors | Prior CrowdStrike/BHIS | In Christ's grip | I speak for myself only | K1HAQ"
+    },
+    {
+      "following_name": "dakacki",
+      "following_bio": "Dogfather / Goon / \n@WSIIAOfficial\n / Existing in bluer skies @ http://dakacki.akacki.net / http://southphillycisos.com"
+    },
+    {
+      "following_name": "Steph3nSims",
+      "following_bio": "Perpetual Student | SANS Fellow | Musician | Braggart Hater | Gray Hat Hacking | VR |  | deadcode | https://youtube.com/@OffByOneSecurity…"
+    },
+    {
+      "following_name": "TimMedin",
+      "following_bio": "Kerberoast Guy • \n@RedSiege\n CEO • IANS Faculty • Former SANS SEC560 Author, Senior Instructor • Packers Owner #GoPackGo • Work Req: http://redsiege.com/contact"
+    },
+    {
+      "following_name": "ChampionsLeague",
+      "following_bio": "@LigadeCampeones\n  \n@UCLJapan\n Youth League: \n@UEFAMensYouth"
+    },
+    {
+      "following_name": "19network42",
+      "following_bio": "19 is a disruptive coding platform. No teachers, No classes. Open for all 18+ and 100% free. Powered by \n@42born2code"
+    },
+    {
+      "following_name": "lghezouani",
+      "following_bio": "\"...سعدات لي رضى عليه الغزواني...\""
+    },
+    {
+      "following_name": "Omar_H_",
+      "following_bio": "\"Ce qui vient au monde pour ne rien troubler ne mérite ni égard ni patience.\" René Char"
+    },
+    {
+      "following_name": "chahid_soufiane",
+      "following_bio": "Journaliste, Rédacteur en Chef Economie de l'\n@LOpinion_Ma\n. Ex-\n@TelQuelOfficiel\n, Ex-animateur et créateur du podcast 'Le saviez-vous'."
+    },
+    {
+      "following_name": "sarahperles",
+      "following_bio": ""
+    },
+    {
+      "following_name": "NumeroLmou9ana3",
+      "following_bio": "Prénom : Abdessamad Nom: Bouchnak CIN: DTC765 Lieu de naissance : Oujda Profession : Professeur"
+    },
+    {
+      "following_name": "hadikzbee",
+      "following_bio": "I yap here"
+    },
+    {
+      "following_name": "WomenTechmakers",
+      "following_bio": "figuring it out as I go  • product @ rocket • ops \n@a99studio\n • \n@WomenTechmakers\n ambassador"
+    },
+    {
+      "following_name": "obytesio",
+      "following_bio": "Human first!  CSS/JS/React/RN, open-source  Mobile tribe lead at \n@obytesio\n  | \n@geeksblabla\n team member  | part-time blogger"
+    },
+    {
+      "following_name": "java_champions",
+      "following_bio": "DJ (Docker & Java), OSS & community. One of \n@java_champions\n \n@GoogleDevExpert\n & Docker Captains! \n@geeksblabla\n godfather! Backend & stuff \n@Spotify\n. F1 fanatic"
+    },
+    {
+      "following_name": "phosphorusinc",
+      "following_bio": "xIoT Security Evangelist \n@phosphorusinc\n | Offensive Security Expert | Phillip Wylie Show Podcast Host \n@thehackermaker\n | \n@pentesterblue\n coauthor"
+    },
+    {
+      "following_name": "WSIIAOfficial",
+      "following_bio": "Dogfather / Goon / \n@WSIIAOfficial\n / Existing in bluer skies @ http://dakacki.akacki.net / http://southphillycisos.com"
+    },
+    {
+      "following_name": "CadJehomsU",
+      "following_bio": "Perpetual Student | SANS Fellow | Musician | Braggart Hater | Gray Hat Hacking | VR |  | deadcode | https://youtube.com/@OffByOneSecurity…"
+    },
+    {
+      "following_name": "RedSiege",
+      "following_bio": "Kerberoast Guy • \n@RedSiege\n CEO • IANS Faculty • Former SANS SEC560 Author, Senior Instructor • Packers Owner #GoPackGo • Work Req: http://redsiege.com/contact"
+    },
+    {
+      "following_name": "LigadeCampeones",
+      "following_bio": "@LigadeCampeones\n  \n@UCLJapan\n Youth League: \n@UEFAMensYouth"
+    },
+    {
+      "following_name": "42born2code",
+      "following_bio": "19 is a disruptive coding platform. No teachers, No classes. Open for all 18+ and 100% free. Powered by \n@42born2code"
+    },
+    {
+      "following_name": "LOpinion_Ma",
+      "following_bio": "Journaliste, Rédacteur en Chef Economie de l'\n@LOpinion_Ma\n. Ex-\n@TelQuelOfficiel\n, Ex-animateur et créateur du podcast 'Le saviez-vous'."
+    },
+    {
+      "following_name": "geeksblabla",
+      "following_bio": "Human first!  CSS/JS/React/RN, open-source  Mobile tribe lead at \n@obytesio\n  | \n@geeksblabla\n team member  | part-time blogger"
+    },
+    {
+      "following_name": "GoogleDevExpert",
+      "following_bio": "DJ (Docker & Java), OSS & community. One of \n@java_champions\n \n@GoogleDevExpert\n & Docker Captains! \n@geeksblabla\n godfather! Backend & stuff \n@Spotify\n. F1 fanatic"
+    },
+    {
+      "following_name": "thehackermaker",
+      "following_bio": "xIoT Security Evangelist \n@phosphorusinc\n | Offensive Security Expert | Phillip Wylie Show Podcast Host \n@thehackermaker\n | \n@pentesterblue\n coauthor"
+    },
+    {
+      "following_name": "X3TY5EN57S",
+      "following_bio": "Dogfather / Goon / \n@WSIIAOfficial\n / Existing in bluer skies @ http://dakacki.akacki.net / http://southphillycisos.com"
+    },
+    {
+      "following_name": "search?q=%23GoPackGo&src=hashtag_click",
+      "following_bio": "Kerberoast Guy • \n@RedSiege\n CEO • IANS Faculty • Former SANS SEC560 Author, Senior Instructor • Packers Owner #GoPackGo • Work Req: http://redsiege.com/contact"
+    },
+    {
+      "following_name": "UCLJapan",
+      "following_bio": "@LigadeCampeones\n  \n@UCLJapan\n Youth League: \n@UEFAMensYouth"
+    },
+    {
+      "following_name": "TelQuelOfficiel",
+      "following_bio": "Journaliste, Rédacteur en Chef Economie de l'\n@LOpinion_Ma\n. Ex-\n@TelQuelOfficiel\n, Ex-animateur et créateur du podcast 'Le saviez-vous'."
+    },
+    {
+      "following_name": "Spotify",
+      "following_bio": "DJ (Docker & Java), OSS & community. One of \n@java_champions\n \n@GoogleDevExpert\n & Docker Captains! \n@geeksblabla\n godfather! Backend & stuff \n@Spotify\n. F1 fanatic"
+    },
+    {
+      "following_name": "pentesterblue",
+      "following_bio": "xIoT Security Evangelist \n@phosphorusinc\n | Offensive Security Expert | Phillip Wylie Show Podcast Host \n@thehackermaker\n | \n@pentesterblue\n coauthor"
+    },
+    {
+      "following_name": "RamG43L4mI",
+      "following_bio": "Dogfather / Goon / \n@WSIIAOfficial\n / Existing in bluer skies @ http://dakacki.akacki.net / http://southphillycisos.com"
+    },
+    {
+      "following_name": "ALJldLMDfZ",
+      "following_bio": "Kerberoast Guy • \n@RedSiege\n CEO • IANS Faculty • Former SANS SEC560 Author, Senior Instructor • Packers Owner #GoPackGo • Work Req: http://redsiege.com/contact"
+    },
+    {
+      "following_name": "UEFAMensYouth",
+      "following_bio": "@LigadeCampeones\n  \n@UCLJapan\n Youth League: \n@UEFAMensYouth"
+    }
+  ],
+  "followers": [
+    {
+      "follower_name": "_iMeriem",
+      "follower_bio": "I live in the wires"
+    },
+    {
+      "follower_name": "achraf__sabbar",
+      "follower_bio": "Freelance Full-Stack Developer · currently studying at \n@1337FIL"
+    },
+    {
+      "follower_name": "JlemMustapha",
+      "follower_bio": "Student at \n@1337FIL\n manga/manhwa enjoyer"
+    },
+    {
+      "follower_name": "navarro87sandra",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "nerraou",
+      "follower_bio": "Software engineer | \n@1337FIL\n Student I believe that 'You really understand something until you program it'"
+    },
+    {
+      "follower_name": "ChouaibJalili4",
+      "follower_bio": "Full Stack Student Developpers. It is never too late to be what you might have been."
+    },
+    {
+      "follower_name": "Harmach_",
+      "follower_bio": "figuring it out as I go  • product @ rocket • ops \n@a99studio\n • \n@WomenTechmakers\n ambassador"
+    },
+    {
+      "follower_name": "PaaReZii",
+      "follower_bio": "المياه كلها بلون الغرق"
+    },
+    {
+      "follower_name": "Levelone_1",
+      "follower_bio": "LevelOne Idea LLC is an Online Acquisition Marketplace where one can Buy/Sell/License an Idea, Product or Service."
+    },
+    {
+      "follower_name": "enlamp",
+      "follower_bio": "Writer, Speaker, Cloud Engineer, Survivor of Dev-Oops, Dockerfails and Kubernet-ish — #NoCode is the best code, #NoOps is the best ops"
+    },
+    {
+      "follower_name": "l3zaf",
+      "follower_bio": "a primitive cyborg | father of \n@CyberRomana"
+    },
+    {
+      "follower_name": "Namory39017375",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "IMittous",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "Yahya028213611",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "Z4ck101",
+      "follower_bio": "Cyber security enthusiast"
+    },
+    {
+      "follower_name": "SouadBj1",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "fodeoul76473925",
+      "follower_bio": "Full-stack Developer | Merging Code With Business Strategy"
+    },
+    {
+      "follower_name": "search?q=%23NoCode&src=hashtag_click",
+      "follower_bio": "Writer, Speaker, Cloud Engineer, Survivor of Dev-Oops, Dockerfails and Kubernet-ish — #NoCode is the best code, #NoOps is the best ops"
+    },
+    {
+      "follower_name": "CyberRomana",
+      "follower_bio": "a primitive cyborg | father of \n@CyberRomana"
+    },
+    {
+      "follower_name": "AzeddineBlidi",
+      "follower_bio": "28 yo , kenitra , Developer  ."
+    },
+    {
+      "follower_name": "Achrafber4",
+      "follower_bio": "1337 student"
+    },
+    {
+      "follower_name": "AssomXv09",
+      "follower_bio": "Depository for my thoughts."
+    },
+    {
+      "follower_name": "ayouub__aj",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "SoftdevSatish",
+      "follower_bio": "Node JS Developer ! Skills~ #CSS, #JavaScript, #NodeJS, #ExpressJS, #MongoDB."
+    },
+    {
+      "follower_name": "kmoussai_",
+      "follower_bio": "fullStack(JS/TS) developer & i hate using REGEX, 'cause i spend so much time trying to find pattern for my use case."
+    },
+    {
+      "follower_name": "vmod__",
+      "follower_bio": "•software engineering and economics •I hike sometimes  • \n@1337FIL\n Alumni | TypeScript."
+    },
+    {
+      "follower_name": "AbdelhadiSabani",
+      "follower_bio": "Backend Developer | CS Student"
+    },
+    {
+      "follower_name": "osmoussao",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "YassirElazizi",
+      "follower_bio": "See you at the moon"
+    },
+    {
+      "follower_name": "mostapha_zahir",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "Imad__Abid",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "amineRedaSaf",
+      "follower_bio": "NestJS, NextJS, Flutter — and the spices. Sometimes, QA, I break all the above."
+    },
+    {
+      "follower_name": "Darkcode1999",
+      "follower_bio": "Front-end web developer, UI/UX Designer, React developer portfolio: https://nobertdev-portfolio.netlify.app Github: http://github.com/NOBERT167"
+    },
+    {
+      "follower_name": "ViPavaleni",
+      "follower_bio": "Software developer at \n@SilverchipUK\n. Graduate of \n@ManchesterCodes\n. Coder, traveller, yoga, zumba and rock climbing enthusiast. #100daysofcode"
+    },
+    {
+      "follower_name": "BeajSouad",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "AbdellatifBeaj",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "Itsmeabdoo",
+      "follower_bio": "سفير ريال مدريد"
+    },
+    {
+      "follower_name": "market24_place",
+      "follower_bio": "Flag of United StatesTrump 2020Flag of United States From this day forward it is going to be ONLY AMERICA FIRST - Donald J Trump"
+    },
+    {
+      "follower_name": "RTEWpkqQbmU9KbL",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "Jennife95956746",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "LovableKlopp",
+      "follower_bio": "Everyone needs a little bit of love *parody account*"
+    },
+    {
+      "follower_name": "search?q=%23NoOps&src=hashtag_click",
+      "follower_bio": "Writer, Speaker, Cloud Engineer, Survivor of Dev-Oops, Dockerfails and Kubernet-ish — #NoCode is the best code, #NoOps is the best ops"
+    },
+    {
+      "follower_name": "search?q=%23CSS&src=hashtag_click",
+      "follower_bio": "Node JS Developer ! Skills~ #CSS, #JavaScript, #NodeJS, #ExpressJS, #MongoDB."
+    },
+    {
+      "follower_name": "1337FIL",
+      "follower_bio": "•software engineering and economics •I hike sometimes  • \n@1337FIL\n Alumni | TypeScript."
+    },
+    {
+      "follower_name": "o7ovs2XdT7",
+      "follower_bio": "Front-end web developer, UI/UX Designer, React developer portfolio: https://nobertdev-portfolio.netlify.app Github: http://github.com/NOBERT167"
+    },
+    {
+      "follower_name": "SilverchipUK",
+      "follower_bio": "Software developer at \n@SilverchipUK\n. Graduate of \n@ManchesterCodes\n. Coder, traveller, yoga, zumba and rock climbing enthusiast. #100daysofcode"
+    },
+    {
+      "follower_name": "search?q=%23JavaScript&src=hashtag_click",
+      "follower_bio": "Node JS Developer ! Skills~ #CSS, #JavaScript, #NodeJS, #ExpressJS, #MongoDB."
+    },
+    {
+      "follower_name": "U5SJyW5oBP",
+      "follower_bio": "Front-end web developer, UI/UX Designer, React developer portfolio: https://nobertdev-portfolio.netlify.app Github: http://github.com/NOBERT167"
+    },
+    {
+      "follower_name": "ManchesterCodes",
+      "follower_bio": "Software developer at \n@SilverchipUK\n. Graduate of \n@ManchesterCodes\n. Coder, traveller, yoga, zumba and rock climbing enthusiast. #100daysofcode"
+    },
+    {
+      "follower_name": "search?q=%23NodeJS&src=hashtag_click",
+      "follower_bio": "Node JS Developer ! Skills~ #CSS, #JavaScript, #NodeJS, #ExpressJS, #MongoDB."
+    },
+    {
+      "follower_name": "search?q=%23100daysofcode&src=hashtag_click",
+      "follower_bio": "Software developer at \n@SilverchipUK\n. Graduate of \n@ManchesterCodes\n. Coder, traveller, yoga, zumba and rock climbing enthusiast. #100daysofcode"
+    },
+    {
+      "follower_name": "search?q=%23ExpressJS&src=hashtag_click",
+      "follower_bio": "Node JS Developer ! Skills~ #CSS, #JavaScript, #NodeJS, #ExpressJS, #MongoDB."
+    },
+    {
+      "follower_name": "search?q=%23MongoDB&src=hashtag_click",
+      "follower_bio": "Node JS Developer ! Skills~ #CSS, #JavaScript, #NodeJS, #ExpressJS, #MongoDB."
+    }
+  ],
+  "tweets": [
+    {
+      "tweet_content": "Just got my ticket for #nextjsconf by \n@vercel\n, claim yours!\n\nLet's make the Web. Faster.\n\nhttps://nextjs.org/conf/tickets/oct21/BEAJousama?s=4…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/oussama_beaj_tweet_1.png"
+    }
+  ],
+  "retweets": [
+    {
+      "retweet_content": "",
+      "retweet_username": "VladPasca5",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "I just found this GitHub repo\n\nIt contains short JavaScript code snippets for all your development needs\n\nYou need to check this one out if you're a JavaScript developer\n\nhttps://github.com/30-seconds/30-seconds-of-code…",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/oussama_beaj_retweet_1.png"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "user_profile": {
+    "username": "Imad Zaghba",
+    "bio": "student at 1337 coding school , 42@thenetwork"
+  },
+  "following": [
+    {
+      "following_name": "mentag_ayoub",
+      "following_bio": ""
+    },
+    {
+      "following_name": "AlarabyTV",
+      "following_bio": "التلفزيون العربي.. الصورة الأوضح تابعوا تغطيتنا للأخبار العاجلة على مدار الساعة \n@Alarabytv_BRK"
+    },
+    {
+      "following_name": "hehe_samir",
+      "following_bio": "Parody account"
+    },
+    {
+      "following_name": "Docker",
+      "following_bio": "Docker: Conquer the complexity of app development."
+    },
+    {
+      "following_name": "100daysofcoders",
+      "following_bio": ""
+    },
+    {
+      "following_name": "clcoding",
+      "following_bio": "Learn #Python the fun way!  Daily tips, tutorials & projects | Educator | AI Community Partner  Free Course https://bit.ly/3P5JJsw"
+    },
+    {
+      "following_name": "42born2code",
+      "following_bio": "La réponse la plus puissante jamais apportée au développement des métiers informatiques : zéro préjugé sur tes capacités et zéro sélection par l'argent."
+    },
+    {
+      "following_name": "ToniRuediger",
+      "following_bio": "Football player Real Madrid & DFB Team"
+    },
+    {
+      "following_name": "realDonaldTrump",
+      "following_bio": "45th & 47th President of the United States of America"
+    },
+    {
+      "following_name": "geeksblabla",
+      "following_bio": "Home of the largest developer community in Morocco, discussing hottest and latest technology trends, (almost) exclusively in Moroccan Darija"
+    },
+    {
+      "following_name": "UM6P_officiel",
+      "following_bio": "Welcome to the #UM6P official account. #UM6P is a hub of education, research, innovation & entrepreneurship to empower Moroccan and African youth"
+    },
+    {
+      "following_name": "42Network",
+      "following_bio": "We make digital an opportunity for all, everywhere. #42Network"
+    },
+    {
+      "following_name": "YouCode18",
+      "following_bio": "Formation gratuite et professionnalisante, destinée aux jeunes de 18 à 35 ans. Créée et Sponsorisée par \n@ocpgroup\n, Powered by \n@simplonco"
+    },
+    {
+      "following_name": "akasec_1337",
+      "following_bio": "The biggest academic security club in Morocco. We are open to host CTFs and cyber security events for you. To contact us : contact@akasec.club From \n@1337FIL"
+    },
+    {
+      "following_name": "1337FIL",
+      "following_bio": "Nonprofit & tuition-free coding school. Next generation of IT experts part of \n@Um6p_officiel\n . Created & Sponsored by \n@ocpgroup\n. Powered by \n@42born2code\n."
+    },
+    {
+      "following_name": "Alarabytv_BRK",
+      "following_bio": "التلفزيون العربي.. الصورة الأوضح تابعوا تغطيتنا للأخبار العاجلة على مدار الساعة \n@Alarabytv_BRK"
+    },
+    {
+      "following_name": "authenticity",
+      "following_bio": "Parody account"
+    },
+    {
+      "following_name": "TheRohitDas",
+      "following_bio": ""
+    },
+    {
+      "following_name": "search?q=%23Python&src=hashtag_click",
+      "following_bio": "Learn #Python the fun way!  Daily tips, tutorials & projects | Educator | AI Community Partner  Free Course https://bit.ly/3P5JJsw"
+    },
+    {
+      "following_name": "search?q=%23UM6P&src=hashtag_click",
+      "following_bio": "Welcome to the #UM6P official account. #UM6P is a hub of education, research, innovation & entrepreneurship to empower Moroccan and African youth"
+    },
+    {
+      "following_name": "search?q=%2342Network&src=hashtag_click",
+      "following_bio": "We make digital an opportunity for all, everywhere. #42Network"
+    },
+    {
+      "following_name": "ocpgroup",
+      "following_bio": "Formation gratuite et professionnalisante, destinée aux jeunes de 18 à 35 ans. Créée et Sponsorisée par \n@ocpgroup\n, Powered by \n@simplonco"
+    },
+    {
+      "following_name": "Um6p_officiel",
+      "following_bio": "Nonprofit & tuition-free coding school. Next generation of IT experts part of \n@Um6p_officiel\n . Created & Sponsored by \n@ocpgroup\n. Powered by \n@42born2code\n."
+    },
+    {
+      "following_name": "l9NKxZWrh7",
+      "following_bio": "Learn #Python the fun way!  Daily tips, tutorials & projects | Educator | AI Community Partner  Free Course https://bit.ly/3P5JJsw"
+    },
+    {
+      "following_name": "simplonco",
+      "following_bio": "Formation gratuite et professionnalisante, destinée aux jeunes de 18 à 35 ans. Créée et Sponsorisée par \n@ocpgroup\n, Powered by \n@simplonco"
+    }
+  ],
+  "followers": [
+    {
+      "follower_name": "born2code10",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "SiiMoo_123",
+      "follower_bio": "siiimoo"
+    }
+  ],
+  "tweets": [
+    {
+      "tweet_content": "Imad Zaghba\n@imad_zaghba\n·\nJun 27\ntest\nQuote\nKaran Vaidya\n@KaranVaidya6\n·\nJun 7\nI vibe coded Gumloop over the weekend!!\nPresenting Agent Flow - an open-source alternative to Gumloop!\n\nWe built a free no-code AI Agent builder with @composiohq and @langchainai's Langgraph that lets you automate workflows and complex agentic patterns with drag-and-drop nodes.\nShow more\nThe media could not be played.\nReload\n21",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_tweet_1.png"
+    }
+  ],
+  "retweets": [
+    {
+      "retweet_content": "",
+      "retweet_username": "imad_zaghba",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "test\n ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_retweet_1.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "clcoding",
+      "retweet_profile_bio": "",
+      "retweet_main_content": " ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_retweet_2.png"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ from playwright.async_api import async_playwright, TimeoutError
 SCREENSHOTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
 os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
 
-COOKIES_FILE = os.path.join(os.path.dirname(__file__), 'twitter_cookies.json')
+COOKIES_FILE = "/root/twitter_scraper/app/twitter_cookies.json"
 
 async def safe_wait_for_selector(page, selector, timeout=10000, description="element"):
     try:
@@ -109,26 +109,54 @@ async def get_quoted_tweet_info(tweet_element) -> Optional[Dict[str, str]]:
     return None
 
 async def get_main_tweet_content(tweet_element) -> str:
-    """Get the main tweet content, handling both regular and quoted tweets"""
+    """Get the main tweet content, handling both regular and quoted tweets. Tries multiple selectors for robustness."""
+    selectors = [
+        'div[data-testid="tweetText"]',
+        'div[lang]',
+        'article div[lang]',
+        'div[role="article"] div[lang]',
+        'div[dir="auto"]',
+        'span',
+    ]
+    for selector in selectors:
+        try:
+            main_content_element = tweet_element.locator(selector)
+            if await main_content_element.count() > 0:
+                text = await main_content_element.inner_text()
+                if text:
+                    return text
+        except Exception as e:
+            continue
+    # Fallback: try to get any text
     try:
-        main_content_element = tweet_element.locator('div[data-testid="tweetText"]')
-        if await main_content_element.count() > 0:
-            return await main_content_element.inner_text()
-    except Exception as e:
-        print(f"Could not get main tweet content: {str(e)}")
+        text = await tweet_element.inner_text()
+        if text:
+            return text
+    except Exception:
+        pass
     return ""
 
 async def get_tweet_id(tweet_element) -> str:
-    """Get a unique identifier for a tweet"""
+    """Get a unique identifier for a tweet. Tries multiple robust methods."""
+    # 1. Try to get tweet status ID from URL
     try:
         link = tweet_element.locator('a[href*="/status/"]').first
         if await link.count() > 0:
             href = await link.get_attribute('href')
-            if href:
-                return href.split('/status/')[-1].split('?')[0]
+            if href and "/status/" in href:
+                tweet_id = href.split('/status/')[-1].split('?')[0]
+                if tweet_id.isdigit():
+                    return tweet_id
     except Exception:
         pass
-    
+    # 2. Try to get data-tweet-id attribute (if present)
+    try:
+        tweet_id_attr = await tweet_element.get_attribute('data-tweet-id')
+        if tweet_id_attr:
+            return tweet_id_attr
+    except Exception:
+        pass
+    # 3. Try to get datetime from <time> tag
     try:
         time = tweet_element.locator('time').first
         if await time.count() > 0:
@@ -137,12 +165,15 @@ async def get_tweet_id(tweet_element) -> str:
                 return datetime
     except Exception:
         pass
-    
+    # 4. Fallback: hash a combination of visible text and HTML
     try:
+        text = await tweet_element.inner_text()
         html = await tweet_element.inner_html()
-        return str(hash(html))
+        return str(hash(text + html))
     except Exception:
-        return str(random.randint(1, 1000000))
+        pass
+    # 5. Last resort: random ID
+    return str(random.randint(1, 1000000000))
 
 async def is_repost(tweet_element) -> bool:
     """Check if tweet is a repost (retweet without comment)"""
@@ -220,18 +251,36 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
                 'div[data-testid="tweet"] div[lang]',
                 'div[data-testid="tweet"] div[data-testid="tweetText"]'
             ]
-            
             for selector in content_selectors:
-                content_element = tweet_element.locator(selector)
-                if await content_element.count() > 0:
-                    main_content = await content_element.inner_text()
-                    if main_content:
+                content_elements = tweet_element.locator(selector)
+                count = await content_elements.count()
+                if count > 0:
+                    # Join all text nodes if multiple elements are found
+                    texts = []
+                    for i in range(count):
+                        try:
+                            text = await content_elements.nth(i).inner_text()
+                            if text:
+                                texts.append(text)
+                        except Exception:
+                            continue
+                    if texts:
+                        main_content = "\n".join(texts)
                         break
-
+            # Also try nested tweetText
             nested_tweet = tweet_element.locator('div[data-testid="tweet"] div[data-testid="tweetText"]')
-            if await nested_tweet.count() > 0:
-                main_content = await nested_tweet.inner_text()
-
+            count_nested = await nested_tweet.count()
+            if count_nested > 0:
+                texts = []
+                for i in range(count_nested):
+                    try:
+                        text = await nested_tweet.nth(i).inner_text()
+                        if text:
+                            texts.append(text)
+                    except Exception:
+                        continue
+                if texts:
+                    main_content = "\n".join(texts)
         except Exception as e:
             print(f"Could not get retweet content: {str(e)}")
 
@@ -303,6 +352,7 @@ async def scrape_tweets(page, username: str) -> Tuple[List[Dict[str, str]], List
                 
                 # Get all visible tweets
                 tweet_elements = await page.locator('article[data-testid="tweet"]').all()
+                print(f"[DEBUG] Located {len(tweet_elements)} tweet elements on the page.")
                 if not tweet_elements:
                     print("No tweets found on page")
                     break
@@ -310,19 +360,22 @@ async def scrape_tweets(page, username: str) -> Tuple[List[Dict[str, str]], List
                 print(f"Found {len(tweet_elements)} tweet elements on current scroll")
                 initial_count = len(tweets) + len(retweets)
 
-                for tweet in tweet_elements:
+                for idx, tweet in enumerate(tweet_elements):
                     try:
                         # Get unique tweet ID
                         tweet_id = await get_tweet_id(tweet)
+                        print(f"[DEBUG] Processing tweet element #{idx+1}, ID: {tweet_id}")
                         
                         if tweet_id in processed_ids:
                             print("Skipping duplicate tweet")
                             continue
-                            
+                        
                         processed_ids.add(tweet_id)
                         
                         # Check if it's a retweet
-                        if await is_repost(tweet):
+                        is_retweet = await is_repost(tweet)
+                        print(f"[DEBUG] is_repost: {is_retweet}")
+                        if is_retweet:
                             print(f"\nProcessing retweet (ID: {tweet_id})...")
                             screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_retweet_{len(retweets)+1}.png")
                             try:
@@ -341,29 +394,54 @@ async def scrape_tweets(page, username: str) -> Tuple[List[Dict[str, str]], List
                         # Process as regular tweet
                         print(f"\nProcessing regular tweet (ID: {tweet_id})...")
                         content = await get_main_tweet_content(tweet)
+                        print(f"[DEBUG] get_main_tweet_content: {repr(content)}")
                         
-                        if not content:
-                            print("Skipping empty tweet")
+                        if content:
+                            screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_tweet_{len(tweets)+1}.png")
+                            try:
+                                await tweet.screenshot(path=screenshot_path)
+                            except Exception as e:
+                                print(f"Could not get tweet screenshot: {str(e)}")
+                                screenshot_path = ""
+
+                            tweet_data = {
+                                "tweet_content": content,
+                                "tweet_screenshot": screenshot_path
+                            }
+
+                            quoted_info = await get_quoted_tweet_info(tweet)
+                            if quoted_info:
+                                tweet_data.update(quoted_info)
+
+                            tweets.append(tweet_data)
+                            print(f"Successfully added tweet {len(tweets)}")
                             continue
 
-                        screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_tweet_{len(tweets)+1}.png")
+                        # Fallback: If not a retweet and no main content, collect as 'unknown' tweet
+                        print(f"\nProcessing unknown tweet (ID: {tweet_id})...")
+                        screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_unknown_{len(tweets)+len(retweets)+1}.png")
                         try:
                             await tweet.screenshot(path=screenshot_path)
                         except Exception as e:
-                            print(f"Could not get tweet screenshot: {str(e)}")
+                            print(f"Could not get unknown tweet screenshot: {str(e)}")
                             screenshot_path = ""
-
-                        tweet_data = {
-                            "tweet_content": content,
-                            "tweet_screenshot": screenshot_path
+                        try:
+                            raw_html = await tweet.inner_html()
+                        except Exception:
+                            raw_html = ""
+                        try:
+                            raw_text = await tweet.inner_text()
+                        except Exception:
+                            raw_text = ""
+                        unknown_data = {
+                            "type": "unknown",
+                            "tweet_id": tweet_id,
+                            "tweet_screenshot": screenshot_path,
+                            "raw_html": raw_html,
+                            "raw_text": raw_text
                         }
-
-                        quoted_info = await get_quoted_tweet_info(tweet)
-                        if quoted_info:
-                            tweet_data.update(quoted_info)
-
-                        tweets.append(tweet_data)
-                        print(f"Successfully added tweet {len(tweets)}")
+                        tweets.append(unknown_data)
+                        print(f"Added unknown tweet {len(tweets)}")
 
                     except Exception as e:
                         print(f"Error processing individual tweet/retweet: {str(e)}")
@@ -883,33 +961,92 @@ async def scrape_twitter(username: str) -> Dict:
                 # Check for login state using multiple indicators
                 print("Verifying login status...")
                 try:
-                    # Check for login button
-                    login_button = page.locator('a[href="/login"]')
-                    if await login_button.count() > 0:
-                        print("Not logged in (login button found). Please run login_manual.py again.")
-                        await browser.close()
-                        return result
-
-                    # Check for sign up button
-                    signup_button = page.locator('a[href="/i/flow/signup"]')
-                    if await signup_button.count() > 0:
-                        print("Not logged in (signup button found). Please run login_manual.py again.")
-                        await browser.close()
-                        return result
-
-                    # Try to find home timeline
-                    timeline = page.locator('div[data-testid="primaryColumn"]')
-                    if not await timeline.count() > 0:
-                        print("Could not verify login status. Please run login_manual.py again.")
-                        await browser.close()
-                        return result
-
-                    print("Login verified successfully")
+                    # Wait a bit longer for the page to load completely
+                    await asyncio.sleep(3)
+                    
+                    login_verified = False
+                    
+                    # Method 1: Check for login button (should not be present if logged in)
+                    try:
+                        login_button = page.locator('a[href="/login"]')
+                        if await login_button.count() > 0:
+                            print("Not logged in (login button found). Please run login_manual.py again.")
+                            await browser.close()
+                            return result
+                    except Exception as e:
+                        print(f"Could not check for login button: {str(e)}")
+                    
+                    # Method 2: Check for sign up button (should not be present if logged in)
+                    try:
+                        signup_button = page.locator('a[href="/i/flow/signup"]')
+                        if await signup_button.count() > 0:
+                            print("Not logged in (signup button found). Please run login_manual.py again.")
+                            await browser.close()
+                            return result
+                    except Exception as e:
+                        print(f"Could not check for signup button: {str(e)}")
+                    
+                    # Method 3: Try to find home timeline
+                    try:
+                        timeline = page.locator('div[data-testid="primaryColumn"]')
+                        if await timeline.count() > 0:
+                            print("Login verified - timeline found")
+                            login_verified = True
+                    except Exception as e:
+                        print(f"Could not check for timeline: {str(e)}")
+                    
+                    # Method 4: Check for profile link
+                    if not login_verified:
+                        try:
+                            profile_link = page.locator('a[data-testid="AppTabBar_Profile_Link"]')
+                            if await profile_link.count() > 0:
+                                print("Login verified - profile link found")
+                                login_verified = True
+                        except Exception as e:
+                            print(f"Could not check for profile link: {str(e)}")
+                    
+                    # Method 5: Check for any authenticated content
+                    if not login_verified:
+                        try:
+                            # Look for any authenticated content
+                            authenticated_selectors = [
+                                'div[data-testid="SideNav_AccountSwitcher_Button"]',
+                                'div[data-testid="AppTabBar_Home_Link"]',
+                                'div[data-testid="AppTabBar_Explore_Link"]',
+                                'div[data-testid="AppTabBar_Notifications_Link"]'
+                            ]
+                            
+                            for selector in authenticated_selectors:
+                                element = page.locator(selector)
+                                if await element.count() > 0:
+                                    print(f"Login verified - authenticated element found: {selector}")
+                                    login_verified = True
+                                    break
+                        except Exception as e:
+                            print(f"Could not check for authenticated elements: {str(e)}")
+                    
+                    # Method 6: Check page title or URL for authentication
+                    if not login_verified:
+                        try:
+                            current_url = page.url
+                            if "twitter.com/home" in current_url or "x.com/home" in current_url:
+                                print("Login verified - on home page")
+                                login_verified = True
+                        except Exception as e:
+                            print(f"Could not check URL: {str(e)}")
+                    
+                    if not login_verified:
+                        print("Could not verify login status with any method.")
+                        print("This might be due to Twitter's anti-bot measures or page loading issues.")
+                        print("Attempting to continue anyway...")
+                        # Don't return here, continue with scraping attempt
+                    else:
+                        print("Login verified successfully")
 
                 except Exception as e:
                     print(f"Error during login verification: {str(e)}")
-                    await browser.close()
-                    return result
+                    print("Attempting to continue anyway...")
+                    # Don't return here, continue with scraping attempt
 
                 # Navigate directly to user's profile
                 print(f"\nNavigating to profile @{username}...")
@@ -1013,5 +1150,17 @@ async def scrape_twitter(username: str) -> Dict:
                     
     except Exception as e:
         print(f"Critical error: {str(e)}")
+    
+    # --- Save result as JSON file in scraped_profiles directory ---
+    try:
+        scraped_profiles_dir = os.path.join(os.path.dirname(__file__), '..', 'scraped_profiles')
+        os.makedirs(scraped_profiles_dir, exist_ok=True)
+        json_path = os.path.join(scraped_profiles_dir, f"{username}.json")
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        print(f"Scraped profile saved to {json_path}")
+    except Exception as e:
+        print(f"Error saving scraped profile: {str(e)}")
+    # --- End save ---
     
     return result

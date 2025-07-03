@@ -1,0 +1,29 @@
+{
+  "user_profile": {
+    "username": "kharraz adam",
+    "bio": ""
+  },
+  "following": [
+    {
+      "following_name": "Darwishiat",
+      "following_bio": "أكبر حساب في تويتر لمحبي وعشاق شعر محمود درويش"
+    },
+    {
+      "following_name": "NellyKarim",
+      "following_bio": "Multi-award-winning actress| \n@unmigration\n ambassador|face of \n@jaegerlecoultre\n & \n@lazurde\n | prima ballerina|most importantly mother to 4 wonderful humans"
+    },
+    {
+      "following_name": "unmigration",
+      "following_bio": "Multi-award-winning actress| \n@unmigration\n ambassador|face of \n@jaegerlecoultre\n & \n@lazurde\n | prima ballerina|most importantly mother to 4 wonderful humans"
+    },
+    {
+      "following_name": "jaegerlecoultre",
+      "following_bio": "Multi-award-winning actress| \n@unmigration\n ambassador|face of \n@jaegerlecoultre\n & \n@lazurde\n | prima ballerina|most importantly mother to 4 wonderful humans"
+    },
+    {
+      "following_name": "lazurde",
+      "following_bio": "Multi-award-winning actress| \n@unmigration\n ambassador|face of \n@jaegerlecoultre\n & \n@lazurde\n | prima ballerina|most importantly mother to 4 wonderful humans"
+    }
+  ],
+  "followers": []
+}

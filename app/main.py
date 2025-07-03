@@ -1,10 +1,12 @@
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
+from fastapi import FastAPI, Request, HTTPException, Query
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse, Response, StreamingResponse
 import json
 import os
 from fastapi.middleware.cors import CORSMiddleware
 from app.scraper import scrape_twitter
 from app.models import TwitterScrapeResponse
+import img2pdf
+from io import BytesIO
 
 class PrettyJSONResponse(JSONResponse):
     def render(self, content) -> bytes:
@@ -201,17 +203,42 @@ async def scrape(username: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/screenshots/{username}")
-async def get_screenshots(username: str):
-    """Get list of screenshots for a specific user"""
+async def get_screenshots(username: str, list: int = Query(0, description="Return list instead of PDF")):
+    """Return a PDF of all screenshots for a specific user, or a list if ?list=1"""
     screenshots_dir = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
     user_screenshots = []
-    
     if os.path.exists(screenshots_dir):
-        for filename in os.listdir(screenshots_dir):
-            if filename.startswith(f"{username}_"):
-                user_screenshots.append(filename)
-    
-    return JSONResponse(content={"screenshots": user_screenshots})
+        for filename in sorted(os.listdir(screenshots_dir)):
+            if filename.startswith(f"{username}_") and filename.lower().endswith('.png'):
+                user_screenshots.append(filename if list else os.path.join(screenshots_dir, filename))
+    if not user_screenshots:
+        # Return a simple HTML error if accessed from browser
+        return Response(
+            content=f"<html><body><h2>No screenshots found for @{username}.</h2><a href='/view-screenshots/{username}'>Back</a></body></html>",
+            status_code=404,
+            media_type="text/html"
+        )
+    if list:
+        return JSONResponse(content={"screenshots": user_screenshots})
+    # Create PDF in memory
+    pdf_bytes = BytesIO()
+    try:
+        pdf_bytes.write(img2pdf.convert(user_screenshots))
+        pdf_bytes.seek(0)
+    except Exception as e:
+        return Response(
+            content=f"<html><body><h2>Error creating PDF: {str(e)}</h2><a href='/view-screenshots/{username}'>Back</a></body></html>",
+            status_code=500,
+            media_type="text/html"
+        )
+    headers = {
+        "Content-Disposition": f"attachment; filename={username}_screenshots.pdf"
+    }
+    return StreamingResponse(
+        pdf_bytes,
+        media_type="application/pdf",
+        headers=headers
+    )
 
 @app.get("/screenshot/{filename}")
 async def get_screenshot(filename: str):
@@ -292,29 +319,43 @@ async def view_screenshots_page(username: str):
                 font-size: 40px;
                 cursor: pointer;
             }}
+            .download-btn {{
+                display: inline-block;
+                margin-bottom: 30px;
+                padding: 12px 28px;
+                background: #1da1f2;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                text-decoration: none;
+                transition: background 0.2s;
+            }}
+            .download-btn:hover {{
+                background: #0d8ddb;
+            }}
         </style>
     </head>
     <body>
         <div class="header">
             <h1>Screenshots for @{username}</h1>
-            <a href="/" style="color: #1da1f2; text-decoration: none;">← Back to Scraper</a>
+            <a href="/" style="color: #1da1f2; text-decoration: none;">← Back to Scraper</a><br><br>
+            <a class="download-btn" href="/screenshots/{username}" download>⬇️ Download All as PDF</a>
+            <div style="margin-top:10px;color:#888;font-size:14px;">If the download fails or the file is not a PDF, right-click and choose 'Save link as...'</div>
         </div>
-        
         <div id="screenshots" class="screenshots">
             <p>Loading screenshots...</p>
         </div>
-        
         <div id="modal" class="modal">
             <span class="close">&times;</span>
             <img id="modalImg">
         </div>
-        
         <script>
         async function loadScreenshots() {{
             try {{
-                const response = await fetch('/screenshots/{username}');
+                const response = await fetch('/screenshots/{username}?list=1');
                 const data = await response.json();
-                
                 const container = document.getElementById('screenshots');
                 if (data.screenshots && data.screenshots.length > 0) {{
                     container.innerHTML = '';
@@ -334,25 +375,30 @@ async def view_screenshots_page(username: str):
                 document.getElementById('screenshots').innerHTML = '<p>Error loading screenshots.</p>';
             }}
         }}
-        
         function openModal(src) {{
             document.getElementById('modalImg').src = src;
             document.getElementById('modal').style.display = 'block';
         }}
-        
         document.querySelector('.close').onclick = function() {{
             document.getElementById('modal').style.display = 'none';
         }}
-        
         window.onclick = function(event) {{
             const modal = document.getElementById('modal');
             if (event.target == modal) {{
                 modal.style.display = 'none';
             }}
         }}
-        
         loadScreenshots();
         </script>
     </body>
     </html>
     """)
+
+@app.get("/scraped/{filename}")
+async def get_scraped_profile(filename: str):
+    scraped_dir = os.path.join(os.path.dirname(__file__), '..', 'scraped_profiles')
+    file_path = os.path.join(scraped_dir, filename)
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="application/json")
+    else:
+        raise HTTPException(status_code=404, detail="File not found")
