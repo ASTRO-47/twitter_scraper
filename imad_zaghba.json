@@ -1,0 +1,133 @@
+{
+  "user_profile": {
+    "username": "Imad Zaghba",
+    "bio": "student at 1337 coding school , 42@thenetwork"
+  },
+  "following": [
+    {
+      "following_name": "ayoubmen",
+      "following_bio": ""
+    },
+    {
+      "following_name": "التلفزيون العربي",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Iran Updates",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Docker",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Coding Community - #100DaysofCode",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Python Coding",
+      "following_bio": ""
+    },
+    {
+      "following_name": "42 Paris",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Antonio Rüdiger",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Donald J. Trump",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Geeksblabla Community",
+      "following_bio": ""
+    },
+    {
+      "following_name": "UM6P - University Mohammed VI Polytechnic",
+      "following_bio": ""
+    },
+    {
+      "following_name": "42",
+      "following_bio": ""
+    },
+    {
+      "following_name": "YouCode",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Akasec - 1337 CyberSecurity Club",
+      "following_bio": ""
+    },
+    {
+      "following_name": "1337 Coding School",
+      "following_bio": ""
+    },
+    {
+      "following_name": "التلفزيون العربي",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Coding Community - #100DaysofCode",
+      "following_bio": ""
+    },
+    {
+      "following_name": "Python Coding",
+      "following_bio": ""
+    },
+    {
+      "following_name": "UM6P - University Mohammed VI Polytechnic",
+      "following_bio": ""
+    },
+    {
+      "following_name": "42",
+      "following_bio": ""
+    },
+    {
+      "following_name": "YouCode",
+      "following_bio": ""
+    },
+    {
+      "following_name": "1337 Coding School",
+      "following_bio": ""
+    },
+    {
+      "following_name": "YouCode",
+      "following_bio": ""
+    }
+  ],
+  "followers": [
+    {
+      "follower_name": "born2code",
+      "follower_bio": ""
+    },
+    {
+      "follower_name": "Sii Moo",
+      "follower_bio": ""
+    }
+  ],
+  "tweets": [
+    {
+      "tweet_content": "test I vibe coded Gumloop over the weekend!!\nPresenting Agent Flow - an open-source alternative to Gumloop!\n\nWe built a free no-code AI Agent builder with @composiohq and @langchainai's Langgraph that lets you automate workflows and complex agentic patterns with drag-and-drop nodes.",
+      "tweet_screenshot": "/home/astro/Desktop/twitter_scraper/app/../screenshots/imad_zaghba_tweet_1_status_1.png",
+      "tweet_id": "status_1938624001422577834"
+    }
+  ],
+  "retweets": [
+    {
+      "retweet_content": "",
+      "retweet_username": "imad_zaghba",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "test\n ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
+      "retweet_screenshot": "/home/astro/Desktop/twitter_scraper/app/../screenshots/imad_zaghba_retweet_1_status_1.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "clcoding",
+      "retweet_profile_bio": "",
+      "retweet_main_content": " ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
+      "retweet_screenshot": "/home/astro/Desktop/twitter_scraper/app/../screenshots/imad_zaghba_retweet_2_status_1.png"
+    }
+  ]
+}

@@ -94,6 +94,15 @@ async def form():
                 overflow-y: auto;
                 padding: 16px;
                 font-size: 1.08rem;
+                border: 1px solid #e1e8ed;
+                border-radius: 8px;
+                background: #f8f9fa;
+            }
+            .progress-info {
+                color: #1da1f2;
+                font-weight: bold;
+                margin-top: 10px;
+                font-size: 14px;
             }
             /* Spinner overlay styles */
             #spinnerOverlay {
@@ -124,6 +133,7 @@ async def form():
             <h2>Twitter Scraper</h2>
             <input id="username" type="text" placeholder="Enter Twitter username" required>
             <button onclick="scrape()">Scrape</button>
+            <div id="progressInfo" class="progress-info" style="display: none;"></div>
             <pre id="result"></pre>
             <div id="screenshotsLink" style="display: none; margin-top: 20px;">
                 <a id="viewScreenshotsBtn" href="#" style="color: #1da1f2; text-decoration: none; font-weight: bold; font-size: 16px; padding: 10px 20px; border: 2px solid #1da1f2; border-radius: 6px; display: inline-block;">
@@ -143,35 +153,62 @@ async def form():
             const username = document.getElementById('username').value;
             const result = document.getElementById('result');
             const screenshotsLink = document.getElementById('screenshotsLink');
+            const progressInfo = document.getElementById('progressInfo');
+            
             if (!username.trim()) {
                 result.textContent = 'Please enter a username';
                 return;
             }
+            
             // Abort any previous fetch
             if (currentAbortController) currentAbortController.abort();
             const abortController = new AbortController();
             currentAbortController = abortController;
+            
             showSpinner(true);
-            result.textContent = 'Scraping in progress...';
+            result.textContent = '';
             screenshotsLink.style.display = 'none';
+            progressInfo.style.display = 'block';
+            progressInfo.textContent = 'Starting scraping process...';
+            
             try {
                 const response = await fetch(`/scrape/${encodeURIComponent(username)}`, { signal: abortController.signal });
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
-                result.textContent = JSON.stringify(data, null, 2);
+                
+                // Display results with better formatting
+                let summary = `📊 Scraping Results for @${username}\n\n`;
+                summary += `Profile: ${data.user_profile?.username || 'N/A'}\n`;
+                summary += `Bio: ${data.user_profile?.bio || 'No bio'}\n\n`;
+                summary += `📝 Tweets: ${data.tweets?.length || 0}\n`;
+                summary += `🔄 Retweets: ${data.retweets?.length || 0}\n`;
+                summary += `👥 Followers: ${data.followers?.length || 0}\n`;
+                summary += `➡️ Following: ${data.following?.length || 0}\n\n`;
+                summary += `--- Full Data ---\n`;
+                summary += JSON.stringify(data, null, 2);
+                
+                result.textContent = summary;
+                progressInfo.textContent = `✅ Scraping completed successfully!`;
+                
                 const viewScreenshotsBtn = document.getElementById('viewScreenshotsBtn');
                 viewScreenshotsBtn.href = `/view-screenshots/${username}`;
                 screenshotsLink.style.display = 'block';
+                
             } catch (error) {
                 if (error.name === 'AbortError') {
                     result.textContent = 'Scraping cancelled.';
+                    progressInfo.textContent = '❌ Scraping was cancelled';
                 } else {
                     result.textContent = `Error: ${error.message}`;
+                    progressInfo.textContent = `❌ Error occurred: ${error.message}`;
                 }
                 screenshotsLink.style.display = 'none';
             } finally {
                 showSpinner(false);
                 currentAbortController = null;
+                setTimeout(() => {
+                    progressInfo.style.display = 'none';
+                }, 5000);
             }
         }
         // Cancel fetch if user refreshes or leaves
