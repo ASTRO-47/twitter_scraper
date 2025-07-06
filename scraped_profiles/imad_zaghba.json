@@ -121,8 +121,8 @@
   ],
   "tweets": [
     {
-      "tweet_content": "Imad Zaghba\n@imad_zaghba\n·\nJun 27\ntest\nQuote\nKaran Vaidya\n@KaranVaidya6\n·\nJun 7\nI vibe coded Gumloop over the weekend!!\nPresenting Agent Flow - an open-source alternative to Gumloop!\n\nWe built a free no-code AI Agent builder with @composiohq and @langchainai's Langgraph that lets you automate workflows and complex agentic patterns with drag-and-drop nodes.\nShow more\nThe media could not be played.\nReload\n27",
-      "tweet_screenshot": "/root/back/app/../screenshots/imad_zaghba_tweet_1.png"
+      "tweet_content": "Imad Zaghba\n@imad_zaghba\n·\nJun 27\ntest\nQuote\nKaran Vaidya\n@KaranVaidya6\n·\nJun 7\nI vibe coded Gumloop over the weekend!!\nPresenting Agent Flow - an open-source alternative to Gumloop!\n\nWe built a free no-code AI Agent builder with @composiohq and @langchainai's Langgraph that lets you automate workflows and complex agentic patterns with drag-and-drop nodes.\nShow more\nThe media could not be played.\nReload\n31",
+      "tweet_screenshot": "/root/true_repo/app/../screenshots/imad_zaghba_tweet_1.png"
     }
   ],
   "retweets": [
@@ -131,14 +131,14 @@
       "retweet_username": "imad_zaghba",
       "retweet_profile_bio": "",
       "retweet_main_content": "test\n ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
-      "retweet_screenshot": "/root/back/app/../screenshots/imad_zaghba_retweet_1.png"
+      "retweet_screenshot": "/root/true_repo/app/../screenshots/imad_zaghba_retweet_1.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "clcoding",
       "retweet_profile_bio": "",
       "retweet_main_content": " ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
-      "retweet_screenshot": "/root/back/app/../screenshots/imad_zaghba_retweet_2.png"
+      "retweet_screenshot": "/root/true_repo/app/../screenshots/imad_zaghba_retweet_2.png"
     }
   ]
 }
