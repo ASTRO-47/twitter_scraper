@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, FileResponse, Response
 import json
 import os
 from fastapi.middleware.cors import CORSMiddleware
-from app.scraper import scrape_twitter
+from app.scraper import scrape_twitter, clean_username_for_filename
 from app.models import TwitterScrapeResponse
 import img2pdf
 from io import BytesIO
@@ -208,8 +208,10 @@ async def get_screenshots(username: str, list: int = Query(0, description="Retur
     screenshots_dir = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
     user_screenshots = []
     if os.path.exists(screenshots_dir):
+        # Clean the username to match our filename pattern
+        cleaned_username = clean_username_for_filename(username)
         for filename in sorted(os.listdir(screenshots_dir)):
-            if filename.startswith(f"{username}_") and filename.lower().endswith('.png'):
+            if filename.startswith(f"{cleaned_username}_") and filename.lower().endswith('.png'):
                 user_screenshots.append(filename if list else os.path.join(screenshots_dir, filename))
     if not user_screenshots:
         # Return a simple HTML error if accessed from browser
