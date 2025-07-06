@@ -2,181 +2,51 @@ import os
 import json
 import asyncio
 import random
-import hashlib
-import time
-import logging
-from datetime import datetime
 from typing import List, Dict, Optional, Tuple
 from playwright.async_api import async_playwright, TimeoutError
-
-# Try to import custom config, fall back to defaults
-try:
-    import sys
-    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-    from scraper_config import *
-except ImportError:
-    # Default configuration
-    MAX_TWEETS_PER_PROFILE = 30
-    MAX_FOLLOWERS = 50
-    MAX_FOLLOWING = 50
-    SCROLL_PAUSE_TIME = 1.0
-    SCREENSHOT_TIMEOUT = 3000
-    ENABLE_SCREENSHOTS = True
-    ENABLE_FOLLOWERS = True
-    ENABLE_FOLLOWING = True
-    MAX_SCROLL_ATTEMPTS = 5
-    MAX_CONSECUTIVE_NO_NEW = 2
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('scraper.log'),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
 
 SCREENSHOTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'screenshots')
 os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
 
-COOKIES_FILE = os.path.join(os.path.dirname(__file__), "twitter_cookies.json")
+COOKIES_FILE = "/root/back/app/twitter_cookies.json"
 
-async def safe_wait_for_selector(page, selector, timeout=15000, description="element"):
-    """Enhanced wait function with better error handling"""
+async def safe_wait_for_selector(page, selector, timeout=10000, description="element"):
     try:
-        logger.info(f"Waiting for {description} with selector: {selector}")
-        await page.wait_for_selector(selector, timeout=timeout, state="visible")
-        logger.info(f"✅ Found {description}")
+        await page.wait_for_selector(selector, timeout=timeout, state="attached")
         return True
     except TimeoutError:
-        logger.warning(f"❌ Timeout waiting for {description} with selector: {selector}")
+        print(f"Timeout waiting for {description}")
         return False
     except Exception as e:
-        logger.error(f"❌ Error waiting for {description}: {str(e)}")
+        print(f"Error waiting for {description}: {str(e)}")
         return False
-
-async def wait_for_content_load(page, timeout=5000):
-    """Wait for page content to stabilize - reduced timeout"""
-    try:
-        logger.info("Waiting for page content to load...")
-        # Wait for network to be idle with reduced timeout
-        await page.wait_for_load_state('networkidle', timeout=timeout)
-        # Reduced wait for dynamic content
-        await asyncio.sleep(1)
-        logger.info("✅ Page content loaded")
-        return True
-    except Exception as e:
-        logger.warning(f"❌ Error waiting for content load: {str(e)}")
-        return False
-
-async def smart_scroll(page, max_scrolls=3):
-    """Improved scrolling with better detection of new content - reduced scrolls"""
-    previous_height = await page.evaluate("document.body.scrollHeight")
-    
-    for i in range(max_scrolls):
-        # Scroll smoothly to avoid triggering anti-bot measures
-        await page.evaluate("""
-            window.scrollBy({
-                top: window.innerHeight * 0.8,
-                behavior: 'smooth'
-            });
-        """)
-        
-        # Reduced wait for content to load
-        await asyncio.sleep(SCROLL_PAUSE_TIME)
-        
-        # Check if new content loaded
-        current_height = await page.evaluate("document.body.scrollHeight")
-        if current_height > previous_height:
-            previous_height = current_height
-            return True  # New content found
-        
-        # If no new content, try a more aggressive scroll
-        if i == max_scrolls - 1:
-            await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-            await asyncio.sleep(SCROLL_PAUSE_TIME)
-            
-    return False  # No new content found
-
-async def take_element_screenshot(element, filepath, retries=2):
-    """Take screenshot with retry logic and proper error handling - reduced retries"""
-    # Skip screenshots if disabled for faster scraping
-    if not ENABLE_SCREENSHOTS:
-        logger.info("📸 Screenshots disabled - skipping")
-        return ""
-    
-    # Check if screenshot already exists to prevent duplicates
-    if os.path.exists(filepath):
-        logger.info(f"🔄 Screenshot already exists: {filepath}")
-        return filepath
-    
-    logger.info(f"📸 Taking screenshot: {filepath}")
-    
-    for attempt in range(retries):
-        try:
-            # Wait for element to be stable with reduced timeout
-            await element.wait_for(state="visible", timeout=3000)
-            
-            # Scroll element into view
-            await element.scroll_into_view_if_needed()
-            await asyncio.sleep(0.5)  # Reduced wait for scroll to complete
-            
-            # Take screenshot
-            await element.screenshot(path=filepath, timeout=SCREENSHOT_TIMEOUT)
-            logger.info(f"✅ Screenshot saved: {filepath}")
-            return filepath
-        except Exception as e:
-            logger.warning(f"❌ Screenshot attempt {attempt + 1} failed: {str(e)}")
-            if attempt < retries - 1:
-                await asyncio.sleep(1)  # Reduced retry wait
-            else:
-                logger.error(f"❌ Failed to take screenshot after {retries} attempts")
-                return ""
-    return ""
-
-def generate_unique_screenshot_filename(username: str, tweet_type: str, content: str) -> str:
-    """Generate unique screenshot filename to prevent duplicates"""
-    # Create hash from content to ensure uniqueness
-    content_hash = hashlib.md5(content.encode()).hexdigest()[:8]
-    timestamp = int(time.time())
-    filename = f"{username}_{tweet_type}_{content_hash}_{timestamp}.png"
-    return os.path.join(SCREENSHOTS_DIR, filename)
 
 async def wait_for_profile_load(page, username: str) -> bool:
-    """Enhanced profile loading with better detection"""
     try:
-        # Wait for either tweets, empty state, or protected account
-        selectors_to_check = [
-            'article[data-testid="tweet"]',
-            'div[data-testid="emptyState"]',
-            'div[data-testid="UserName"]',
-            'div[data-testid="primaryColumn"]'
-        ]
-        
-        # Try to find any of these elements
-        for selector in selectors_to_check:
+        # Wait for either tweets or empty state
+        try:
+            await page.wait_for_selector('article[data-testid="tweet"]', timeout=15000)
+            return True
+        except TimeoutError:
             try:
-                await page.wait_for_selector(selector, timeout=10000)
-                return True
+                await page.wait_for_selector('div[data-testid="emptyState"]', timeout=5000)
+                print(f"Profile {username} not found or has no tweets")
+                return False
             except TimeoutError:
-                continue
-        
-        return False
-        
+                print(f"Timeout waiting for profile {username} to load")
+                return False
     except Exception as e:
+        print(f"Error waiting for profile load: {str(e)}")
         return False
 
 async def scrape_user_profile(page, username: str) -> dict:
-    logger.info(f"📋 Scraping profile for: {username}")
     try:
-        logger.info(f"🔄 Navigating to profile: https://twitter.com/{username}")
+        print(f"Navigating to profile page for @{username}...")
         await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded")
         await asyncio.sleep(1)
         
         if not await safe_wait_for_selector(page, 'div[data-testid="UserName"]', description="profile", timeout=10000):
-            logger.error(f"❌ Could not find profile for {username}")
+            print(f"Could not load profile for @{username}")
             return {"username": username, "bio": ""}
         
         # Get display name
@@ -185,9 +55,8 @@ async def scrape_user_profile(page, username: str) -> dict:
             name_element = page.locator('div[data-testid="UserName"] span').first
             if await name_element.count() > 0:
                 display_name = await name_element.inner_text()
-                logger.info(f"✅ Display name found: {display_name}")
         except Exception as e:
-            logger.warning(f"❌ Error getting display name: {str(e)}")
+            print(f"Error getting display name: {str(e)}")
         
         # Get bio with retry
         bio = ""
@@ -198,11 +67,10 @@ async def scrape_user_profile(page, username: str) -> dict:
                 if await bio_element.count() > 0:
                     bio = await bio_element.inner_text()
                     if bio:
-                        logger.info(f"✅ Bio found: {bio[:100]}...")
                         break
                 await asyncio.sleep(1)
             except Exception as e:
-                logger.warning(f"❌ Bio attempt {attempt + 1} failed: {str(e)}")
+                print(f"Error getting bio (attempt {attempt + 1}): {str(e)}")
                 await asyncio.sleep(1)
             
         return {
@@ -211,7 +79,7 @@ async def scrape_user_profile(page, username: str) -> dict:
         }
 
     except Exception as e:
-        logger.error(f"❌ Error scraping profile for {username}: {str(e)}")
+        print(f"Error scraping profile: {str(e)}")
         return {"username": username, "bio": ""}
 
 async def get_tweet_content(tweet_element) -> str:
@@ -221,7 +89,7 @@ async def get_tweet_content(tweet_element) -> str:
         if await content_element.count() > 0:
             return await content_element.inner_text()
     except Exception as e:
-        pass
+        print(f"Could not get tweet text: {str(e)}")
     return ""
 
 async def get_quoted_tweet_info(tweet_element) -> Optional[Dict[str, str]]:
@@ -237,117 +105,75 @@ async def get_quoted_tweet_info(tweet_element) -> Optional[Dict[str, str]]:
                 "quoted_username": quoted_username
             }
     except Exception as e:
-        pass
+        print(f"Could not get quoted tweet info: {str(e)}")
     return None
 
 async def get_main_tweet_content(tweet_element) -> str:
-    """Enhanced tweet content extraction with multiple fallback methods"""
-    # Try multiple selectors in order of reliability
-    content_selectors = [
+    """Get the main tweet content, handling both regular and quoted tweets. Tries multiple selectors for robustness."""
+    selectors = [
         'div[data-testid="tweetText"]',
-        'div[lang]:not([data-testid="UserDescription"])',
-        'div[dir="auto"]:not([data-testid="UserDescription"])',
-        'span[lang]'
+        'div[lang]',
+        'article div[lang]',
+        'div[role="article"] div[lang]',
+        'div[dir="auto"]',
+        'span',
     ]
-    
-    for selector in content_selectors:
+    for selector in selectors:
         try:
-            elements = tweet_element.locator(selector)
-            count = await elements.count()
-            
-            if count > 0:
-                # Get text from all matching elements and combine
-                texts = []
-                for i in range(count):
-                    try:
-                        text = await elements.nth(i).inner_text()
-                        if text and text.strip():
-                            texts.append(text.strip())
-                    except Exception:
-                        continue
-                
-                if texts:
-                    combined_text = " ".join(texts)
-                    # Filter out common non-content text
-                    if (len(combined_text) > 3 and 
-                        not combined_text.lower().startswith(('show this thread', 'see new tweets', 'following', 'follow'))):
-                        return combined_text
-                        
-        except Exception:
+            main_content_element = tweet_element.locator(selector)
+            if await main_content_element.count() > 0:
+                text = await main_content_element.inner_text()
+                if text:
+                    return text
+        except Exception as e:
             continue
-    
-    # Last resort: try to get any meaningful text
+    # Fallback: try to get any text
     try:
-        all_text = await tweet_element.inner_text()
-        lines = [line.strip() for line in all_text.split('\n') if line.strip()]
-        
-        # Filter out UI elements and keep potential tweet content
-        content_lines = []
-        for line in lines:
-            if (len(line) > 10 and 
-                not line.lower().startswith(('retweet', 'reply', 'like', 'show this thread', 'follow'))):
-                content_lines.append(line)
-        
-        if content_lines:
-            return " ".join(content_lines[:3])  # Take first few lines only
-            
+        text = await tweet_element.inner_text()
+        if text:
+            return text
     except Exception:
         pass
-    
     return ""
 
 async def get_tweet_id(tweet_element) -> str:
-    """Enhanced tweet ID generation with multiple fallback methods"""
-    # Method 1: Try to get tweet status ID from URL
+    """Get a unique identifier for a tweet. Tries multiple robust methods."""
+    # 1. Try to get tweet status ID from URL
     try:
-        links = await tweet_element.locator('a[href*="/status/"]').all()
-        for link in links:
+        link = tweet_element.locator('a[href*="/status/"]').first
+        if await link.count() > 0:
             href = await link.get_attribute('href')
             if href and "/status/" in href:
-                tweet_id = href.split('/status/')[-1].split('?')[0].split('/')[0]
-                if tweet_id.isdigit() and len(tweet_id) > 10:
-                    return f"status_{tweet_id}"
+                tweet_id = href.split('/status/')[-1].split('?')[0]
+                if tweet_id.isdigit():
+                    return tweet_id
     except Exception:
         pass
-    
-    # Method 2: Try time element
+    # 2. Try to get data-tweet-id attribute (if present)
     try:
-        time_element = tweet_element.locator('time').first
-        if await time_element.count() > 0:
-            datetime_attr = await time_element.get_attribute('datetime')
-            if datetime_attr:
-                return f"time_{hashlib.md5(datetime_attr.encode()).hexdigest()[:12]}"
+        tweet_id_attr = await tweet_element.get_attribute('data-tweet-id')
+        if tweet_id_attr:
+            return tweet_id_attr
     except Exception:
         pass
-    
-    # Method 3: Create hash from text content and structure
+    # 3. Try to get datetime from <time> tag
     try:
-        # Get text content
-        text_content = await tweet_element.inner_text()
-        
-        # Get some structural identifiers
-        structure_info = ""
-        try:
-            # Get user info
-            user_elements = await tweet_element.locator('div[data-testid="User-Name"]').all()
-            for user_el in user_elements:
-                user_text = await user_el.inner_text()
-                structure_info += user_text
-        except:
-            pass
-        
-        # Create a more robust hash
-        combined_content = f"{text_content[:200]}_{structure_info}_{len(text_content)}"
-        content_hash = hashlib.md5(combined_content.encode()).hexdigest()[:12]
-        return f"hash_{content_hash}"
-        
+        time = tweet_element.locator('time').first
+        if await time.count() > 0:
+            datetime = await time.get_attribute('datetime')
+            if datetime:
+                return datetime
     except Exception:
         pass
-    
-    # Method 4: Last resort - timestamp based
-    timestamp = int(time.time() * 1000)
-    random_suffix = random.randint(1000, 9999)
-    return f"fallback_{timestamp}_{random_suffix}"
+    # 4. Fallback: hash a combination of visible text and HTML
+    try:
+        text = await tweet_element.inner_text()
+        html = await tweet_element.inner_html()
+        return str(hash(text + html))
+    except Exception:
+        pass
+    # 5. Last resort: random ID
+    return str(random.randint(1, 1000000000))
 
 async def is_repost(tweet_element) -> bool:
     """Check if tweet is a repost (retweet without comment)"""
@@ -357,6 +183,7 @@ async def is_repost(tweet_element) -> bool:
         if await social_context.count() > 0:
             social_text = await social_context.inner_text()
             if any(word.lower() in social_text.lower() for word in ["Reposted", "Retweeted"]):
+                print("Found retweet via social context")
                 return True
 
         # Method 2: Check for retweet icon/action
@@ -369,18 +196,21 @@ async def is_repost(tweet_element) -> bool:
         for indicator in retweet_indicators:
             element = tweet_element.locator(indicator)
             if await element.count() > 0:
+                print(f"Found retweet via indicator: {indicator}")
                 return True
 
         # Method 3: Check for retweet text in the article
         article_text = await tweet_element.inner_text()
         retweet_phrases = ["Retweeted", "Reposted", "Retweet", "reposted this", "retweeted this"]
         if any(phrase.lower() in article_text.lower() for phrase in retweet_phrases):
+            print("Found retweet via article text")
             return True
 
         # Method 4: Check for specific retweet structure
         try:
             nested_tweet = tweet_element.locator('div[data-testid="tweet"] div[data-testid="tweet"]')
             if await nested_tweet.count() > 0:
+                print("Found retweet via nested structure")
                 return True
         except Exception:
             pass
@@ -391,12 +221,13 @@ async def is_repost(tweet_element) -> bool:
             if await time_element.count() > 0:
                 aria_label = await time_element.get_attribute('aria-label')
                 if aria_label and any(word.lower() in aria_label.lower() for word in ["Retweeted", "Reposted"]):
+                    print("Found retweet via time metadata")
                     return True
         except Exception:
             pass
 
     except Exception as e:
-        pass
+        print(f"Error checking repost status: {str(e)}")
     return False
 
 async def is_quote_tweet(tweet_element) -> bool:
@@ -451,7 +282,7 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
                 if texts:
                     main_content = "\n".join(texts)
         except Exception as e:
-            pass
+            print(f"Could not get retweet content: {str(e)}")
 
         # Get username of original tweet author
         username = ""
@@ -474,7 +305,7 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
                             break
 
         except Exception as e:
-            pass
+            print(f"Could not get retweeted username: {str(e)}")
 
         # Get bio
         bio = ""
@@ -483,10 +314,9 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
             if await bio_element.count() > 0:
                 bio = await bio_element.inner_text()
         except Exception as e:
-            pass
+            print(f"Could not get bio: {str(e)}")
 
         return {
-            "content": main_content,  # For unique filename generation
             "retweet_content": "",  # Pure retweets have no additional content
             "retweet_username": username,
             "retweet_profile_bio": bio,
@@ -494,650 +324,843 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
         }
 
     except Exception as e:
+        print(f"Could not get retweet info: {str(e)}")
         return None
 
 async def scrape_tweets(page, username: str) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
-    """Enhanced tweet scraping with better performance and reliability"""
-    logger.info(f"🐦 Starting tweet scraping for: {username}")
     tweets = []
     retweets = []
-    processed_ids = set()
+    processed_ids = set()  # Use tweet IDs instead of HTML hash
     
     try:
-        logger.info(f"🔄 Navigating to profile: https://twitter.com/{username}")
+        print(f"\nStarting to scrape tweets for user: {username}")
         await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded", timeout=30000)
         
         if not await wait_for_profile_load(page, username):
-            logger.error(f"❌ Profile failed to load for {username}")
+            print("Profile could not be loaded")
             return tweets, retweets
 
-        await wait_for_content_load(page)
-        
-        scroll_attempts = 0
-        max_scroll_attempts = MAX_SCROLL_ATTEMPTS  # Use config value
-        consecutive_no_new_content = 0
-        max_consecutive_no_new = MAX_CONSECUTIVE_NO_NEW  # Use config value
-        
-        logger.info(f"🔄 Starting tweet collection (max {MAX_TWEETS_PER_PROFILE} tweets)")
-        
-        while (len(tweets) + len(retweets)) < MAX_TWEETS_PER_PROFILE and scroll_attempts < max_scroll_attempts:
+        print("Profile loaded successfully")
+        last_height = await page.evaluate("document.body.scrollHeight")
+        no_new_items_count = 0
+        max_no_new_items = 3
+
+        while True:
             try:
-                # Reduced wait for tweets to load and stabilize
-                await asyncio.sleep(1)
+                # Wait for tweets to load
+                await asyncio.sleep(2)
                 
-                # Get all visible tweet elements
+                # Get all visible tweets
                 tweet_elements = await page.locator('article[data-testid="tweet"]').all()
-                
+                print(f"[DEBUG] Located {len(tweet_elements)} tweet elements on the page.")
                 if not tweet_elements:
-                    logger.warning("❌ No tweet elements found")
+                    print("No tweets found on page")
                     break
 
-                logger.info(f"🔍 Found {len(tweet_elements)} tweet elements on page")
-                
+                print(f"Found {len(tweet_elements)} tweet elements on current scroll")
                 initial_count = len(tweets) + len(retweets)
-                processed_in_this_batch = 0
 
-                # Process tweets in batches for better performance
-                for idx, tweet_element in enumerate(tweet_elements):
+                for idx, tweet in enumerate(tweet_elements):
                     try:
                         # Get unique tweet ID
-                        tweet_id = await get_tweet_id(tweet_element)
+                        tweet_id = await get_tweet_id(tweet)
+                        print(f"[DEBUG] Processing tweet element #{idx+1}, ID: {tweet_id}")
                         
                         if tweet_id in processed_ids:
+                            print("Skipping duplicate tweet")
                             continue
                         
                         processed_ids.add(tweet_id)
-                        processed_in_this_batch += 1
                         
-                        # Check if it's a retweet first
-                        if await is_repost(tweet_element):
-                            logger.info(f"🔄 Processing retweet {len(retweets)+1}")
-                            
-                            # Get retweet content for unique filename
-                            retweet_info = await get_retweet_info(tweet_element)
-                            if retweet_info and retweet_info.get("content"):
-                                # Generate unique screenshot filename
-                                screenshot_path = generate_unique_screenshot_filename(
-                                    username, "retweet", retweet_info["content"]
-                                )
-                                screenshot_path = await take_element_screenshot(tweet_element, screenshot_path)
-                                
+                        # Check if it's a retweet
+                        is_retweet = await is_repost(tweet)
+                        print(f"[DEBUG] is_repost: {is_retweet}")
+                        if is_retweet:
+                            print(f"\nProcessing retweet (ID: {tweet_id})...")
+                            screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_retweet_{len(retweets)+1}.png")
+                            try:
+                                await tweet.screenshot(path=screenshot_path)
+                            except Exception as e:
+                                print(f"Could not get retweet screenshot: {str(e)}")
+                                screenshot_path = ""
+
+                            retweet_info = await get_retweet_info(tweet)
+                            if retweet_info:
                                 retweet_info["retweet_screenshot"] = screenshot_path
                                 retweets.append(retweet_info)
-                                logger.info(f"✅ Retweet {len(retweets)} saved")
-                            else:
-                                logger.warning(f"❌ Could not get retweet info")
-                            
+                                print(f"Successfully added retweet {len(retweets)}")
                             continue
 
                         # Process as regular tweet
-                        content = await get_main_tweet_content(tweet_element)
+                        print(f"\nProcessing regular tweet (ID: {tweet_id})...")
+                        content = await get_main_tweet_content(tweet)
+                        print(f"[DEBUG] get_main_tweet_content: {repr(content)}")
                         
-                        if content and len(content.strip()) > 0:
-                            logger.info(f"🐦 Processing tweet {len(tweets)+1}: {content[:50]}...")
-                            
-                            # Generate unique screenshot filename
-                            screenshot_path = generate_unique_screenshot_filename(
-                                username, "tweet", content
-                            )
-                            screenshot_path = await take_element_screenshot(tweet_element, screenshot_path)
-                            
+                        if content:
+                            screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_tweet_{len(tweets)+1}.png")
+                            try:
+                                await tweet.screenshot(path=screenshot_path)
+                            except Exception as e:
+                                print(f"Could not get tweet screenshot: {str(e)}")
+                                screenshot_path = ""
+
                             tweet_data = {
                                 "tweet_content": content,
-                                "tweet_screenshot": screenshot_path,
-                                "tweet_id": tweet_id
+                                "tweet_screenshot": screenshot_path
                             }
 
-                            # Check for quoted tweet
-                            quoted_info = await get_quoted_tweet_info(tweet_element)
+                            quoted_info = await get_quoted_tweet_info(tweet)
                             if quoted_info:
                                 tweet_data.update(quoted_info)
-                                logger.info(f"📝 Found quoted tweet in tweet {len(tweets)+1}")
 
                             tweets.append(tweet_data)
-                            logger.info(f"✅ Tweet {len(tweets)} saved")
-                        else:
-                            logger.warning(f"❌ Empty content for tweet {idx+1}")
+                            print(f"Successfully added tweet {len(tweets)}")
+                            continue
 
-                        # Check if we've reached the limit
-                        if (len(tweets) + len(retweets)) >= MAX_TWEETS_PER_PROFILE:
-                            logger.info(f"🏁 Reached maximum tweets limit ({MAX_TWEETS_PER_PROFILE})")
-                            break
+                        # Fallback: If not a retweet and no main content, collect as 'unknown' tweet
+                        print(f"\nProcessing unknown tweet (ID: {tweet_id})...")
+                        screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_unknown_{len(tweets)+len(retweets)+1}.png")
+                        try:
+                            await tweet.screenshot(path=screenshot_path)
+                        except Exception as e:
+                            print(f"Could not get unknown tweet screenshot: {str(e)}")
+                            screenshot_path = ""
+                        try:
+                            raw_html = await tweet.inner_html()
+                        except Exception:
+                            raw_html = ""
+                        try:
+                            raw_text = await tweet.inner_text()
+                        except Exception:
+                            raw_text = ""
+                        unknown_data = {
+                            "type": "unknown",
+                            "tweet_id": tweet_id,
+                            "tweet_screenshot": screenshot_path,
+                            "raw_html": raw_html,
+                            "raw_text": raw_text
+                        }
+                        tweets.append(unknown_data)
+                        print(f"Added unknown tweet {len(tweets)}")
 
                     except Exception as e:
-                        logger.error(f"❌ Error processing tweet {idx+1}: {str(e)}")
+                        print(f"Error processing individual tweet/retweet: {str(e)}")
                         continue
 
                 current_count = len(tweets) + len(retweets)
-                logger.info(f"📊 Batch complete: {current_count} total items ({len(tweets)} tweets, {len(retweets)} retweets)")
+                print(f"\nCurrent progress: {len(tweets)} tweets and {len(retweets)} retweets")
                 
-                # Check if we found new content
-                if current_count == initial_count or processed_in_this_batch == 0:
-                    consecutive_no_new_content += 1
-                    logger.warning(f"❌ No new content found (attempt {consecutive_no_new_content}/{max_consecutive_no_new})")
+                if current_count == initial_count:
+                    no_new_items_count += 1
+                    print(f"No new items found (attempt {no_new_items_count}/{max_no_new_items})")
                 else:
-                    consecutive_no_new_content = 0
+                    no_new_items_count = 0
 
-                # Stop if no new content for several attempts
-                if consecutive_no_new_content >= max_consecutive_no_new:
-                    logger.info(f"🔚 Stopping due to no new content for {max_consecutive_no_new} consecutive attempts")
+                if no_new_items_count >= max_no_new_items:
+                    print("\nReached end of timeline")
                     break
 
-                # Stop if we've reached the limit
-                if current_count >= MAX_TWEETS_PER_PROFILE:
-                    break
+                # Scroll down
+                print("\nScrolling for more content...")
+                await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                await asyncio.sleep(2)
 
-                # Smart scrolling with reduced attempts
-                logger.info(f"📜 Scrolling for more content (attempt {scroll_attempts + 1}/{max_scroll_attempts})")
-                scroll_success = await smart_scroll(page, max_scrolls=2)  # Reduced max scrolls
-                scroll_attempts += 1
-                
-                if not scroll_success:
-                    consecutive_no_new_content += 1
-                    logger.warning(f"❌ Scroll did not load new content")
+                new_height = await page.evaluate("document.body.scrollHeight")
+                if new_height == last_height:
+                    no_new_items_count += 1
+                else:
+                    last_height = new_height
 
             except Exception as e:
-                logger.error(f"❌ Error in tweet scraping loop: {str(e)}")
-                consecutive_no_new_content += 1
+                print(f"Error during scroll: {str(e)}")
+                no_new_items_count += 1
 
-        logger.info(f"🏁 Tweet scraping complete: {len(tweets)} tweets, {len(retweets)} retweets")
-        
+            if no_new_items_count >= max_no_new_items:
+                break
+
     except Exception as e:
-        logger.error(f"❌ Critical error in tweet scraping: {str(e)}")
+        print(f"Error scraping tweets: {str(e)}")
 
+    print(f"\nScraping completed!")
+    print(f"Final results: {len(tweets)} tweets and {len(retweets)} retweets")
     return tweets, retweets
 
 async def scrape_likes(page, username: str) -> List[Dict]:
-    """Likes scraping is currently disabled for performance"""
+    # Commented out for now as it needs further investigation
     return []
 
 async def scrape_followers(page, username: str) -> List[Dict]:
-    """Enhanced followers scraping with performance limits"""
-    logger.info(f"👥 Starting followers scraping for: {username}")
     followers = []
     try:
-        await page.goto(f"https://twitter.com/{username}/followers", wait_until="domcontentloaded")
-        await wait_for_content_load(page)
+        # Navigate to followers page
+        await page.goto(f"https://twitter.com/{username}/followers")
+        await asyncio.sleep(2)
 
+        # Initialize scroll tracking
+        last_height = await page.evaluate('document.body.scrollHeight')
         processed_usernames = set()
-        scroll_attempts = 0
-        max_scroll_attempts = 8  # Reduced scroll attempts
-        consecutive_no_new = 0
-        max_consecutive_no_new = 2  # Reduced threshold
+        previous_count = 0
+        same_count_iterations = 0
         
-        while len(followers) < MAX_FOLLOWERS and scroll_attempts < max_scroll_attempts:
+        while True:  # Keep scrolling until we truly reach the end
             # Get all visible user cells
-            cells = await page.locator('div[data-testid="cellInnerDiv"]').all()
+            cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
             
             if not cells:
-                consecutive_no_new += 1
-                if consecutive_no_new >= max_consecutive_no_new:
+                if same_count_iterations >= 3:  # Try a few times before giving up
+                    print("No more follower cells found after multiple attempts")
                     break
-                await asyncio.sleep(2)
+                same_count_iterations += 1
+                await asyncio.sleep(2)  # Wait a bit longer
                 continue
-            
-            initial_count = len(followers)
             
             # Process visible cells
             for cell in cells:
                 try:
-                    if len(followers) >= MAX_FOLLOWERS:
-                        break
-                        
-                    # Get username
-                    username_found = ""
-                    links = await cell.locator('a[role="link"]').all()
+                    # Get username (look for the link containing the username)
+                    username = ""
+                    links = await cell.query_selector_all('a[role="link"]')
                     for link in links:
                         href = await link.get_attribute('href')
-                        if href and '/' in href and not href.startswith('http'):
+                        if href and '/' in href:
                             potential_username = href.strip('/').split('/')[-1]
-                            if potential_username and potential_username not in processed_usernames and not potential_username.startswith('i/'):
-                                username_found = potential_username
+                            if potential_username and potential_username not in processed_usernames:
+                                username = potential_username
                                 break
                     
-                    if not username_found or username_found in processed_usernames:
+                    if not username or username in processed_usernames:
                         continue
                         
-                    processed_usernames.add(username_found)
-                    
-                    # Get display name with enhanced selectors
+                    # Get display name - try multiple selectors
                     name = ""
-                    name_selectors = [
-                        'div[data-testid="User-Name"] div:first-child span span',
-                        'div[data-testid="User-Name"] div span',
-                        'div[data-testid="User-Name"] span',
-                        'a[role="link"] div span span'
-                    ]
-                    
-                    for selector in name_selectors:
-                        try:
-                            name_element = cell.locator(selector).first
-                            if await name_element.count() > 0:
-                                name = await name_element.inner_text()
-                                if name and not name.startswith('@'):
-                                    break
-                        except:
-                            continue
-                            
-                    # Clean up name
-                    if name:
-                        name = name.strip().replace("·", "").strip()
+                    try:
+                        # Try primary name selector
+                        name_element = await cell.query_selector('div[data-testid="User-Name"] div:first-child span span')
+                        if name_element:
+                            name = await name_element.inner_text()
                         
-                    # Get bio with enhanced selectors
+                        # If not found, try secondary selector
+                        if not name:
+                            name_element = await cell.query_selector('div[data-testid="User-Name"] div span')
+                            if name_element:
+                                name = await name_element.inner_text()
+                                
+                        # Clean up name
+                        if name:
+                            name = name.strip()
+                            # Remove verified badge text if present
+                            name = name.replace("·", "").strip()
+                    except Exception as e:
+                        print(f"Error getting name for @{username}: {str(e)}")
+                        
+                    # Get bio - try multiple approaches
                     bio = ""
-                    bio_selectors = [
-                        'div[data-testid="UserDescription"]',
-                        'div[data-testid="UserProfessionalCategory"]'
-                    ]
-                    
-                    for selector in bio_selectors:
-                        try:
-                            bio_element = cell.locator(selector).first
-                            if await bio_element.count() > 0:
-                                bio = await bio_element.inner_text()
-                                if bio:
+                    try:
+                        # Try primary bio selector
+                        bio_element = await cell.query_selector('div[data-testid="UserDescription"]')
+                        if bio_element:
+                            bio = await bio_element.inner_text()
+                        
+                        # If not found, try professional category
+                        if not bio:
+                            prof_element = await cell.query_selector('div[data-testid="UserProfessionalCategory"]')
+                            if prof_element:
+                                bio = await prof_element.inner_text()
+                        
+                        # If still not found, try generic text content
+                        if not bio:
+                            text_elements = await cell.query_selector_all('div[dir="auto"]')
+                            for element in text_elements:
+                                text = await element.inner_text()
+                                if text and len(text) > 5 and not text.startswith('@') and 'Follow' not in text:
+                                    bio = text
                                     break
-                        except:
-                            continue
-                            
-                    # Clean up bio
-                    if bio:
-                        bio = bio.strip().replace("Follow", "").strip()
+                                    
+                        # Clean up bio
+                        if bio:
+                            bio = bio.strip()
+                            # Remove common unwanted text
+                            bio = bio.replace("Follow", "").strip()
+                    except Exception as e:
+                        print(f"Error getting bio for @{username}: {str(e)}")
                         
                     # Add to followers list
                     followers.append({
-                        "follower_name": name or username_found,
+                        "follower_name": name or username,  # Use username as fallback if no display name
                         "follower_bio": bio or ""
                     })
+                    processed_usernames.add(username)
+                    print(f"Added follower: @{username}" + (f" ({name})" if name else ""))
+                    if bio:
+                        print(f"Bio: {bio[:50]}..." if len(bio) > 50 else f"Bio: {bio}")
                     
                 except Exception as e:
+                    print(f"Error processing follower cell: {str(e)}")
                     continue
             
-            # Check progress
+            # Check if we're still finding new followers
             current_count = len(followers)
-            if current_count == initial_count:
-                consecutive_no_new += 1
+            if current_count == previous_count:
+                same_count_iterations += 1
             else:
-                consecutive_no_new = 0
+                same_count_iterations = 0
+                previous_count = current_count
             
-            # Stop if no new followers found
-            if consecutive_no_new >= max_consecutive_no_new:
-                break
-            
-            # Smart scroll for more content
-            if len(followers) < MAX_FOLLOWERS:
-                scroll_success = await smart_scroll(page, max_scrolls=1)  # Reduced max scrolls
-                scroll_attempts += 1
+            # Only stop if we've gone several iterations without finding new followers
+            if same_count_iterations >= 3:
+                # Try one final aggressive scroll
+                await page.evaluate('window.scrollTo(0, document.body.scrollHeight + 1000)')
+                await asyncio.sleep(2)
                 
-                if not scroll_success:
-                    consecutive_no_new += 1
+                # Check if this found any new content
+                new_height = await page.evaluate('document.body.scrollHeight')
+                if new_height == last_height:
+                    print("Reached end of followers list")
+                    break
+                    
+                last_height = new_height
+                same_count_iterations = 0
+                continue
+            
+            # Scroll down
+            await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+            await asyncio.sleep(2)  # Increased wait time to ensure content loads
+            
+            # Print progress
+            print(f"Collected {len(followers)} followers so far...")
 
     except Exception as e:
-        logger.error(f"❌ Error scraping followers: {str(e)}")
+        print(f"Error in followers scraping: {str(e)}")
         
-    logger.info(f"✅ Followers scraping complete: {len(followers)} followers")
+    print(f"Total followers collected: {len(followers)}")
     return followers
 
 async def scrape_following(page, username: str) -> List[Dict]:
-    """Enhanced following scraping with performance limits"""
-    logger.info(f"👤 Starting following scraping for: {username}")
     following = []
     try:
-        await page.goto(f"https://twitter.com/{username}/following", wait_until="domcontentloaded")
-        await wait_for_content_load(page)
+        # Navigate to following page
+        await page.goto(f"https://twitter.com/{username}/following")
+        await asyncio.sleep(2)
 
+        # Initialize scroll tracking
+        last_height = await page.evaluate('document.body.scrollHeight')
         processed_usernames = set()
-        scroll_attempts = 0
-        max_scroll_attempts = 8  # Reduced scroll attempts
-        consecutive_no_new = 0
-        max_consecutive_no_new = 2  # Reduced threshold
+        previous_count = 0
+        same_count_iterations = 0
         
-        while len(following) < MAX_FOLLOWING and scroll_attempts < max_scroll_attempts:
+        while True:  # Keep scrolling until we truly reach the end
             # Get all visible user cells
-            cells = await page.locator('div[data-testid="cellInnerDiv"]').all()
+            cells = await page.query_selector_all('div[data-testid="cellInnerDiv"]')
             
             if not cells:
-                consecutive_no_new += 1
-                if consecutive_no_new >= max_consecutive_no_new:
+                if same_count_iterations >= 3:  # Try a few times before giving up
+                    print("No more following cells found after multiple attempts")
                     break
-                await asyncio.sleep(2)
+                same_count_iterations += 1
+                await asyncio.sleep(2)  # Wait a bit longer
                 continue
-            
-            initial_count = len(following)
             
             # Process visible cells
             for cell in cells:
                 try:
-                    if len(following) >= MAX_FOLLOWING:
-                        break
-                        
-                    # Get username
-                    username_found = ""
-                    links = await cell.locator('a[role="link"]').all()
+                    # Get username (look for the link containing the username)
+                    username = ""
+                    links = await cell.query_selector_all('a[role="link"]')
                     for link in links:
                         href = await link.get_attribute('href')
-                        if href and '/' in href and not href.startswith('http'):
+                        if href and '/' in href:
                             potential_username = href.strip('/').split('/')[-1]
-                            if potential_username and potential_username not in processed_usernames and not potential_username.startswith('i/'):
-                                username_found = potential_username
+                            if potential_username and potential_username not in processed_usernames:
+                                username = potential_username
                                 break
                     
-                    if not username_found or username_found in processed_usernames:
+                    if not username or username in processed_usernames:
                         continue
                         
-                    processed_usernames.add(username_found)
-                    
-                    # Get display name with enhanced selectors
+                    # Get display name - try multiple selectors
                     name = ""
-                    name_selectors = [
-                        'div[data-testid="User-Name"] div:first-child span span',
-                        'div[data-testid="User-Name"] div span',
-                        'div[data-testid="User-Name"] span',
-                        'a[role="link"] div span span'
-                    ]
-                    
-                    for selector in name_selectors:
-                        try:
-                            name_element = cell.locator(selector).first
-                            if await name_element.count() > 0:
-                                name = await name_element.inner_text()
-                                if name and not name.startswith('@'):
-                                    break
-                        except:
-                            continue
-                            
-                    # Clean up name
-                    if name:
-                        name = name.strip().replace("·", "").strip()
+                    try:
+                        # Try primary name selector
+                        name_element = await cell.query_selector('div[data-testid="User-Name"] div:first-child span span')
+                        if name_element:
+                            name = await name_element.inner_text()
                         
-                    # Get bio with enhanced selectors
+                        # If not found, try secondary selector
+                        if not name:
+                            name_element = await cell.query_selector('div[data-testid="User-Name"] div span')
+                            if name_element:
+                                name = await name_element.inner_text()
+                                
+                        # Clean up name
+                        if name:
+                            name = name.strip()
+                            # Remove verified badge text if present
+                            name = name.replace("·", "").strip()
+                    except Exception as e:
+                        print(f"Error getting name for @{username}: {str(e)}")
+                        
+                    # Get bio - try multiple approaches
                     bio = ""
-                    bio_selectors = [
-                        'div[data-testid="UserDescription"]',
-                        'div[data-testid="UserProfessionalCategory"]'
-                    ]
-                    
-                    for selector in bio_selectors:
-                        try:
-                            bio_element = cell.locator(selector).first
-                            if await bio_element.count() > 0:
-                                bio = await bio_element.inner_text()
-                                if bio:
+                    try:
+                        # Try primary bio selector
+                        bio_element = await cell.query_selector('div[data-testid="UserDescription"]')
+                        if bio_element:
+                            bio = await bio_element.inner_text()
+                        
+                        # If not found, try professional category
+                        if not bio:
+                            prof_element = await cell.query_selector('div[data-testid="UserProfessionalCategory"]')
+                            if prof_element:
+                                bio = await prof_element.inner_text()
+                        
+                        # If still not found, try generic text content
+                        if not bio:
+                            text_elements = await cell.query_selector_all('div[dir="auto"]')
+                            for element in text_elements:
+                                text = await element.inner_text()
+                                if text and len(text) > 5 and not text.startswith('@') and 'Follow' not in text:
+                                    bio = text
                                     break
-                        except:
-                            continue
-                            
-                    # Clean up bio
-                    if bio:
-                        bio = bio.strip().replace("Follow", "").strip()
+                                    
+                        # Clean up bio
+                        if bio:
+                            bio = bio.strip()
+                            # Remove common unwanted text
+                            bio = bio.replace("Follow", "").strip()
+                    except Exception as e:
+                        print(f"Error getting bio for @{username}: {str(e)}")
                         
                     # Add to following list
                     following.append({
-                        "following_name": name or username_found,
+                        "following_name": name or username,  # Use username as fallback if no display name
                         "following_bio": bio or ""
                     })
+                    processed_usernames.add(username)
+                    print(f"Added following: @{username}" + (f" ({name})" if name else ""))
+                    if bio:
+                        print(f"Bio: {bio[:50]}..." if len(bio) > 50 else f"Bio: {bio}")
                     
                 except Exception as e:
+                    print(f"Error processing following cell: {str(e)}")
                     continue
             
-            # Check progress
+            # Check if we're still finding new following
             current_count = len(following)
-            if current_count == initial_count:
-                consecutive_no_new += 1
+            if current_count == previous_count:
+                same_count_iterations += 1
             else:
-                consecutive_no_new = 0
+                same_count_iterations = 0
+                previous_count = current_count
             
-            # Stop if no new following found
-            if consecutive_no_new >= max_consecutive_no_new:
-                break
-            
-            # Smart scroll for more content
-            if len(following) < MAX_FOLLOWING:
-                scroll_success = await smart_scroll(page, max_scrolls=1)  # Reduced max scrolls
-                scroll_attempts += 1
+            # Only stop if we've gone several iterations without finding new following
+            if same_count_iterations >= 3:
+                # Try one final aggressive scroll
+                await page.evaluate('window.scrollTo(0, document.body.scrollHeight + 1000)')
+                await asyncio.sleep(2)
                 
-                if not scroll_success:
-                    consecutive_no_new += 1
+                # Check if this found any new content
+                new_height = await page.evaluate('document.body.scrollHeight')
+                if new_height == last_height:
+                    print("Reached end of following list")
+                    break
+                    
+                last_height = new_height
+                same_count_iterations = 0
+                continue
+            
+            # Scroll down
+            await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+            await asyncio.sleep(2)  # Increased wait time to ensure content loads
+            
+            # Print progress
+            print(f"Collected {len(following)} following so far...")
 
     except Exception as e:
-        logger.error(f"❌ Error scraping following: {str(e)}")
+        print(f"Error in following scraping: {str(e)}")
         
-    logger.info(f"✅ Following scraping complete: {len(following)} following")
+    print(f"Total following collected: {len(following)}")
     return following
 
+async def scrape_retweets(page, username: str) -> List[Dict]:
+    retweets = []
+    try:
+        # Navigate to profile with better error handling
+        try:
+            await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded", timeout=30000)
+            if not await wait_for_profile_load(page, username):
+                return retweets
+                
+        except Exception as e:
+            print(f"Error accessing profile {username}: {str(e)}")
+            return retweets
+        
+        last_height = await page.evaluate("document.body.scrollHeight")
+        processed_retweets = set()
+        no_new_retweets_count = 0
+        max_no_new_retweets = 3
+        
+        while True:
+            try:
+                # Get all visible tweets with timeout
+                tweet_elements = await page.locator('article[data-testid="tweet"]').all()
+                if not tweet_elements:
+                    print("No tweets found on page")
+                    break
+                    
+                initial_retweet_count = len(retweets)
+                
+                for tweet in tweet_elements:
+                    try:
+                        # Get tweet ID or some unique identifier
+                        tweet_html = await tweet.inner_html()
+                        tweet_hash = hash(tweet_html)
+                        
+                        if tweet_hash in processed_retweets:
+                            continue
+                            
+                        processed_retweets.add(tweet_hash)
+                        
+                        # Only process pure reposts (no comment)
+                        if not await is_repost(tweet):
+                            continue
+                        
+                        # Get retweet data
+                        original_content = await get_main_tweet_content(tweet)
+                        retweeted_username = ""
+                        retweeted_bio = ""
+                        
+                        # Get username of retweeted content
+                        try:
+                            name_element = tweet.locator('div[data-testid="User-Name"] a').first
+                            if await name_element.count() > 0:
+                                retweeted_username = await name_element.get_attribute('href')
+                                if retweeted_username:
+                                    retweeted_username = retweeted_username.replace('/', '')
+                        except Exception as e:
+                            print(f"Could not get username: {str(e)}")
+                        
+                        # Get screenshot
+                        screenshot_path = ""
+                        try:
+                            safe_username = retweeted_username.replace('@', '').replace('/', '_')
+                            screenshot_path = os.path.join(SCREENSHOTS_DIR, f"{username}_retweet_{len(retweets)+1}_{safe_username}.png")
+                            await tweet.screenshot(path=screenshot_path)
+                        except Exception as e:
+                            print(f"Could not get screenshot: {str(e)}")
+                        
+                        if original_content or retweeted_username or screenshot_path:
+                            retweets.append({
+                                "retweet_content": "",  # Retweet itself has no content
+                                "retweet_username": retweeted_username,
+                                "retweet_profile_bio": retweeted_bio,
+                                "retweet_screenshot": screenshot_path,
+                                "retweet_main_content": original_content
+                            })
+                            print(f"Added retweet {len(retweets)} from {retweeted_username}")
+                    
+                    except Exception as e:
+                        print(f"Error processing retweet: {str(e)}")
+                        continue
+                
+                # Check if we found any new retweets
+                if len(retweets) == initial_retweet_count:
+                    no_new_retweets_count += 1
+                else:
+                    no_new_retweets_count = 0
+                    print(f"Found {len(retweets)} retweets so far")
+                
+                # Stop if we haven't found new retweets in several scrolls
+                if no_new_retweets_count >= max_no_new_retweets:
+                    print("No new retweets found after multiple scrolls, stopping")
+                    break
+                
+                # Scroll down with timeout
+                try:
+                    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    await asyncio.sleep(2)
+                    
+                    # Check if we've reached the bottom
+                    new_height = await page.evaluate("document.body.scrollHeight")
+                    if new_height == last_height:
+                        no_new_retweets_count += 1
+                    else:
+                        last_height = new_height
+                        
+                except Exception as e:
+                    print(f"Error scrolling: {str(e)}")
+                    no_new_retweets_count += 1
+                
+            except Exception as e:
+                print(f"Error during retweet collection: {str(e)}")
+                no_new_retweets_count += 1
+            
+            # Emergency break if something goes wrong
+            if no_new_retweets_count >= max_no_new_retweets:
+                break
+                
+    except Exception as e:
+        print(f"Error scraping retweets: {str(e)}")
+    
+    print(f"Total retweets scraped: {len(retweets)}")
+    return retweets
+
 async def scrape_twitter(username: str) -> Dict:
-    """Enhanced main scraping function with better performance and reliability"""
-    logger.info(f"🚀 Starting Twitter scraping for user: {username}")
-    
-    # Log current configuration
-    logger.info("⚙️ Current Configuration:")
-    logger.info(f"  📊 Max tweets: {MAX_TWEETS_PER_PROFILE}")
-    logger.info(f"  👥 Max followers: {MAX_FOLLOWERS}")
-    logger.info(f"  👤 Max following: {MAX_FOLLOWING}")
-    logger.info(f"  📸 Screenshots: {'Enabled' if ENABLE_SCREENSHOTS else 'Disabled'}")
-    logger.info(f"  👥 Followers scraping: {'Enabled' if ENABLE_FOLLOWERS else 'Disabled'}")
-    logger.info(f"  👤 Following scraping: {'Enabled' if ENABLE_FOLLOWING else 'Disabled'}")
-    
     result = {
         "user_profile": {"username": username, "bio": ""},
         "following": [],
-        "followers": [],
-        "tweets": [],
-        "retweets": []
+        "followers": []
     }
-    
-    start_time = time.time()
     
     try:
         async with async_playwright() as p:
-            logger.info("🔄 Launching browser...")
-            # Launch browser with optimized settings
+            # Launch browser in headless mode
             browser = await p.chromium.launch(
-                headless=True,
-                args=[
-                    '--disable-extensions',
-                    '--disable-plugins',
-                    '--disable-java',
-                    '--disable-images',  # Disable image loading for faster performance
-                    '--no-sandbox',
-                    '--disable-setuid-sandbox',
-                    '--disable-dev-shm-usage',
-                    '--disable-background-timer-throttling',
-                    '--disable-backgrounding-occluded-windows',
-                    '--disable-renderer-backgrounding'
-                ]
+                headless=True,  # Run in headless mode
+                args=['--disable-extensions']
             )
             
-            logger.info("🔄 Creating browser context...")
-            # Create context with optimized settings
+            # Create context with larger viewport and modern user agent
             context = await browser.new_context(
                 viewport={'width': 1920, 'height': 1080},
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                extra_http_headers={
-                    'Accept-Language': 'en-US,en;q=0.9',
-                }
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
             )
             
             # Load cookies
             if os.path.exists(COOKIES_FILE):
                 try:
-                    logger.info("🔄 Loading Twitter cookies...")
                     with open(COOKIES_FILE, "r") as f:
                         cookies = json.load(f)
                     await context.add_cookies(cookies)
-                    logger.info("✅ Cookies loaded successfully")
+                    print("Cookies loaded successfully")
                 except Exception as e:
-                    logger.error(f"❌ Error loading cookies: {str(e)}")
+                    print(f"Error loading cookies: {str(e)}")
                     await browser.close()
                     return result
             else:
-                logger.error("❌ No cookies file found - login required")
+                print("No cookies file found. Please run login_manual.py first")
                 await browser.close()
                 return result
             
             try:
-                # Create main page
+                # Create main page for profile info
                 page = await context.new_page()
-                page.set_default_timeout(15000)  # Reduced timeout
+                page.set_default_timeout(30000)  # Set back to 30 seconds
                 
-                # Verify login and access to Twitter
+                # First try to access Twitter directly
+                print("\nAccessing Twitter...")
                 try:
-                    logger.info("🔄 Verifying login status...")
                     await page.goto("https://twitter.com", wait_until="domcontentloaded")
-                    await wait_for_content_load(page, timeout=8000)  # Reduced timeout
-                    
-                    # Quick login verification
-                    login_indicators = [
-                        'div[data-testid="AppTabBar_Home_Link"]',
-                        'div[data-testid="SideNav_AccountSwitcher_Button"]',
-                        'a[data-testid="AppTabBar_Profile_Link"]'
-                    ]
-                    
-                    login_verified = False
-                    for indicator in login_indicators:
-                        if await page.locator(indicator).count() > 0:
-                            login_verified = True
-                            logger.info("✅ Login verified successfully")
-                            break
-                    
-                    if not login_verified:
-                        logger.warning("❌ Login verification failed - continuing anyway")
-                        
                 except Exception as e:
-                    logger.error(f"❌ Error during login verification: {str(e)}")
-
-                # Navigate to profile and verify accessibility
-                try:
-                    logger.info(f"🔄 Navigating to profile: {username}")
-                    await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded")
-                    await wait_for_content_load(page)
-                    
-                    # Check for profile accessibility
-                    error_indicators = [
-                        'div[data-testid="error-detail"]',
-                        'div[data-testid="empty-state"]'
-                    ]
-                    
-                    for indicator in error_indicators:
-                        if await page.locator(indicator).count() > 0:
-                            logger.error(f"❌ Profile not accessible: {username}")
-                            await browser.close()
-                            return result
-                    
-                    # Verify profile loaded
-                    if not await page.locator('div[data-testid="UserName"]').count() > 0:
-                        logger.error(f"❌ Profile did not load properly: {username}")
-                        await browser.close()
-                        return result
-                    
-                    logger.info("✅ Profile loaded successfully")
-                    
-                except Exception as e:
-                    logger.error(f"❌ Error accessing profile: {str(e)}")
+                    print(f"Error accessing Twitter: {str(e)}")
                     await browser.close()
                     return result
 
-                # Step 1: Get profile info
-                logger.info("📋 Step 1: Getting profile information...")
+                # Short wait for initial load
+                await asyncio.sleep(2)
+                
+                # Check for login state using multiple indicators
+                print("Verifying login status...")
+                try:
+                    # Wait a bit longer for the page to load completely
+                    await asyncio.sleep(3)
+                    
+                    login_verified = False
+                    
+                    # Method 1: Check for login button (should not be present if logged in)
+                    try:
+                        login_button = page.locator('a[href="/login"]')
+                        if await login_button.count() > 0:
+                            print("Not logged in (login button found). Please run login_manual.py again.")
+                            await browser.close()
+                            return result
+                    except Exception as e:
+                        print(f"Could not check for login button: {str(e)}")
+                    
+                    # Method 2: Check for sign up button (should not be present if logged in)
+                    try:
+                        signup_button = page.locator('a[href="/i/flow/signup"]')
+                        if await signup_button.count() > 0:
+                            print("Not logged in (signup button found). Please run login_manual.py again.")
+                            await browser.close()
+                            return result
+                    except Exception as e:
+                        print(f"Could not check for signup button: {str(e)}")
+                    
+                    # Method 3: Try to find home timeline
+                    try:
+                        timeline = page.locator('div[data-testid="primaryColumn"]')
+                        if await timeline.count() > 0:
+                            print("Login verified - timeline found")
+                            login_verified = True
+                    except Exception as e:
+                        print(f"Could not check for timeline: {str(e)}")
+                    
+                    # Method 4: Check for profile link
+                    if not login_verified:
+                        try:
+                            profile_link = page.locator('a[data-testid="AppTabBar_Profile_Link"]')
+                            if await profile_link.count() > 0:
+                                print("Login verified - profile link found")
+                                login_verified = True
+                        except Exception as e:
+                            print(f"Could not check for profile link: {str(e)}")
+                    
+                    # Method 5: Check for any authenticated content
+                    if not login_verified:
+                        try:
+                            # Look for any authenticated content
+                            authenticated_selectors = [
+                                'div[data-testid="SideNav_AccountSwitcher_Button"]',
+                                'div[data-testid="AppTabBar_Home_Link"]',
+                                'div[data-testid="AppTabBar_Explore_Link"]',
+                                'div[data-testid="AppTabBar_Notifications_Link"]'
+                            ]
+                            
+                            for selector in authenticated_selectors:
+                                element = page.locator(selector)
+                                if await element.count() > 0:
+                                    print(f"Login verified - authenticated element found: {selector}")
+                                    login_verified = True
+                                    break
+                        except Exception as e:
+                            print(f"Could not check for authenticated elements: {str(e)}")
+                    
+                    # Method 6: Check page title or URL for authentication
+                    if not login_verified:
+                        try:
+                            current_url = page.url
+                            if "twitter.com/home" in current_url or "x.com/home" in current_url:
+                                print("Login verified - on home page")
+                                login_verified = True
+                        except Exception as e:
+                            print(f"Could not check URL: {str(e)}")
+                    
+                    if not login_verified:
+                        print("Could not verify login status with any method.")
+                        print("This might be due to Twitter's anti-bot measures or page loading issues.")
+                        print("Attempting to continue anyway...")
+                        # Don't return here, continue with scraping attempt
+                    else:
+                        print("Login verified successfully")
+
+                except Exception as e:
+                    print(f"Error during login verification: {str(e)}")
+                    print("Attempting to continue anyway...")
+                    # Don't return here, continue with scraping attempt
+
+                # Navigate directly to user's profile
+                print(f"\nNavigating to profile @{username}...")
+                try:
+                    await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded")
+                    await asyncio.sleep(3)
+                except Exception as e:
+                    print(f"Error navigating to profile: {str(e)}")
+                    await browser.close()
+                    return result
+                
+                # Verify profile exists and is accessible
+                try:
+                    # Check for error messages
+                    error_selectors = [
+                        'div[data-testid="error-detail"]',
+                        'div[data-testid="empty-state"]',
+                        'div[data-testid="404-error"]'
+                    ]
+                    
+                    for selector in error_selectors:
+                        error_element = page.locator(selector)
+                        if await error_element.count() > 0:
+                            error_text = await error_element.inner_text()
+                            print(f"Profile error: {error_text}")
+                            await browser.close()
+                            return result
+                            
+                    # Verify profile content is visible
+                    profile_header = page.locator('div[data-testid="UserName"]')
+                    if not await profile_header.count() > 0:
+                        print(f"Could not access profile @{username}")
+                        await browser.close()
+                        return result
+                        
+                except Exception as e:
+                    print(f"Error verifying profile: {str(e)}")
+                    await browser.close()
+                    return result
+
+                # Get profile info
+                print(f"Fetching profile info for @{username}...")
                 result["user_profile"] = await scrape_user_profile(page, username)
+                print(f"Profile info fetched: {result['user_profile']}")
                 
-                # Step 2: Get tweets and retweets
-                logger.info("🐦 Step 2: Getting tweets and retweets...")
+                if not result["user_profile"]["bio"] and not result["user_profile"]["username"]:
+                    print(f"Could not fetch profile info for @{username}")
+                    await browser.close()
+                    return result
+                
+                # Get tweets and retweets
+                print(f"\nFetching tweets and retweets for @{username}...")
                 tweets, retweets = await scrape_tweets(page, username)
-                
                 if tweets:
                     result["tweets"] = tweets
-                    logger.info(f"✅ Found {len(tweets)} tweets")
+                    print(f"Found {len(tweets)} tweets")
+                else:
+                    print("No tweets found or error occurred")
                     
                 if retweets:
                     result["retweets"] = retweets
-                    logger.info(f"✅ Found {len(retweets)} retweets")
-                
-                # Skip followers/following if disabled in config
-                if not ENABLE_FOLLOWERS and not ENABLE_FOLLOWING:
-                    logger.info("👥👤 Followers and Following scraping disabled in config")
-                elif not ENABLE_FOLLOWERS:
-                    logger.info("👤 Step 4: Getting following only...")
-                    following_page = await context.new_page()
-                    following_page.set_default_timeout(15000)
-                    
-                    following = await scrape_following(following_page, username)
-                    if following:
-                        result["following"] = following
-                        logger.info(f"✅ Found {len(following)} following")
-                    
-                    await following_page.close()
-                elif not ENABLE_FOLLOWING:
-                    logger.info("👥 Step 3: Getting followers only...")
-                    followers_page = await context.new_page()
-                    followers_page.set_default_timeout(15000)
-                    
-                    followers = await scrape_followers(followers_page, username)
-                    if followers:
-                        result["followers"] = followers
-                        logger.info(f"✅ Found {len(followers)} followers")
-                    
-                    await followers_page.close()
+                    print(f"Found {len(retweets)} retweets")
                 else:
-                    # Steps 3 & 4: Get followers and following in parallel for better performance
-                    logger.info("👥👤 Steps 3 & 4: Getting followers and following in parallel...")
-                    
-                    # Create separate pages for parallel execution
-                    followers_page = await context.new_page()
-                    followers_page.set_default_timeout(15000)  # Reduced timeout
-                    
-                    following_page = await context.new_page()
-                    following_page.set_default_timeout(15000)  # Reduced timeout
-                    
-                    # Run followers and following scraping in parallel
-                    try:
-                        followers_task = asyncio.create_task(scrape_followers(followers_page, username))
-                        following_task = asyncio.create_task(scrape_following(following_page, username))
-                        
-                        # Wait for both tasks to complete with a timeout
-                        followers, following = await asyncio.wait_for(
-                            asyncio.gather(followers_task, following_task), 
-                            timeout=60  # 1 minute timeout for both operations
-                        )
-                        
-                        if followers:
-                            result["followers"] = followers
-                            logger.info(f"✅ Found {len(followers)} followers")
-                        
-                        if following:
-                            result["following"] = following
-                            logger.info(f"✅ Found {len(following)} following")
-                            
-                    except asyncio.TimeoutError:
-                        logger.warning("❌ Followers/Following scraping timed out")
-                    except Exception as e:
-                        logger.error(f"❌ Error in parallel scraping: {str(e)}")
-                    finally:
-                        await followers_page.close()
-                        await following_page.close()
+                    print("No retweets found or error occurred")
+                
+                # Create a new page for social data (followers/following)
+                social_page = await context.new_page()
+                social_page.set_default_timeout(30000)
+                
+                # Get followers first
+                print(f"\nFetching followers for @{username}...")
+                followers = await scrape_followers(social_page, username)
+                if followers:
+                    result["followers"] = followers
+                    print(f"Found {len(followers)} followers")
+                else:
+                    print("No followers found or error occurred")
+                
+                # Small delay between operations
+                await asyncio.sleep(2)
+                
+                # Get following
+                print(f"\nFetching following for @{username}...")
+                following = await scrape_following(social_page, username)
+                if following:
+                    result["following"] = following
+                    print(f"Found {len(following)} following")
+                else:
+                    print("No following found or error occurred")
+                
+                await social_page.close()
+                
+                # Scraping completed
+                print("\nScraping completed successfully!")
                 
             except Exception as e:
-                logger.error(f"❌ Error during scraping: {str(e)}")
+                print(f"Error during scraping: {str(e)}")
             finally:
+                print("\nClosing browser...")
                 await browser.close()
-                logger.info("🔄 Browser closed")
                     
     except Exception as e:
-        logger.error(f"❌ Critical error in scraping: {str(e)}")
+        print(f"Critical error: {str(e)}")
     
-    # Calculate total time
-    total_time = time.time() - start_time
-    logger.info(f"🏁 Scraping complete in {total_time:.2f} seconds")
-    
-    # Save result as JSON file (optional, can be disabled)
+    # --- Save result as JSON file in scraped_profiles directory ---
     try:
         scraped_profiles_dir = os.path.join(os.path.dirname(__file__), '..', 'scraped_profiles')
         os.makedirs(scraped_profiles_dir, exist_ok=True)
         json_path = os.path.join(scraped_profiles_dir, f"{username}.json")
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, indent=2)
-        logger.info(f"💾 Results saved to: {json_path}")
+        print(f"Scraped profile saved to {json_path}")
     except Exception as e:
-        logger.error(f"❌ Error saving results: {str(e)}")
+        print(f"Error saving scraped profile: {str(e)}")
+    # --- End save ---
     
     return result

@@ -6,7 +6,7 @@ import time
 from playwright.sync_api import sync_playwright
 
 # Define the paths
-PROFILE_DIR = os.path.join(os.path.dirname(__file__), "playwright_profile")
+PROFILE_DIR = "/root/back/playwright_profile"
 COOKIES_FILE = os.path.join(os.path.dirname(__file__), "app", "twitter_cookies.json")
 
 def save_cookies(context):

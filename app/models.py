@@ -8,9 +8,6 @@ class UserProfile(BaseModel):
 class Tweet(BaseModel):
     tweet_content: str
     tweet_screenshot: str
-    tweet_id: Optional[str] = None
-    quoted_content: Optional[str] = None
-    quoted_username: Optional[str] = None
 
 class Retweet(BaseModel):
     retweet_content: str
@@ -36,8 +33,8 @@ class Following(BaseModel):
 
 class TwitterScrapeResponse(BaseModel):
     user_profile: UserProfile
-    tweets: Optional[List[Tweet]] = []
-    retweets: Optional[List[Retweet]] = []
+    tweets: List[Tweet]
+    retweets: List[Retweet]
     likes: Optional[List[Like]] = []
     following: Optional[List[Following]] = []
-    followers: Optional[List[Follower]] = []
+    followers: Optional[List[Follower]] = [] 
