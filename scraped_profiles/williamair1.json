@@ -5,6 +5,10 @@
   },
   "following": [
     {
+      "following_name": "MySutradhar",
+      "following_bio": "सूत्रधार एक प्रयास है हमारे जन सामान्य को कथाओं के माध्यम से हमारी महान संस्कृति से अवगत कराने का।"
+    },
+    {
       "following_name": "AlexandrePesant",
       "following_bio": "Software that builds software \n@lovable_dev"
     },
@@ -66,7 +70,7 @@
     },
     {
       "following_name": "Kissmetrics",
-      "following_bio": "Simple analytics that track human behavior to increase revenue"
+      "following_bio": "Track. Understand. Act. It's time to grow your revenue @ http://kissmetrics.io"
     },
     {
       "following_name": "VWO",
@@ -94,7 +98,7 @@
     },
     {
       "following_name": "nileshtrivedi",
-      "following_bio": "Building AIs at http://snowmountain.ai I love machines, math & music. Ex- \n@meta\n \n@foresightinst\n \n@clearFromCT\n \n@gupshup\n \n@iiml\n \n@iitkgp\n  http://isfixable.com"
+      "following_bio": "Building AIs at http://snowmountain.ai I love machines, math & music. \n@lossfunk\n \n@meta\n \n@foresightinst\n \n@clearFromCT\n \n@iiml\n \n@iitkgp\n  http://isfixable.com"
     },
     {
       "following_name": "DheerajSanghi",
@@ -118,7 +122,7 @@
     },
     {
       "following_name": "Dhavalsingh7",
-      "following_bio": "Talks about Backend/AI engineering | prev: Founding Engineer @ Seezo | Bits Pilani"
+      "following_bio": "All about AI and AI products | prev: Founding Engineer @ Seezo | Bits Pilani"
     },
     {
       "following_name": "karpathy",
@@ -127,18 +131,6 @@
     {
       "following_name": "vkhosla",
       "following_bio": "entrepreneurship zealot, grounded technology possibilist, believer in the power of ideas, passionate about sustainability & impact"
-    },
-    {
-      "following_name": "1QA1wospzm",
-      "following_bio": "Living off caffeine and dreams. Rails developer, startup founder. https://saasmarketinggym.com https://simplefileupload.com (and others...)"
-    },
-    {
-      "following_name": "O7OF35zLdF",
-      "following_bio": "Victor Shepelev aka zverok, rubyist and writer.  Armed Forces since 2023. https://7uapoems.substack.com https://war.ukraine.ua"
-    },
-    {
-      "following_name": "EurekaLabsAI",
-      "following_bio": "Building \n@EurekaLabsAI\n. Previously Director of AI @ Tesla, founding team @ OpenAI, CS231n/PhD @ Stanford. I like to train large deep neural nets"
     },
     {
       "following_name": "rohlamba",
@@ -207,134 +199,6 @@
     {
       "following_name": "Deaniocom",
       "following_bio": "Software Configuration Manager | Deanin on YouTube | Building http://Deanout.com | My opinions are my own and do not reflect my employer"
-    },
-    {
-      "following_name": "itsameandrea",
-      "following_bio": "CTO \n@wellioeducation\n Building:  https://tryfoundermode.com  https://guestlab.ai"
-    },
-    {
-      "following_name": "bradgessler",
-      "following_bio": "Co-founded & bootstrapped \n@polleverywhere\n to $10m+ ARR. Seeing if I can do it again \n@rocketshipio\n with http://beautifulruby.com."
-    },
-    {
-      "following_name": "J2RGmLiuJl",
-      "following_bio": "Living off caffeine and dreams. Rails developer, startup founder. https://saasmarketinggym.com https://simplefileupload.com (and others...)"
-    },
-    {
-      "following_name": "vXoC6IwkiV",
-      "following_bio": "Victor Shepelev aka zverok, rubyist and writer.  Armed Forces since 2023. https://7uapoems.substack.com https://war.ukraine.ua"
-    },
-    {
-      "following_name": "9PbnEWA4sW",
-      "following_bio": "indie Rails sculptor: https://railsreviews.com,  software/music composer, building https://mycrowsnest.app, https://bio.link/julianrubisch"
-    },
-    {
-      "following_name": "ShopifyEng",
-      "following_bio": "Rails core, Ruby committer, Senior Staff Engineer on \n@ShopifyEng\n's Ruby and Rails infrastructure team. Bsky: http://byroot.bsky.social Mastodon: @byroot@ruby.social"
-    },
-    {
-      "following_name": "3G3n0iVnIn",
-      "following_bio": "Building http://arrows.to  Ruby on Rails tips  https://yagni.fm/episodes  All killer, no filler  Karl Pilkington is my spirit animal"
-    },
-    {
-      "following_name": "EvilMartians",
-      "following_bio": "Building web products and dev tools with \n@EvilMartians\n  Powering up real-time web apps with \n@any_cable"
-    },
-    {
-      "following_name": "eIzQ9vh48x",
-      "following_bio": ": https://railsnotes.xyz : https://tailcolors.com : https://attendlist.com : https://harrisonbroadbent.com/blog"
-    },
-    {
-      "following_name": "plume_app",
-      "following_bio": "CTO \n@plume_app\n : Ruby on Rails, JS, OSS contributor: http://github.com/stimulus-use/stimulus-use… & http://rubyvideo.dev"
-    },
-    {
-      "following_name": "KFZq7sIzce",
-      "following_bio": "Senior Engineer @ Podia Not from Oklahoma Podcast: http://podcast.drbragg.dev Mastodon: http://ruby.social/@DRBragg (Basically DRBragg on most things)"
-    },
-    {
-      "following_name": "IUN7g9XvrV",
-      "following_bio": "http://youtube.com/@SupeRails/  http://blog.superails.com  http://friendly.show"
-    },
-    {
-      "following_name": "dBouUNInpH",
-      "following_bio": "Software Configuration Manager | Deanin on YouTube | Building http://Deanout.com | My opinions are my own and do not reflect my employer"
-    },
-    {
-      "following_name": "wellioeducation",
-      "following_bio": "CTO \n@wellioeducation\n Building:  https://tryfoundermode.com  https://guestlab.ai"
-    },
-    {
-      "following_name": "polleverywhere",
-      "following_bio": "Co-founded & bootstrapped \n@polleverywhere\n to $10m+ ARR. Seeing if I can do it again \n@rocketshipio\n with http://beautifulruby.com."
-    },
-    {
-      "following_name": "VYpE8NXWso",
-      "following_bio": "indie Rails sculptor: https://railsreviews.com,  software/music composer, building https://mycrowsnest.app, https://bio.link/julianrubisch"
-    },
-    {
-      "following_name": "05cdHJkcO4",
-      "following_bio": "Rails core, Ruby committer, Senior Staff Engineer on \n@ShopifyEng\n's Ruby and Rails infrastructure team. Bsky: http://byroot.bsky.social Mastodon: @byroot@ruby.social"
-    },
-    {
-      "following_name": "MMIvlQpzwD",
-      "following_bio": "Building http://arrows.to  Ruby on Rails tips  https://yagni.fm/episodes  All killer, no filler  Karl Pilkington is my spirit animal"
-    },
-    {
-      "following_name": "any_cable",
-      "following_bio": "Building web products and dev tools with \n@EvilMartians\n  Powering up real-time web apps with \n@any_cable"
-    },
-    {
-      "following_name": "V3SINeg8Ko",
-      "following_bio": ": https://railsnotes.xyz : https://tailcolors.com : https://attendlist.com : https://harrisonbroadbent.com/blog"
-    },
-    {
-      "following_name": "PLdh0PNbOb",
-      "following_bio": "CTO \n@plume_app\n : Ruby on Rails, JS, OSS contributor: http://github.com/stimulus-use/stimulus-use… & http://rubyvideo.dev"
-    },
-    {
-      "following_name": "9rSkdCp751",
-      "following_bio": "Senior Engineer @ Podia Not from Oklahoma Podcast: http://podcast.drbragg.dev Mastodon: http://ruby.social/@DRBragg (Basically DRBragg on most things)"
-    },
-    {
-      "following_name": "9K97Bt101n",
-      "following_bio": "http://youtube.com/@SupeRails/  http://blog.superails.com  http://friendly.show"
-    },
-    {
-      "following_name": "bt8qb07NDb",
-      "following_bio": "CTO \n@wellioeducation\n Building:  https://tryfoundermode.com  https://guestlab.ai"
-    },
-    {
-      "following_name": "rocketshipio",
-      "following_bio": "Co-founded & bootstrapped \n@polleverywhere\n to $10m+ ARR. Seeing if I can do it again \n@rocketshipio\n with http://beautifulruby.com."
-    },
-    {
-      "following_name": "up6KvuO755",
-      "following_bio": "indie Rails sculptor: https://railsreviews.com,  software/music composer, building https://mycrowsnest.app, https://bio.link/julianrubisch"
-    },
-    {
-      "following_name": "yD8hJStBGx",
-      "following_bio": ": https://railsnotes.xyz : https://tailcolors.com : https://attendlist.com : https://harrisonbroadbent.com/blog"
-    },
-    {
-      "following_name": "Mp8Xahc8YX",
-      "following_bio": "CTO \n@plume_app\n : Ruby on Rails, JS, OSS contributor: http://github.com/stimulus-use/stimulus-use… & http://rubyvideo.dev"
-    },
-    {
-      "following_name": "u5jSOCs7yK",
-      "following_bio": "http://youtube.com/@SupeRails/  http://blog.superails.com  http://friendly.show"
-    },
-    {
-      "following_name": "9N12Ak8nYZ",
-      "following_bio": "CTO \n@wellioeducation\n Building:  https://tryfoundermode.com  https://guestlab.ai"
-    },
-    {
-      "following_name": "WBIBhpfEWh",
-      "following_bio": "Co-founded & bootstrapped \n@polleverywhere\n to $10m+ ARR. Seeing if I can do it again \n@rocketshipio\n with http://beautifulruby.com."
-    },
-    {
-      "following_name": "bs32WfkTik",
-      "following_bio": ": https://railsnotes.xyz : https://tailcolors.com : https://attendlist.com : https://harrisonbroadbent.com/blog"
     }
   ],
   "followers": [
@@ -380,7 +244,7 @@
     },
     {
       "follower_name": "nileshtrivedi",
-      "follower_bio": "Building AIs at http://snowmountain.ai I love machines, math & music. Ex- \n@meta\n \n@foresightinst\n \n@clearFromCT\n \n@gupshup\n \n@iiml\n \n@iitkgp\n  http://isfixable.com"
+      "follower_bio": "Building AIs at http://snowmountain.ai I love machines, math & music. \n@lossfunk\n \n@meta\n \n@foresightinst\n \n@clearFromCT\n \n@iiml\n \n@iitkgp\n  http://isfixable.com"
     },
     {
       "follower_name": "DheerajSanghi",
@@ -491,14 +355,6 @@
       "follower_bio": "good think take time"
     },
     {
-      "follower_name": "StateIVLP",
-      "follower_bio": "Public Policy; Growth Economy & Inclusion. Work:Moneycontrol; HT-Mint; IANS. Ravenshaw,IIM Calcutta & \n@StateIVLP\n alumnus. Dravid, Nadal fan.Views are personal!"
-    },
-    {
-      "follower_name": "possiblefinance",
-      "follower_bio": "If robots come alive, will their living be any different from ours? ML/Data Science \n@possiblefinance\n | Previously \n@axon_us\n AI, \n@dextro_co\n, \n@microsoft"
-    },
-    {
       "follower_name": "tweet_incognito",
       "follower_bio": "INDIAN."
     },
@@ -545,744 +401,412 @@
     {
       "follower_name": "SekharSinguluri",
       "follower_bio": ""
-    },
-    {
-      "follower_name": "axon_us",
-      "follower_bio": "If robots come alive, will their living be any different from ours? ML/Data Science \n@possiblefinance\n | Previously \n@axon_us\n AI, \n@dextro_co\n, \n@microsoft"
-    },
-    {
-      "follower_name": "iJiabUA28f",
-      "follower_bio": "Recursively building web3 x AI products at http://recursive.so | Educator at \n@dblocked\n | ex \n@getpostman"
-    },
-    {
-      "follower_name": "UdZ4Xbqycz",
-      "follower_bio": "Sr Data Scientist | Deep Learning Chapter Lead | Educator. Learning and teaching LLM apps building. https://youtube.com/@ArunPrakashAI"
-    },
-    {
-      "follower_name": "dextro_co",
-      "follower_bio": "If robots come alive, will their living be any different from ours? ML/Data Science \n@possiblefinance\n | Previously \n@axon_us\n AI, \n@dextro_co\n, \n@microsoft"
-    },
-    {
-      "follower_name": "dblocked",
-      "follower_bio": "Recursively building web3 x AI products at http://recursive.so | Educator at \n@dblocked\n | ex \n@getpostman"
-    },
-    {
-      "follower_name": "microsoft",
-      "follower_bio": "If robots come alive, will their living be any different from ours? ML/Data Science \n@possiblefinance\n | Previously \n@axon_us\n AI, \n@dextro_co\n, \n@microsoft"
-    },
-    {
-      "follower_name": "getpostman",
-      "follower_bio": "Recursively building web3 x AI products at http://recursive.so | Educator at \n@dblocked\n | ex \n@getpostman"
     }
   ],
   "tweets": [
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJun 4\nWe have another opportunity to extend the relationship on the debt side of things \n@amanjn24\n . We will always accept equity checks as well. \nAnd thanks to both of you for the support, and to Ravi for the mail when we should have communicated better :)\nQuote\nSanchit Malik\n@maliksanchit\n·\nJun 4\nReplying to @ravihanda and @Gyan_Dhan\nPlease don’t forget to give credit to ppl who recommended the deal to you\n1\n73",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_1.png"
+      "tweet_content": "We have another opportunity to extend the relationship on the debt side of things \n@amanjn24\n . We will always accept equity checks as well. \nAnd thanks to both of you for the support, and to Ravi for the mail when we should have communicated better :) Please don’t forget to give credit to ppl who recommended the deal to you",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_1_1752676503.png"
     },
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nDec 12, 2024\nThat final game shows grit and the power in fighting till the last pawn (or two in this case)\nQuote\nChess.com\n@chesscom\n·\nDec 12, 2024\nCONGRATULATIONS TO GUKESH, THE NEW WORLD CHAMPION \n\nThe 18-year-old Indian star has defeated the reigning champion, Ding Liren, to become the youngest-ever undisputed classical chess world champion. Wow! \n1\n1\n90",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_2.png"
+      "tweet_content": "That final game shows grit and the power in fighting till the last pawn (or two in this case) CONGRATULATIONS TO GUKESH, THE NEW WORLD CHAMPION \n\nThe 18-year-old Indian star has defeated the reigning champion, Ding Liren, to become the youngest-ever undisputed classical chess world champion. Wow!",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_2_1752676503.png"
     },
     {
       "tweet_content": "One has to love Ding for his performance over 14 games, he seemed like a nervous wreck but always pulled through",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_3.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_3_1752676504.png"
     },
     {
       "tweet_content": "Legends never die #RIPRatanTata",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_4.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_4_1752676504.png"
     },
     {
       "tweet_content": "Andhra mess and Juice Junction : 2 reasons to love Bengaluru",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_5.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_5_1752676505.png"
     },
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJul 17, 2024\nI'm sure they will oppose anti-immigration 'reforms' in other countries. Better yet, might be worth seeking comments from their comrades in other states\nQuote\nTimes Algebra\n@TimesAlgebraIND\n·\nJul 17, 2024\nBIG NEWS  Karnataka cabinet approves 50% reservation for locals in management jobs & 75% reservation in non-management categories.\n\nThis bill covers entire private sectors, including the IT sector\n\nViolating the bill will incur a penalty of up to Rs 25,000.\n\nCabinet has also\nShow more\n1\n90",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_6.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJan 3, 2024\nNDA/UPA/XYZ I wish that due emphasis is placed on solving primary education. Equality of opportunity should be the focus rather than appeasement or targeting some acronym in the name of equality, but that requires a lot of work to be done at the grassroot levels\nQuote\nAnant Sudarshan\n@anantsudarshan\n·\nJan 3, 2024\nThis is not an NDA vs UPA post. But as India approaches elections, there’s a lot of chatter about how the current govt is doing well because they are spending more on infrastructure. Capex is up. Is this the best way of looking at performance? (1/6)\n126",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_7.png"
-    },
-    {
-      "tweet_content": "One has to love Ding for his performance over 14 games, he seemed like a nervous wreck but always pulled through",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_8.png"
+      "tweet_content": "I'm sure they will oppose anti-immigration 'reforms' in other countries. Better yet, might be worth seeking comments from their comrades in other states BIG NEWS  Karnataka cabinet approves 50% reservation for locals in management jobs & 75% reservation in non-management categories.\n\nThis bill covers entire private sectors, including the IT sector\n\nViolating the bill will incur a penalty of up to Rs 25,000.\n\nCabinet has also",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_6_1752676505.png"
     },
     {
       "tweet_content": "Are there any \n@rails\n meetup groups in Delhi NCR? Would be great to join one or host one if there is sufficient interest at \n@Gyan_Dhan\n office",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_9.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_7_1752676510.png"
+    },
+    {
+      "tweet_content": "NDA/UPA/XYZ I wish that due emphasis is placed on solving primary education. Equality of opportunity should be the focus rather than appeasement or targeting some acronym in the name of equality, but that requires a lot of work to be done at the grassroot levels This is not an NDA vs UPA post. But as India approaches elections, there’s a lot of chatter about how the current govt is doing well because they are spending more on infrastructure. Capex is up. Is this the best way of looking at performance? (1/6)",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_8_1752676512.png"
     },
     {
       "tweet_content": "Check out my latest article: Predictions for 2024 https://linkedin.com/pulse/predictions-2024-ankit-mehra-hdybc… via \n@LinkedIn",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_10.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_9_1752676512.png"
+    },
+    {
+      "tweet_content": "Lovely ad. Hope we can have a similar representation \n@Gyan_Dhan What an Ad by Mahindra! Tells us a lot about ourselves! \n@anandmahindra \n@MahindraRise",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_10_1752676512.png"
+    },
+    {
+      "tweet_content": "https://kamal-deploy.org Kamaal ki cheez hai",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_11_1752676513.png"
+    },
+    {
+      "tweet_content": "Will the TER for the \n@ZerodhaAMC\n funds be determined at a later stage post closure of the NFO? Confused as the document states up to 1% but if it settles at that number, it sounds too high compared to other fund offering similar product at 0.5%.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_12_1752676522.png"
+    },
+    {
+      "tweet_content": "Schrödinger's contract and the Salt Bae of companies... John Oliver",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_13_1752676522.png"
+    },
+    {
+      "tweet_content": "Curious to see details as this might be huge in terms of RBI's stance on fintechs taking on the traditional players Fintech unicorn Slice to merge with North East Small Finance Bank\n\n @upadhyay_harsh1 https://entrackr.com/2023/10/fintech-unicorn-slice-to-merge-with-north-east-small-finance-bank/…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_14_1752676522.png"
     },
     {
       "tweet_content": "If you are interested in building on Hotwire + Rails7, and GyanDhan's mission of equalizing and expanding access to higher education excites you ping me with the Github link to any personal project you might have worked on.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_11.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_15_1752676524.png"
     },
     {
-      "tweet_content": "गुरु गोविन्द दोऊ खड़े , काके लागू पाय |बलिहारी गुरु आपने , गोविन्द दियो बताय || \nTo all the teachers, including\nFr. Varghese: For instilling competitive spirit, building confidence, forcing to think big and so much more\nAlok Sir: BASIC + LOGO\nLalit Sir: F…https://lnkd.in/dcJ925Yx",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_12.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nOct 4, 2023\nCurious to see details as this might be huge in terms of RBI's stance on fintechs taking on the traditional players\nQuote\nEntrackr\n@entrackr\n·\nOct 4, 2023\nFintech unicorn Slice to merge with North East Small Finance Bank\n\n @upadhyay_harsh1 https://entrackr.com/2023/10/fintech-unicorn-slice-to-merge-with-north-east-small-finance-bank/…\n117",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_13.png"
-    },
-    {
-      "tweet_content": "For a solo / 2-3 member dev team, when will using #hotwire (Turbo+Stimulus) not make sense. Everything makes sense to me but kinda wondering if I have drunk the koolaid and not seeing something obvious. #rails",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_14.png"
-    },
-    {
-      "tweet_content": "Math is not a bunch of disjoint subjects. Math is one big whole. Terence Tao explains this with a good analogy:",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_15.png"
-    },
-    {
-      "tweet_content": "30 day coding camp --> 6m coding camp --> 4 yr offering with 'latest trends'. Edtechs are yet to address what is broken with college education, some have figured out what will get the next round of funding.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_16.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJun 21, 2023\nBut microservices sounds investor friendly, just like AI (rather than saying I have a n variable logistic regression that works)\nQuote\nDHH\n@dhh\n·\nJun 21, 2023\nIf you're unable to create a majestic monolith with basic programming tools like encapsulation and namespaces, you don't have what it takes to improve upon the situation with a distributed swarm of microservices. Your spaghetti code will just be on five different plates.\n98",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_17.png"
-    },
-    {
-      "tweet_content": "Execution is the one true moat and it gives a high unlike anything else (I reserve judgment on the latter half in case I realize the fundraising high is more powerful :D)",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_18.png"
-    },
-    {
-      "tweet_content": "'a compensation mechanism for delayed updation/rectification of credit information reports' \nRBI doing what RBI does best:  Taking care of the customer. I have seen this problem and felt frustrated when bureaus had no TAT for rectifying errors.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_19.png"
-    },
-    {
-      "tweet_content": "Finally getting my hands dirty with Rails 7. Any tips for migrating a legacy code (Rails 4.2 pre webpack) to a newer version. Also what would be the top 2-3 reasons to not switch to Rails 7",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_20.png"
-    },
-    {
-      "tweet_content": "There are days when you want to forget business metrics and lock yourself in a room and read + code",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_21.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nFeb 19, 2023\n#impact\nQuote\nDakshana Foundation\n@DakshanaIndia\n·\nFeb 18, 2023\nAlum Spotlight: Ms. Greeshma Balabhadra. The little engine that could! Greeshma was a @DakshanaIndia scholar from 2010-12. She loved maths and graduated from @IITGuwahati with a http://B.Tech in Math+Computing in 2016 and was recruited by @GoldmanSachs as an Analyst ...\n64",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_22.png"
-    },
-    {
-      "tweet_content": "'One-off tax on unrealized gains' - The problem with analysis for the sake of analysis / coming out with meaningless reports https://ndtv.com/india-news/indias-richest-1-own-more-than-40-of-countrys-total-wealth-report-3695407… via \n@ndtv",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_23.png"
-    },
-    {
-      "tweet_content": "Padho Pardesh scheme discontinued by MoMA #studentloans #studyabroad",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_24.png"
-    },
-    {
-      "tweet_content": "Mbappe vs Messi",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_25.png"
-    },
-    {
-      "tweet_content": "They call it a beautiful game. It can be cruel as well. Fitting finale to the international career of the magician.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_26.png"
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "755957440",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "974268987",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "737480722",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "357423236",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "tweet_content": "Messi quashing any doubts about his  status",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_31.png"
-    },
-    {
-      "tweet_content": "Aman Jain #Kudos Thanks for being so awesome! #MakingWorkFun \n7 years, looking forward to the next 7 and more. #5star stay https://lnkd.in/dEvvc6XZ",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_32.png"
-    },
-    {
-      "tweet_content": "Now a long-term investor in UBS :D",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_33.png"
-    },
-    {
-      "tweet_content": "गुरु गोविन्द दोऊ खड़े , काके लागू पाय |बलिहारी गुरु आपने , गोविन्द दियो बताय || \nTo all the teachers, including\nFr. Varghese: For instilling competitive spirit, building confidence, forcing to think big and so much more\nAlok Sir: BASIC + LOGO\nLalit Sir: F…https://lnkd.in/dcJ925Yx",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_34.png"
-    },
-    {
-      "tweet_content": "Going to use this article the next time someone is going to throw meaningless jargon at me to show off their tech prowess.\n https://primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_35.png"
-    },
-    {
-      "tweet_content": "Now a long-term investor in UBS :D",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_36.png"
-    },
-    {
-      "tweet_content": "Waiting for \n@fintechjunkie\n's next thread. Browsing Twitter the past 4 days was neither fun nor enlightening.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_37.png"
-    },
-    {
-      "tweet_content": "It is only later that you can 'connect the dots'. There is a purity in that reading / coding session that is unmatched",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_38.png"
-    },
-    {
-      "tweet_content": "'The devil can cite Scripture for his purpose. \nAn evil soul producing holy witness\nIs like a villain with a smiling cheek,\nA goodly apple rotten at the heart.\nO, what a goodly outside falsehood hath!' https://x.com/matthuang/stat/matthuang/status/1588621495072616448…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_39.png"
-    },
-    {
-      "tweet_content": "Will Delhi schools accept the offer of revamping their websites to be functional meaningful enough for admission consideration under the Management Quota #Delhi #SchoolAdmissionOpen",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_40.png"
-    },
-    {
-      "tweet_content": "Waiting for \n@fintechjunkie\n's next thread. Browsing Twitter the past 4 days was neither fun nor enlightening.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_41.png"
-    },
-    {
-      "tweet_content": "You don't want to go to stackoverflow to make a code work but read stuff up, try things and marvel at the beauty of it all",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_42.png"
-    },
-    {
-      "tweet_content": "If you are a #frontenddeveloper (#fullstackwebdeveloper what's in a name) and a slow loading website irritates the hell out of you ping me for a role at GyanDhan. Also open to talking to freelancers",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_43.png"
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "1610540977110016000",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "444288189",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "577687141",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "tweet_content": "Winning 2 TIs is crazy, but the real achievement has been the way \n@OGesports\n and \n@OG_BDN0tail\n have gone about building an institution, a case study for B-schools in the future.  https://youtu.be/vYmteS0T6S4",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_47.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nSep 19, 2022\nWow\nQuote\nchess24\n@chess24com\n·\nSep 19, 2022\nIt looks like Magnus simply resigned on move 2 vs. Hans! https://chess24.com/en/watch/live-tournaments/meltwater-champions-chess-tour-julius-baer-generation-cup-2022-prelims/6/1/3…\n#c24live #ChessChamps #JuliusBaerGenerationCup",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_48.png"
-    },
-    {
-      "tweet_content": "'The devil can cite Scripture for his purpose. \nAn evil soul producing holy witness\nIs like a villain with a smiling cheek,\nA goodly apple rotten at the heart.\nO, what a goodly outside falsehood hath!' https://x.com/matthuang/stat/matthuang/status/1588621495072616448…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_49.png"
-    },
-    {
-      "tweet_content": "Winter produce \n@Gyan_Dhan\n . We are not diversifying... As yet",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_50.png"
-    },
-    {
-      "tweet_content": "Outperforming Nifty50 at a different scale. Key to this success... Buying Yes Bank in the ICICI portfolio and taking a snapshot on a suitable day. Do not share your other demat account details.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_51.png"
-    },
-    {
-      "tweet_content": "Mbappe vs Messi",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_52.png"
-    },
-    {
-      "tweet_content": "Mbappe vs Messi",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_53.png"
+      "tweet_content": "I asked \n@TCS\n CEO Rajesh Gopinathan on his advice for a 19 yo/20 yo starting a job\n\"It is imp to choose some area and stay with it for some time, and not declare yourself an expert too fast and move on. It's only with time that you understand the nuances\"",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_16_1752676526.png"
     },
     {
       "tweet_content": "DOTA2 >> LoL . Hard to imagine anyone playing DOTA while attending an investor meeting, ignore the herald players",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_54.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_17_1752676527.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "686798777",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
+      "tweet_content": "Messi quashing any doubts about his  status",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_18_1752677073.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "624513603",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
+      "tweet_content": "Execution is the one true moat and it gives a high unlike anything else (I reserve judgment on the latter half in case I realize the fundraising high is more powerful :D)",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_19_1752677075.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "907685348",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
+      "tweet_content": "गुरु गोविन्द दोऊ खड़े , काके लागू पाय |बलिहारी गुरु आपने , गोविन्द दियो बताय || \nTo all the teachers, including\nFr. Varghese: For instilling competitive spirit, building confidence, forcing to think big and so much more\nAlok Sir: BASIC + LOGO\nLalit Sir: F…https://lnkd.in/dcJ925Yx",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_20_1752677076.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "38473972",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
+      "tweet_content": "Google is either going to launch a paid service to bypass Google reCAPTCHA or someone at Google is promoting Bing usage",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_21_1752677076.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "860192544",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
+      "tweet_content": "30 day coding camp --> 6m coding camp --> 4 yr offering with 'latest trends'. Edtechs are yet to address what is broken with college education, some have figured out what will get the next round of funding.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_22_1752677077.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "606707719",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
+      "tweet_content": "But microservices sounds investor friendly, just like AI (rather than saying I have a n variable logistic regression that works) If you're unable to create a majestic monolith with basic programming tools like encapsulation and namespaces, you don't have what it takes to improve upon the situation with a distributed swarm of microservices. Your spaghetti code will just be on five different plates.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_23_1752677078.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "944356986",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
+      "tweet_content": "'a compensation mechanism for delayed updation/rectification of credit information reports' \nRBI doing what RBI does best:  Taking care of the customer. I have seen this problem and felt frustrated when bureaus had no TAT for rectifying errors.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_24_1752677079.png"
     },
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nApr 22, 2022\nIs it the air I'm breathing now?\nQuote\nPaul Novosad\n@paulnovosad\n·\nApr 21, 2022\nI hope the staff at @OpenAI are checking their server logs carefully.\n1",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_62.png"
+      "tweet_content": "There are days when you want to forget business metrics and lock yourself in a room and read + code",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_25_1752677079.png"
     },
     {
-      "tweet_content": "This version of Seinfeld is also enjoyable https://x.com/DennisCode/sta/DennisCode/status/1560079800252764163…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_63.png"
+      "tweet_content": "Did BCG recommend this?",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_26_1752677080.png"
     },
     {
-      "tweet_content": "Rafa might be the GOAT, but Roger's elegance was unmatched.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_64.png"
+      "tweet_content": "Sales agent pleads for a business bank account. Once open, charge a debit card issuance fees and then start charging min balance fees every month because the debit card fee took the balance lower. The executives won't close the bank account. Smart business model \n@IDFCFIRSTBank",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_27_1752677084.png"
     },
     {
-      "tweet_content": "Definitely consider Ditto Insurance for your insurance requirements. I recently booked an appointment to discuss an insurance plan. The call was one of the best discussions I have had with a financial services firm (I can only think of AmEx as a compariso…https://lnkd.in/dc9-MBZe",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_65.png"
+      "tweet_content": "Pretty sure \n@cars24india\n has a sequential/ random dialer of sorts. I have never had a car but keep getting calls asking for my interest in selling a car",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_28_1752677086.png"
     },
     {
-      "tweet_content": "Rafa might be the GOAT, but Roger's elegance was unmatched.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_66.png"
+      "tweet_content": "Messi quashing any doubts about his  status",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_29_1752677087.png"
     },
     {
-      "tweet_content": "@IDFCFIRSTBank\n nothing has improved. The only thing that has changed is your team reversed the charges, pleaded to retain the account and then again levied charges",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_67.png"
+      "tweet_content": "Waiting for \n@fintechjunkie\n's next thread. Browsing Twitter the past 4 days was neither fun nor enlightening.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_30_1752677089.png"
     },
     {
-      "tweet_content": "'Another brick in the Wall Street' ... that heading\nhttps://ft.com/content/f307aa8b-b91b-4eec-a46a-3031f160c3c0…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_68.png"
+      "tweet_content": "Finally getting my hands dirty with Rails 7. Any tips for migrating a legacy code (Rails 4.2 pre webpack) to a newer version. Also what would be the top 2-3 reasons to not switch to Rails 7",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_31_1752677089.png"
     },
     {
-      "tweet_content": "I do hope the forget data is a plug that can allow the organisation to suppress info and not delete it. Otherwise there might be potential conflicts with audits down the line",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_69.png"
+      "tweet_content": "It is only later that you can 'connect the dots'. There is a purity in that reading / coding session that is unmatched",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_32_1752677090.png"
     },
     {
-      "tweet_content": "I have read x words of wisdom from y. You should too, it helps.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_70.png"
+      "tweet_content": "Mamaearth hasn't paid influencers, or at worse has offended them it seems. It is funnier seeing startup founders / some investors question Mamaearth's valuation. Bhai aapki funding/secondary sale discussions nahi chal rahi hain kya aajkal.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_33_1752677091.png"
+    },
+    {
+      "tweet_content": "Mbappe vs Messi",
+      "tweet_screenshot": ""
+    },
+    {
+      "tweet_content": "Wow It looks like Magnus simply resigned on move 2 vs. Hans! https://chess24.com/en/watch/live-tournaments/meltwater-champions-chess-tour-julius-baer-generation-cup-2022-prelims/6/1/3…\n#c24live #ChessChamps #JuliusBaerGenerationCup",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_35_1752677368.png"
+    },
+    {
+      "tweet_content": "They call it a beautiful game. It can be cruel as well. Fitting finale to the international career of the magician.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_36_1752677370.png"
+    },
+    {
+      "tweet_content": "They call it a beautiful game. It can be cruel as well. Fitting finale to the international career of the magician.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_37_1752677371.png"
+    },
+    {
+      "tweet_content": "Is it the air I'm breathing now? I hope the staff at @OpenAI are checking their server logs carefully.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_38_1752677978.png"
     },
     {
       "tweet_content": "Co-applicant ITRs are required by Indian lenders for education loan approvals. Yet another reason why you should file your returns rather than finding out ways to not file a return",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_71.png"
-    },
-    {
-      "tweet_content": "Waiting for BS++\nhttps://thenewstack.io/comical-coder-envisions-the-worst-programming-language-ever/…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_72.png"
-    },
-    {
-      "tweet_content": "One service provider (infinitely better than a unicorn) that I repeatedly recommend to all who want to build a digital journey. Extremely helpful set of guys http://Digio.in https://lnkd.in/dKV8JnGH",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_73.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_39_1752677980.png"
     },
     {
       "tweet_content": "We should teach kids about the power of compounding. Kids managing their savings accounts / FDs , and having a personal diary to track expenses, can work wonders. Not sure if we need to teach them about speculation (bitcoins) at that stage, much less put…https://lnkd.in/gZi9jWCx",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_74.png"
-    },
-    {
-      "tweet_content": "I do hope the forget data is a plug that can allow the organisation to suppress info and not delete it. Otherwise there might be potential conflicts with audits down the line",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_75.png"
-    },
-    {
-      "tweet_content": "'Another brick in the Wall Street' ... that heading\nhttps://ft.com/content/f307aa8b-b91b-4eec-a46a-3031f160c3c0…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_76.png"
-    },
-    {
-      "tweet_content": "The lending guidelines reaffirm my belief in the #RBI. It is one regulator that has been a catalyst for sustainable growth and fosters innovation and criticism of the RBI has mostly been a case of sour grapes.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_77.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_40_1752677980.png"
     },
     {
       "tweet_content": "Prohibition of automatic limit increases and focus on privacy (get explicit consent and option to forget the data) again highlights the intent of the regulator",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_78.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_41_1752677982.png"
     },
     {
-      "tweet_content": "I do hope the forget data is a plug that can allow the organisation to suppress info and not delete it. Otherwise there might be potential conflicts with audits down the line",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_79.png"
+      "tweet_content": "Sales agent pleads for a business bank account. Once open, charge a debit card issuance fees and then start charging min balance fees every month because the debit card fee took the balance lower. The executives won't close the bank account. Smart business model \n@IDFCFIRSTBank",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_42_1752677983.png"
     },
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJun 25, 2022\nAnother hidden feature. Aga Lavan Majboori Nu\nQuote\nThe Paperclip\n@Paperclip_In\n·\nJun 25, 2022\nWhile the Coke Studio creation Pasoori is breaking boundaries and winning hearts, the ravishing Bharatanatyam Dancer tells a fascinating story of defying dictatorship. A thread on dance and dissent. 1/17\n4",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_80.png"
+      "tweet_content": "@IDFCFIRSTBank\n nothing has improved. The only thing that has changed is your team reversed the charges, pleaded to retain the account and then again levied charges",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_43_1752677983.png"
     },
     {
-      "tweet_content": "https://linkedin.com/feed/update/urn:li:ugcPost:6945807800941821952?utm_source=linkedin_share&utm_medium=member_desktop_twitter_share&utm_content=post… \nConfessions & hopes for the edfintech segment",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_81.png"
+      "tweet_content": "'The biggest cost of a mistake is not learning from it' Rakesh Jhunjhunwala\n1960-2022",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_44_1752677984.png"
     },
     {
-      "tweet_content": "Looking for suggestions on incorporating business rule engine with an existing #rails #rubyonrails app. Drools seems to be the best option in the absence of any stable gem.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_82.png"
+      "tweet_content": "While it wasn't India's best showing at #CommonwealthGames, it is heartening to see increased coverage and support for the broader sports fraternity. Following Team India's (B-team) exploits at the #ChessOlympiad was fun.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_45_1752677985.png"
     },
     {
-      "tweet_content": "Education financing in India is poised for a breakout in the next 12 months if the number of research agencies reaching out for client studies is an early indicator",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_83.png"
+      "tweet_content": "Fuel for the road ahead.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_46_1752678015.png"
     },
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nApr 21, 2022\nWould have been great if #RBI mandated putting the APR in the MITC. Loved the minimum requirement of Arial 12 font in the documents\nQuote\nET NOW\n@ETNOWlive\n·\nApr 21, 2022\nReplying to @ETNOWlive\n#RBI on interest rate/charges on credit cards:\n\nInterest charged on credit cards shall be justifiable. Card issuers shall indicate upfront to the credit cardholder, the methodology of calculation of finance charges  \n\n@ankurmishrasays @RBI @DasShaktikanta #CreditCards",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_84.png"
+      "tweet_content": "Waiting for BS++\nhttps://thenewstack.io/comical-coder-envisions-the-worst-programming-language-ever/…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_47_1752678021.png"
     },
     {
-      "tweet_content": "Most of the coding camps talk about the time wasted in college. I wish they had courses on psychology, philosophy / logic, and economics 'coz those are way more powerful than teaching someone how to center align a button",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_85.png"
+      "tweet_content": "One service provider (infinitely better than a unicorn) that I repeatedly recommend to all who want to build a digital journey. Extremely helpful set of guys http://Digio.in https://lnkd.in/dKV8JnGH",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_48_1752678022.png"
+    },
+    {
+      "tweet_content": "Cheating karo to ethics test pe warna mat karo https://moneycontrol.com/news/business/ernst-young-to-pay-100-million-fine-after-auditors-cheated-on-ethics-exams-8752341.html…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_49_1752678024.png"
+    },
+    {
+      "tweet_content": "While it wasn't India's best showing at #CommonwealthGames, it is heartening to see increased coverage and support for the broader sports fraternity. Following Team India's (B-team) exploits at the #ChessOlympiad was fun.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_50_1752678026.png"
+    },
+    {
+      "tweet_content": "Another hidden feature. Aga Lavan Majboori Nu While the Coke Studio creation Pasoori is breaking boundaries and winning hearts, the ravishing Bharatanatyam Dancer tells a fascinating story of defying dictatorship. A thread on dance and dissent. 1/17",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_51_1752678026.png"
     },
     {
       "tweet_content": "SNL: Close your eyes and it does sound like Stephen A, probably a better analysis https://youtu.be/HmaBAgc8yc4",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_86.png"
-    },
-    {
-      "tweet_content": "The next few days a lot of students will realize the cost of currency depreciation and realize that international loans are not that cheap... Before we forget it again",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_87.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_52_1752678032.png"
     },
     {
       "tweet_content": "Autos on the road have a better surge pricing model than \n@Uber\n and are way more reliable. The cherry on top is ACs not functioning in Uber cars",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_88.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_53_1752678035.png"
     },
     {
       "tweet_content": "Had my first salary account at \n@Citibank\n. Best banking experience till date, \n@AxisBank\n has been the worst. Hope this deal helps Axis import some of the bits from Citi",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_89.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_54_1752678036.png"
     },
     {
       "tweet_content": "\"banks are apprehensive to grow the education loan portfolio in comparison to better risk-adjusted returns\"\nHigher education financing shouldn't be a social good... Also banks need to start adopting employability assessment frameworks\n https://moneycontrol.com/news/business/banks/banks-trim-lending-to-students-fearing-high-defaults-8265361.html#:~:text=banks%20are%20apprehensive%20to%20grow%20the%20education%20loan%20portfolio%20in%20comparison%20to%20better%20risk-adjusted%20returns…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_90.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_55_1752678036.png"
     },
     {
       "tweet_content": "Execution: The One moat to rule them all",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_91.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_56_1752678036.png"
     },
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nMar 22, 2022\nISAs will be a part of the solution, 'debt' is better than 'equity' for many. The key change needed is for schools/training institutes to be on the hook for the education outcomes\nQuote\nSean Linehan\n@seanlinehan\n·\nMar 21, 2022\nI launched an Income Share Agreement (ISA) company in 2019.\n\nOur company survived, but our use of ISAs did not.\n\nOverall, I think the ISA experiment has failed and is not the revolution we hoped would transform training and education.\n\nHere's what I learned \n1\n2",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_92.png"
+      "tweet_content": "ISAs will be a part of the solution, 'debt' is better than 'equity' for many. The key change needed is for schools/training institutes to be on the hook for the education outcomes I launched an Income Share Agreement (ISA) company in 2019.\n\nOur company survived, but our use of ISAs did not.\n\nOverall, I think the ISA experiment has failed and is not the revolution we hoped would transform training and education.\n\nHere's what I learned",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_57_1752678037.png"
     },
     {
       "tweet_content": "With the exception of a few, most of the coding camps are just committing the same mistakes we lament about the current education system. Or even narrowing the scope of things you learn via rote learning in a shorter timeframe.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_93.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_58_1752678037.png"
     },
     {
       "tweet_content": "#WorkFromHome bubble has burst. Empowering individuals to make informed choices will be the way forward for true productive gains",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_94.png"
-    },
-    {
-      "tweet_content": "Xyz model predicts risk using x mm data points. Are we including neurons coz I can't even think of x mm data attributes. #DataScience #Banking",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_95.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nFeb 19, 2022\nCommitted to making higher education accessible with the \n@Gyan_Dhan\n team and our partners \n@TheOfficialSBI\n \n@bankofbaroda\n  \n@AvanseEduLoan\n \n@HDFCCredila\n \n@ICICIBank\n \n@ProdigyFinance\nQuote\nabhishek law\n@abee_law\n·\nFeb 19, 2022\nGyanDhan eyes ₹2,300-crore loan disbursals in FY23 - The Hindu BusinessLine https://thehindubusinessline.com/news/education/gyandhan-eyes-2300-crore-loan-disbursals-in-fy23/article65058619.ece… @businessline\n1\n1\n5",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_96.png"
-    },
-    {
-      "tweet_content": "I first came across this quote in the preface of 'Challenge and Thrill of Pre-College Mathematics'. This and 'Success'by Ralph Waldo Emerson are what I turn to when in doubt.   \n#tatagroup #foundersday",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_97.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_59_1752678044.png"
     },
     {
       "tweet_content": "https://lnkd.in/g-Pk3fQJ",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_98.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_60_1752678049.png"
     },
     {
-      "tweet_content": "Seeing her smile\n#HelloHappiness #TweetAMeal",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_99.png"
+      "tweet_content": "I first came across this quote in the preface of 'Challenge and Thrill of Pre-College Mathematics'. This and 'Success'by Ralph Waldo Emerson are what I turn to when in doubt.   \n#tatagroup #foundersday",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_61_1752678050.png"
     },
     {
-      "tweet_content": "Neem oil:gardening :: Credit score:lending",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_100.png"
+      "tweet_content": "With the exception of a few, most of the coding camps are just committing the same mistakes we lament about the current education system. Or even narrowing the scope of things you learn via rote learning in a shorter timeframe.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_62_1752678050.png"
     },
     {
-      "tweet_content": "Constant surge pricing and long wait times. Is it still a Chhatt / Diwali effect or are we going to a see a new entrant / reversal to the old days. #uber #OLA",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_101.png"
+      "tweet_content": "Most of the coding camps talk about the time wasted in college. I wish they had courses on psychology, philosophy / logic, and economics 'coz those are way more powerful than teaching someone how to center align a button",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_63_1752678051.png"
     },
     {
-      "type": "unknown",
-      "tweet_id": "402071552",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "tweet_content": "https://lnkd.in/gPp7c7Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_103.png"
-    },
-    {
-      "tweet_content": "Check out my latest article: Suspension of the H-1B and other work visas: Impact on higher education aspirants #H1Bvisas #internationalstudents  https://linkedin.com/pulse/suspension-h-1b-other-work-visas-impact-higher-education-ankit-mehra… via \n@LinkedIn",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_104.png"
-    },
-    {
-      "tweet_content": "#Entrepreneurship is the art of staying alive long enought to get lucky.. https://youtu.be/mPL0PEd4r1A via \n@YouTube",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_105.png"
-    },
-    {
-      "tweet_content": "(1/2) The Great Recession was a result of excessive greed, and the policy action might have been the right thing to do to address the systemic risks posed by a complete breakdown of confidence.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_106.png"
-    },
-    {
-      "tweet_content": "(2/2) still trying to figure out why we need policy action for every event. Shouldn't the markets be allowed to self correct and find the new normal. Wouldn't be a rosy picture to look at portfolio but will at least allow for excesses to be cleared from the system",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_107.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJan 31, 2020\n:)\nQuote\nMelissa Frakman\n@MelissaFrakman\n·\nJan 30, 2020\nBig news for Indian tech Twitter... many use cases for this one x.com/Emojipedia/sta…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_108.png"
-    },
-    {
-      "tweet_content": "Augurs well for the future of education system in Indonesia. Kudos to him on taking this step",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_109.png"
-    },
-    {
-      "tweet_content": "Feels like an achievement to log in to \n@AxisBank\n once you have forgotten your password. No wonder #fintech will eat into banks' customer base. #CustomerExperience",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_110.png"
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "296292407",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "701008942",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "474110136",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "344959750",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "tweet_content": "Is there any recourse? Landlord insisting we vacate the premises at the end of this month. We are paying rent on time and the lease renewal was due at the end of the month. #coronavirusindia \n@ArvindKejriwal\n \n@govt_delhi",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_115.png"
+      "tweet_content": "Giving right-of-way to ambulances as a society will be way more valuable than debating the need for 10-min groceries vs ambulances",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_64_1752678053.png"
     },
     {
       "tweet_content": "Work from home was for social distancing, not for people to travel long distances to potentially increase contagion risk",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_116.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_65_1752678059.png"
+    },
+    {
+      "tweet_content": "#WorkFromHome bubble has burst. Empowering individuals to make informed choices will be the way forward for true productive gains",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_66_1752678063.png"
+    },
+    {
+      "tweet_content": "Centre used GST compensation cess elsewhere, violated law: CAG http://toi.in/OmSrga/a24gk via \n@timesofindia\n \nCAG's acche din are over it seems",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_67_1752678064.png"
+    },
+    {
+      "tweet_content": "Centre used GST compensation cess elsewhere, violated law: CAG http://toi.in/OmSrga/a24gk via \n@timesofindia\n \nCAG's acche din are over it seems",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_68_1752678066.png"
+    },
+    {
+      "tweet_content": "(1/2) The Great Recession was a result of excessive greed, and the policy action might have been the right thing to do to address the systemic risks posed by a complete breakdown of confidence.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_69_1752678070.png"
+    },
+    {
+      "tweet_content": "(2/2) still trying to figure out why we need policy action for every event. Shouldn't the markets be allowed to self correct and find the new normal. Wouldn't be a rosy picture to look at portfolio but will at least allow for excesses to be cleared from the system",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_70_1752678070.png"
+    },
+    {
+      "tweet_content": "OYO no longer lowers the odds of an unappealing room is the reason why it is hard to make sense of business model",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_71_1752678074.png"
+    },
+    {
+      "tweet_content": "Augurs well for the future of education system in Indonesia. Kudos to him on taking this step",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_72_1752678074.png"
+    },
+    {
+      "tweet_content": "Kudos \n@ZomatoIN\n https://t.co/8VNgqVUYKz",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_73_1752678075.png"
+    },
+    {
+      "tweet_content": "The MMC survey needs to be checked, no way 60% of the AI startups actually use AI https://entrackr.com/2019/08/engineer-ai-faked-ai-capabilites/…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_74_1752678501.png"
+    },
+    {
+      "tweet_content": "Applying on \n@AngelList\n without a note is better than applying with a copied note. Received 3 applications with the exact same note. #Hiring",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_75_1752678502.png"
     },
     {
       "tweet_content": "#YesBank shareholders should get an 80C benefit given the 3 year lock-in :)",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_117.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_76_1752678504.png"
     },
     {
-      "tweet_content": "If anything, the governments should focus on directing the policy efforts on healthcare rather that propping up the markets",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_118.png"
+      "tweet_content": "(1/2) The Great Recession was a result of excessive greed, and the policy action might have been the right thing to do to address the systemic risks posed by a complete breakdown of confidence.",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_77_1752678504.png"
     },
     {
-      "tweet_content": "Of the People, by the People, for the People #DelhiResults",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_119.png"
+      "tweet_content": "Income Share Agreements (ISA) will not address the problem of quality in educational institutes",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_78_1752678505.png"
     },
     {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJan 11, 2019\nI was explaining to a group of students \n@ManipalUni\n how H1-B reform will happen and how it can be positive for them. Word of caution for Indian tabloids errr newspapers: This is not a law, please don't make the headlines sound like it is a done deal\nQuote\nDonald J. Trump\n@realDonaldTrump\n·\nJan 11, 2019\nH1-B holders in the United States can rest assured that changes are soon coming which will bring both simplicity and certainty to your stay, including a potential path to citizenship. We want to encourage talented and highly skilled people to pursue career options in the U.S.\n2\n3",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_120.png"
+      "tweet_content": "Applying on \n@AngelList\n without a note is better than applying with a copied note. Received 3 applications with the exact same note. #Hiring",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_79_1752678506.png"
     },
     {
       "tweet_content": "Everything's gonna be alright.  #startuplife",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_121.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_80_1752678513.png"
     },
     {
-      "tweet_content": "If you are a subscription product I can buy fully online but I cannot cancel without calling a phone number during business hours then I hope your company fails and you go out of business. Happy New Year!",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_122.png"
+      "tweet_content": "Null — breaking programmers’ hearts since 1969",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_81_1752678514.png"
     },
     {
-      "tweet_content": "A big thanks to the \n@discourse\n team and community. The Readme and forum is easy to follow.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_123.png"
+      "tweet_content": "Flashback to #IESE days https://youtu.be/951m1GINDSc #TipsFromSeniors  What do you miss most about India?",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_82_1752678522.png"
     },
     {
-      "tweet_content": "The logical next step is #blockchain implementation #DataScience #DataAnalytics #MachineLearning",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_124.png"
+      "tweet_content": "India’s first ever exclusive Networking Event for MS Students Going to US in Fall’18\nhttp://bit.ly/GD_networking_events…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_83_1752678523.png"
     },
     {
       "tweet_content": "Students, including interns, coming back requesting help in realizing their higher education dreams \n@Gyan_Dhan\n  is doing something right [1/2]",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_125.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_84_1752678524.png"
     },
     {
-      "tweet_content": "#studentloans #studyabroadprograms #interestrates All else being equal, an Indian loan is better than the dollar denominated loans (ignoring the likes of Harvard Union loans). The team put a short video explaining the difference.…https://lnkd.in/fPnCqDn https://lnkd.in/fJdPwa3",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_126.png"
-    },
-    {
-      "tweet_content": "#studentloans #studyabroadprograms #interestrates All else being equal, an Indian loan is better than the dollar denominated loans (ignoring the likes of Harvard Union loans). The team put a short video explaining the difference.…https://lnkd.in/fPnCqDn https://lnkd.in/fJdPwa3",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_127.png"
-    },
-    {
-      "tweet_content": "A big thanks to the \n@discourse\n team and community. The Readme and forum is easy to follow.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_128.png"
-    },
-    {
-      "tweet_content": "Always an inspiration listening to people who have actually made a difference \n@ekospeaks\n @abhisheksinha6d #FZ18",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_129.png"
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "941958120913248256",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "144659795",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "565322268",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "840746029",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "559927680",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "479339831",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "646388156",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "789698573",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "type": "unknown",
-      "tweet_id": "815019640",
-      "tweet_screenshot": "",
-      "raw_html": "",
-      "raw_text": ""
-    },
-    {
-      "tweet_content": "Power of sponsorships #OGN #LeagueOfLegends: 2 hours at #MWC15, spent most of it #sktelecom. Worth it",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_139.png"
-    },
-    {
-      "tweet_content": "Looking for data scientists and full-stack developers to join the \n@Gyan_Dhan\n team\nhttps://lnkd.in/fmY2JeM\nhttps://lnkd.in/fhZBfs8",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_140.png"
-    },
-    {
-      "tweet_content": "Need help #rubyonrails Mailer facility not working in #devise gem",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_141.png"
-    },
-    {
-      "tweet_content": "#ICCChampionsTrophy #workinghard #workhardplayhard our office for the semifinal",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_142.png"
+      "tweet_content": "#BabySteps #mentorsmatter #swhyd\n#interns #hiring #designers #coders #pitch 11- Gyandhan #swhyd #fintech last pitch of the day!",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_85_1752678525.png"
     },
     {
       "tweet_content": "#innovation day1 #4YFN #fintech #kidinacandystore",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_143.png"
-    },
-    {
-      "tweet_content": "GyanDhan: Financing a better future http://startup-reflections.blogspot.com/2015/06/gyandhan-financing-better-future.html…\n#education #fintech #studentloans #India #bettertomorrow",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_144.png"
-    },
-    {
-      "tweet_content": "Ankit Mehra\n@williamair1\n·\nJun 10, 2015\n#BabySteps #mentorsmatter #swhyd\n#interns #hiring #designers #coders\nQuote\nStartup Weekend Hyderabad\n@swhyderabad\n·\nJun 7, 2015\n#pitch 11- Gyandhan #swhyd #fintech last pitch of the day!\n1",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_145.png"
-    },
-    {
-      "tweet_content": "'Education is what people do to you and learning is what you do to yourself.'  http://ted.com/talks/joi_ito_want_to_innovate_become_a_now_ist…",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_146.png"
-    },
-    {
-      "tweet_content": "London calling #internship #newchallenge #excited",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_147.png"
-    },
-    {
-      "tweet_content": "ExSim day 2. 2nd best decision at #IESE #MBA",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_148.png"
-    },
-    {
-      "tweet_content": "http://startup-reflections.blogspot.com.es My attempt at #blogging. #notpoliticallycorrect #babysteps #startup #fintech",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_149.png"
-    },
-    {
-      "tweet_content": "Final post about ExSim Thank you @iesemba  http://startup-reflections.blogspot.in/2015/05/exsim-1-reason-for-iese-mba.html…\n#MBA #IESE",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_150.png"
-    },
-    {
-      "tweet_content": "ExSim: sufficient reason to do an MBA @iesemba @iesebs. Thankful for this wonderful experience",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_151.png"
-    },
-    {
-      "tweet_content": "Unbelievable Performance By Kalki Koechlin On What It Feels Like To Be A Woman. http://storypick.com/unbelievable-performance-kalki-koechlin-feels-like-woman/… via \n@storypicker",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_152.png"
-    },
-    {
-      "tweet_content": "A candid panel discussion on 'The U.S. Economy - is it really recovering ?' by U.S. Advisory council. Great start to the day @iesemba",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_153.png"
-    },
-    {
-      "tweet_content": "Let's get it started now #SSAC14",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_154.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_86_1752678526.png"
     },
     {
       "tweet_content": "#IESEDGDW \n@BjornLomborg\n $1 spent on R&D for yield enhancements can be worth $30. Is there a BCR for targeting food wastage...>30% in #India",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_155.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_87_1752678527.png"
+    },
+    {
+      "tweet_content": "#almamater Anyone considering an #MBA should try to meet #IESE Business School in #Delhi #Mumbai #Bangalore. Register via link below. https://x.com/iesemba/status/785424517581725696…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_88_1752679285.png"
+    },
+    {
+      "tweet_content": "Power of sponsorships #OGN #LeagueOfLegends: 2 hours at #MWC15, spent most of it #sktelecom. Worth it",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_89_1752679290.png"
+    },
+    {
+      "tweet_content": "GyanDhan: Financing a better future http://startup-reflections.blogspot.com/2015/06/gyandhan-financing-better-future.html…\n#education #fintech #studentloans #India #bettertomorrow",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_90_1752679290.png"
+    },
+    {
+      "tweet_content": "#BabySteps #mentorsmatter #swhyd\n#interns #hiring #designers #coders #pitch 11- Gyandhan #swhyd #fintech last pitch of the day!",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_91_1752679291.png"
+    },
+    {
+      "tweet_content": "Need help #rubyonrails Mailer facility not working in #devise gem",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_92_1752679292.png"
+    },
+    {
+      "tweet_content": "'Education is what people do to you and learning is what you do to yourself.'  http://ted.com/talks/joi_ito_want_to_innovate_become_a_now_ist…",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_93_1752679296.png"
+    },
+    {
+      "tweet_content": "London calling #internship #newchallenge #excited",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_94_1752679296.png"
+    },
+    {
+      "tweet_content": "ExSim day 2. 2nd best decision at #IESE #MBA",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_95_1752679297.png"
+    },
+    {
+      "tweet_content": "ExSim: sufficient reason to do an MBA @iesemba @iesebs. Thankful for this wonderful experience",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_96_1752679298.png"
+    },
+    {
+      "tweet_content": "Unbelievable Performance By Kalki Koechlin On What It Feels Like To Be A Woman. http://storypick.com/unbelievable-performance-kalki-koechlin-feels-like-woman/… via \n@storypicker",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_97_1752679302.png"
+    },
+    {
+      "tweet_content": "A candid panel discussion on 'The U.S. Economy - is it really recovering ?' by U.S. Advisory council. Great start to the day @iesemba",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_98_1752679302.png"
+    },
+    {
+      "tweet_content": "Let's get it started now #SSAC14",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_99_1752679307.png"
+    },
+    {
+      "tweet_content": "#IESEDGDW \n@BjornLomborg\n $1 spent on R&D for yield enhancements can be worth $30. Is there a BCR for targeting food wastage...>30% in #India",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_100_1752679307.png"
     },
     {
       "tweet_content": "Hello, world! #Newbie",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_156.png"
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_tweet_101_1752679312.png"
     }
   ],
   "retweets": [
@@ -1291,602 +815,658 @@
       "retweet_username": "cneuralnetwork",
       "retweet_profile_bio": "",
       "retweet_main_content": "mandatory gukesh post (quick edit)",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_1.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_1_1752676503.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "webdevcody",
       "retweet_profile_bio": "",
       "retweet_main_content": "Remember when mongodb came out and everyone got so hyped and started using it just to end up switching back to sql?\n\nRemember when microservices got hyped but now the industry recommends use a monolith first?\n\nRemember when graphql came out and everyone started hyping it up until",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_2.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_2_1752676505.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "nileshtrivedi",
       "retweet_profile_bio": "",
       "retweet_main_content": "Okay, who made this?",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_3.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_3_1752676511.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "nileshtrivedi",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Okay, who made this?",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_4_1752676511.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Looking for #rails developers interested in joining the \n@Gyan_Dhan\n journey. Folks with open source contributions or having interest in the same are preferred. Making edits to the readme PRs does not count :)",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_5_1752676512.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "thekitze",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "new disney/pixar movie is gonna be a banger",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_6_1752676513.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "sbikh",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "On the Ashoka WhatsApp group there is a discussion on the convocation speech and what kind of convocation speakers we should look for.  Most people are posting videos of commencement speakers from US universities.\n\nI posted the following message\n\n\n\nA random thought on",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_7_1752676514.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Going to use this article the next time someone is going to throw meaningless jargon at me to show off their tech prowess.\n https://primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90…",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_8_1752676514.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "thekitze",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "new disney/pixar movie is gonna be a banger",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_9_1752676519.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "LongFormMath",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Math is not a bunch of disjoint subjects. Math is one big whole. Terence Tao explains this with a good analogy:",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_10_1752676520.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Not sure what is up with \n@IndiGo6E\n . What used to be an amazing experience 2 years back is now replaced by frequent flight delays due to crew unavailability. There has to be a customer compensation and redressal mechanism in place of the current system",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_11_1752676520.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "pickover",
       "retweet_profile_bio": "",
       "retweet_main_content": "This is a mathematics joke involving potatoes and calculus.   (Circulating widely on the Web.)",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_4.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "TrungTPhan",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Math is not a bunch of disjoint subjects. Math is one big whole. Terence Tao explains this with a good analogy:",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_5.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_12_1752676521.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Thanks \n@andrewkane\n for all the gems",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_6.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "zerodhaonline",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Only about 30% of Indians have a basic understanding of finance. The result is people fall victim to financial scams, buy horrible products and lose out on better returns. \n\nHow well do you know the basics of finance? Take this quiz and find out ",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_7.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Chopsyturvey",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "A beautiful a compilation video of woodland animals seen through the creative lens of Julian Rad, an award-winning wildlife photographer based in Central Europe.... ",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_8.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "abidsensibull",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "What worries me the most about China is that historically, every time unemployment has spiked and financial crises erupted, large countries distract people with a war on a small country. War on Taiwan ahead?\n\nThat sure makes me sound like a person with a deep knowledge of",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_9.png"
+      "retweet_main_content": "Execution is the one true moat and it gives a high unlike anything else (I reserve judgment on the latter half in case I realize the fundraising high is more powerful :D)",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_13_1752676523.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Applications for 2 of the most prestigious #loan #scholarships for #overseaseducation are now open. \n1.  \n2. https://lnkd.in/du_pwQUK https://lnkd.in/dvVkgiaH",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_10.png"
+      "retweet_main_content": "It is only later that you can 'connect the dots'. There is a purity in that reading / coding session that is unmatched",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_14_1752676524.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "CrazyMgmtCons",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Did BCG recommend this? McKinsey plans to cut 2,000 jobs in one of its biggest layoffs - Bloomberg News http://reut.rs/3Z8QHzN",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_15_1752676525.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "The days of at-home testing might be numbered, else ETS runs the risk of their test scores losing credibility.\n\nAlso, advice to students exploring ways to cheat their way to higher GRE scores:  DON'T. https://lnkd.in/dWbDvhcK",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_16_1752676525.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "fintechjunkie",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Ankit Mehra reposted\nfintechjunkie\n@fintechjunkie\n·\nNov 9, 2022\nAnother day another meltdown in the crypto space. Smarter minds than mine are unpacking the details of what’s happened and what comes next.\n\nBut I thought it would be worth explaining “the issue behind the issue” and when your money might not be safe!!!! \n16\n87\n232",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_17_1752676526.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
       "retweet_main_content": "'The devil can cite Scripture for his purpose. \nAn evil soul producing holy witness\nIs like a villain with a smiling cheek,\nA goodly apple rotten at the heart.\nO, what a goodly outside falsehood hath!' https://x.com/matthuang/stat/matthuang/status/1588621495072616448…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_11.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_18_1752677072.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "nateberkopec",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Pick a tech stack you like, then become one of the best in the world at it, and you will never worry about job security, no matter what happens to the “popularity” of that stack.\n\nSaying you your job prospects are mostly dependent on “the market” just means you’re replaceable.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_12.png"
+      "retweet_main_content": "Somewhere out there the founders of Ask Jeeves are saying we told you so",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_19_1752677074.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "nateberkopec",
+      "retweet_username": "TrungTPhan",
       "retweet_profile_bio": "",
-      "retweet_main_content": "But microservices sounds investor friendly, just like AI (rather than saying I have a n variable logistic regression that works)\nIf you're unable to create a majestic monolith with basic programming tools like encapsulation and namespaces, you don't have what it takes to improve upon the situation with a distributed swarm of microservices. Your spaghetti code will just be on five different plates.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_13.png"
+      "retweet_main_content": "This review of Orwell’s “1984” is art",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_20_1752677077.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "fintechjunkie",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Every business has a core function. Some businesses make athletic shoes while others make wide screen televisions.\n\nWhat’s become clear over the past week is that many people don’t understand what Banks actually do. \n\nA simplified explanation if you're interested:",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_14.png"
+      "retweet_main_content": "Going to use this article the next time someone is going to throw meaningless jargon at me to show off their tech prowess.\n https://primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90…",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_21_1752677078.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "alexxubyte",
+      "retweet_username": "Gyan_Dhan",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Wow",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_15.png"
+      "retweet_main_content": "Germany visa update: APS CERTIFICATE now mandatory.\nFrom 1 November 2022, it's compulsory for Indian students to submit their APS certificate before applying for a visa application.\nApplication submission begins on 1st Oct.\n#aps #germany #apscertificate #news #update #latestnews",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_22_1752677085.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "fintechjunkie",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "People are not products. Students targeting higher education overseas need to definitely spend way more time doing their own research and talking to seniors rather than just relying on one source for all information. \nThe unofficia…https://lnkd.in/dDNp5Jek https://lnkd.in/d9y7CjfF",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_16.png"
+      "retweet_main_content": "The days of at-home testing might be numbered, else ETS runs the risk of their test scores losing credibility.\n\nAlso, advice to students exploring ways to cheat their way to higher GRE scores:  DON'T. https://lnkd.in/dWbDvhcK",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_23_1752677088.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "There are days when you want to forget business metrics and lock yourself in a room and read + code",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_24_1752677090.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Aman Jain #Kudos Thanks for being so awesome! #MakingWorkFun \n7 years, looking forward to the next 7 and more. #5star stay https://lnkd.in/dEvvc6XZ",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_25_1752677090.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
       "retweet_main_content": "2022 me na to Tata tha na ghata \n@Gyan_Dhan\n . We will try to stay away from ghata and try harder for the other alternative to be called a startup in 2023 :) https://linkedin.com/posts/mehraankit_activity-7016269561431777280-9iJN?utm_source=share&utm_medium=member_desktop…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_17.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_26_1752677090.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "CrazyMgmtCons",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Did BCG recommend this?\nMcKinsey plans to cut 2,000 jobs in one of its biggest layoffs - Bloomberg News http://reut.rs/3Z8QHzN",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_18.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "chandrarsrikant",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "I asked \n@TCS\n CEO Rajesh Gopinathan on his advice for a 19 yo/20 yo starting a job\n\"It is imp to choose some area and stay with it for some time, and not declare yourself an expert too fast and move on. It's only with time that you understand the nuances\"",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_19.png"
+      "retweet_main_content": "Fuel for the road ahead. \"GyanDhan = HOPE\" - One of the recent feedback we received at @Gyan_Dhan",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_27_1752677366.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
       "retweet_main_content": "\"Free education is abundant, all over the internet. It’s the desire to learn that’s scarce.\" \n\n\n@naval",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_20.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_28_1752677367.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "alexxubyte",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "/1 How will you design the Stack Overflow website? If your answer is on-premise servers and monolith (bottom), you would likely fail the interview, but that's how it is built in reality!",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_29_1752677369.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Germany visa update: APS CERTIFICATE now mandatory.\nFrom 1 November 2022, it's compulsory for Indian students to submit their APS certificate before applying for a visa application.\nApplication submission begins on 1st Oct.\n#aps #germany #apscertificate #news #update #latestnews",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_21.png"
+      "retweet_main_content": "'The devil can cite Scripture for his purpose. \nAn evil soul producing holy witness\nIs like a villain with a smiling cheek,\nA goodly apple rotten at the heart.\nO, what a goodly outside falsehood hath!' https://x.com/matthuang/stat/matthuang/status/1588621495072616448…",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_30_1752677369.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "beastoftraal",
+      "retweet_username": "chandrarsrikant",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Totally loved Sabhyata's 2022 Diwali ad film! The unhurried pace that makes us care for the story's characters, the choice of actors (Sheeba Chaddha, who is always exceptional; and \n(video part 1 of 2)",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_22.png"
+      "retweet_main_content": "I asked \n@TCS\n CEO Rajesh Gopinathan on his advice for a 19 yo/20 yo starting a job\n\"It is imp to choose some area and stay with it for some time, and not declare yourself an expert too fast and move on. It's only with time that you understand the nuances\"",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_31_1752677371.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Messi quashing any doubts about his  status",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_23.png"
+      "retweet_main_content": "Outperforming Nifty50 at a different scale. Key to this success... Buying Yes Bank in the ICICI portfolio and taking a snapshot on a suitable day. Do not share your other demat account details.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_32_1752677372.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_24.png"
+      "retweet_main_content": "DOTA2 >> LoL . Hard to imagine anyone playing DOTA while attending an investor meeting, ignore the herald players",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_33_1752677372.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "GabbbarSingh",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "1st ad which takes these finance influencers head on, the ones who inspire you to quit 9-5  \n\nEnlightenment indeed  #BuddhiJeeviBuddhiLaga",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_34_1752677372.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "People are not products. Students targeting higher education overseas need to definitely spend way more time doing their own research and talking to seniors rather than just relying on one source for all information. \nThe unofficia…https://lnkd.in/dDNp5Jek https://lnkd.in/d9y7CjfF",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_35_1752677373.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
       "retweet_main_content": "Winning 2 TIs is crazy, but the real achievement has been the way \n@OGesports\n and \n@OG_BDN0tail\n have gone about building an institution, a case study for B-schools in the future.  https://youtu.be/vYmteS0T6S4",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_25.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_36_1752677979.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Winning 2 TIs is crazy, but the real achievement has been the way \n@OGesports\n and \n@OG_BDN0tail\n have gone about building an institution, a case study for B-schools in the future.  https://youtu.be/vYmteS0T6S4",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_26.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "ForbesIndia",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Quote of the day by #RogerFederer",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_27.png"
+      "retweet_main_content": "The lending guidelines reaffirm my belief in the #RBI. It is one regulator that has been a catalyst for sustainable growth and fosters innovation and criticism of the RBI has mostly been a case of sour grapes.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_37_1752677981.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "NavalismHQ",
       "retweet_profile_bio": "",
-      "retweet_main_content": "\"Great companies are all about the people and nothing but the people. (Save this tweet-it'll make more & more sense with every year)\"\n\n\n@naval",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_28.png"
+      "retweet_main_content": "\"Free education is abundant, all over the internet. It’s the desire to learn that’s scarce.\" \n\n\n@naval",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_38_1752677983.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "#Respect\n$NFLX\nAckman Sold $NFLX\nLetter from Pershing Square",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_29.png"
+      "retweet_main_content": "Benefits of working at \n@Gyan_Dhan\n: Access to organic vegetables / herbs grown on the office terrace :)",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_39_1752677984.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "With markets in the red, showing an ad with a green background and talking about how bond returns are amazing and equating bond returns to FD returns without a mention of the underlying risk is a genius move... This is why we end up needing regulators",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_30.png"
+      "retweet_main_content": "I have read x words of wisdom from y. You should too, it helps.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_40_1752677984.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "isamlambert",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "#Respect $NFLX\nAckman Sold $NFLX\nLetter from Pershing Square",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_41_1752678020.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Co-applicant ITRs are required by Indian lenders for education loan approvals. Yet another reason why you should file your returns rather than finding out ways to not file a return",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_42_1752678023.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "While it wasn't India's best showing at #CommonwealthGames, it is heartening to see increased coverage and support for the broader sports fraternity. Following Team India's (B-team) exploits at the #ChessOlympiad was fun.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_43_1752678024.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "chesscom",
       "retweet_profile_bio": "",
       "retweet_main_content": "GM Wesley So's incredible Rxe4!! which could continue with a queen sac on f7 and a forced mate! \n\nMove of the #ChessOlympiad so far?",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_31.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "peter",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Thinking about this dad's take on Peloton from 2019 and wondering how his investment portfolio is doing, because he certainly called it.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_32.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_44_1752678025.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
       "retweet_main_content": "Seeing her smile\n#HelloHappiness #TweetAMeal",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_33.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Autos on the road have a better surge pricing model than \n@Uber\n and are way more reliable. The cherry on top is ACs not functioning in Uber cars",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_34.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "ponnappa",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Gentle advice for \"learn to code\" grads: You still need to study computer science and software engineering text books. \n\nMaking it easier to get started also makes it easier to hit a wall at speed. \n\nDon't crash bad. Study up.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_35.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "AswathDamodaran",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "When I first wrote about ESG in Sept 2020, I thought it was a flawed concept that could be fixed with better implementation and execution. The more I have learn about ESG, the less merit I see in it, and I use the Russia crisis to pick at its carcass. https://bit.ly/36TxIn8",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_36.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "amodm",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Before you skip college based on Twitter advice, do ask yourself how many rigorous technical books (not youtube videos) you've developed the capacity to complete yourself.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_37.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Rachnakanwar",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "When Saree meets Sports shoes meets Genda phool they gotta have some crazy fun. A perfect video to welcome #Friyay",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_38.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Told 11 yo about the existence of finance. I'd willingly answered all his questions about drugs and organized crime and sexual practices, but I found myself reluctant to tell him there were people who made money just from betting whether prices of things would go up or down.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_39.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "ETNowSwadesh",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "पढ़ेगा इंडिया, आगे बढ़ेगा इंडिया\nदेश का भविष्य, युवाओं के हाथ\nसब पढ़ें, सब बढ़ें\nअब एजुकेशन लोन में NO झिकझिक\n\n#MadeInIndia में देखिए #GyanDhan के COO & फाउंडर, अंकित मेहरा से खास बातचीत\n\n\n@anuiya_yadav\n  \n@Gyan_Dhan",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_40.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_45_1752678031.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
       "retweet_main_content": "The next few days a lot of students will realize the cost of currency depreciation and realize that international loans are not that cheap... Before we forget it again",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_41.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_46_1752678033.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Autos on the road have a better surge pricing model than \n@Uber\n and are way more reliable. The cherry on top is ACs not functioning in Uber cars",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_47_1752678034.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "ponnappa",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Gentle advice for \"learn to code\" grads: You still need to study computer science and software engineering text books. \n\nMaking it easier to get started also makes it easier to hit a wall at speed. \n\nDon't crash bad. Study up.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_48_1752678035.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "amodm",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Before you skip college based on Twitter advice, do ask yourself how many rigorous technical books (not youtube videos) you've developed the capacity to complete yourself.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_49_1752678036.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "tam_arund",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Incidentally Trell was a company that offered ESOP buybacks worth $1.6 million this year. Crazy, that they use the money they raised to buyback but at the same time fire employees. This is a sign of why buybacks ( the way it is being done now) are populist measures. Influencer led social commerce startup Trell is on the verge of letting go of around 40-50% of its workforce. \n\nStory by @upadhyay_harsh1\nhttps://entrackr.com/2022/03/exclusive-trell-lays-off-almost-half-of-its-workforce-as-funding-talks-fall-through/…",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_50_1752678038.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "Rachnakanwar",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "When Saree meets Sports shoes meets Genda phool they gotta have some crazy fun. A perfect video to welcome #Friyay",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_51_1752678042.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "paulg",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Told 11 yo about the existence of finance. I'd willingly answered all his questions about drugs and organized crime and sexual practices, but I found myself reluctant to tell him there were people who made money just from betting whether prices of things would go up or down.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_52_1752678045.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "SNL: Close your eyes and it does sound like Stephen A, probably a better analysis https://youtu.be/HmaBAgc8yc4",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_53_1752678046.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "Nithin0dha",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Maybe if there was \n@smallcaseHQ\n back in 2008,  my father in law wouldn't have probably said \"beta Government job kyo nahi karte\" when I was seeking his blessings for marriage",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_54_1752678047.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Parallels between gardening and startups : Time taken for seedlings to grow is almost always more than predicted",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_55_1752678048.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "ETNowSwadesh",
       "retweet_profile_bio": "",
       "retweet_main_content": "पढ़ेगा इंडिया, आगे बढ़ेगा इंडिया\nदेश का भविष्य, युवाओं के हाथ\nसब पढ़ें, सब बढ़ें\nअब एजुकेशन लोन में NO झिकझिक\n\n#MadeInIndia में देखिए #GyanDhan के COO & फाउंडर, अंकित मेहरा से खास बातचीत\n\n\n@anuiya_yadav\n  \n@Gyan_Dhan",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_42.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_56_1752678051.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "I read your 2020 annual letter with interest, \n@chamath\n. Odd it was published in late May, but we’re all busy. Before commenting on this incredibly bad take of a comparison to Berkshire Hathaway, allow me to help you with some math. First, 1965 to 1974 is TEN years, not nine. 1/",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_43.png"
+      "retweet_main_content": "Nothing beats being asleep at 12a on the New Year. See you on the other side",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_57_1752678052.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "Shawn Wildermuth - @wildermuth.com on bsk",
+      "retweet_username": "polinapompliano",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Showing the client the Proof of Concept:",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_44.png"
+      "retweet_main_content": "Here are the top 10 actionable lessons I've learned from the world's most successful people by working on the \n@ProfileRead\n every week:",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_58_1752678053.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "kaush_anand",
+      "retweet_username": "paulg",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Told 11 yo about the existence of finance. I'd willingly answered all his questions about drugs and organized crime and sexual practices, but I found myself reluctant to tell him there were people who made money just from betting whether prices of things would go up or down.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_59_1752678054.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "AndrewYNg",
       "retweet_profile_bio": "",
       "retweet_main_content": "Here's the text of the policy. This puts the US, students and universities in a lose-lose-lose situation. https://ice.gov/doclib/sevis/pdf/bcm2007-01.pdf…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_45.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Rachnakanwar",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Raise money because you can get a high valuation now, and then? What happens to investors who come in at higher valuation? An entrepreneur's job is to also create value for investors from whom you actively seek capital & those who take the risk, at every stage-IPO/VC/PE/Angels.\n@karthikrangappa\n@Nithin0dha \n@zerodhaonline \n\nYou should launch your IPO now. It is the best time. Assuming that bear markets may follow, your business might not boom in the next few years like it is booming now.\nYour valuation is peaking rn. Best opportunity.\nJust my 2 cents.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_46.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "bgurley",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Complex systems are remarkably hard to measure, monitor, understand, etc. If Sweden holds (which we don't know enough yet to call), locking-down hard may have costs lives (and livelihood simultaneously). The people you should ignore are the ones with absolute certainty.\nOpinion: The biggest fools this year were those who prematurely condemned Sweden’s response to coronavirus, Wolfgang Münchau writes\nhttps://on.ft.com/2GS7tQK",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_47.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "pitdesi",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Chuck Feeney is a hero. And now he's (relatively) broke. \n\nHe founded DFS (duty free) (1960), and PE fund General Atlantic (1980), amassing an $8B fortune. And now he's given it all away (except a couple mil to live on) and closed down his foundation.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_48.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "kaush_anand",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "4 years ago, fresh off the boat from SF, I asked an NBFC founder with very low NPAs if his secret was use of alternate data. His reply: \"Dekho, hamare business mein, do hi cheez matter karti hain - bank account mein money hai ya kundli mein shani hai?\"\nIntrigued with the small inputs digital lending cos use to underwrite. Latest I heard:\n\nIf you capitalise the first letter of your name in the application form, you are a better customer -> Such ppl are more conscientiousness & default less. \n\nWhat are other such parameters used?",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_49.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_60_1752678060.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "lakshmisiyer",
       "retweet_profile_bio": "",
-      "retweet_main_content": "\"My sense of hunger didn’t come from india since I came from Amritsar where the whole city can be fed, my sense of hunger came from New York, living in America, as a brown kid\"\n Michelin Chef \n@TheVikasKhanna\n schools the anchor about the Indian Poverty Stereotype. More  to you",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_50.png"
+      "retweet_main_content": "Tune in and listen to our #podcast on #educationloans hosted by my colleague Anuradha Menon who interviewed Anand Subramaniam and \n@williamair1\n, two guests who look at the problem from the demand and supply side. #India #studentrecruitment #intled https://lnkd.in/davS3-a",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_61_1752678061.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "Nithin0dha",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Raise money because you can get a high valuation now, and then? What happens to investors who come in at higher valuation? An entrepreneur's job is to also create value for investors from whom you actively seek capital & those who take the risk, at every stage-IPO/VC/PE/Angels. @karthikrangappa\n@Nithin0dha \n@zerodhaonline \n\nYou should launch your IPO now. It is the best time. Assuming that bear markets may follow, your business might not boom in the next few years like it is booming now.\nYour valuation is peaking rn. Best opportunity.\nJust my 2 cents.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_62_1752678062.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Benford's law and more number crunching.\nhttps://youtu.be/etx0k1nLn78",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_63_1752678064.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "anandmahindra",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Chief Justice Roberts speaking at his son’s school graduation in ‘17. Not at some Ivy League college. But the best commencement speech I’ve heard. I can almost hear him add the lines: “...and I hope you might experience a global pandemic, so that you value a connected world.”",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_64_1752678065.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Chuck Feeney is a hero. And now he's (relatively) broke. \n\nHe founded DFS (duty free) (1960), and PE fund General Atlantic (1980), amassing an $8B fortune. And now he's given it all away (except a couple mil to live on) and closed down his foundation.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_65_1752678066.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "SonyTV",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Presenting ‘Family’, a made-at-home short film featuring \n@SrBachchan\n, #Rajnikanth #RanbirKapoor \n@priyankachopra\n \n@aliaa08\n, #Chiranjeevi  \n@Mohanlal\n, #Mammootty, \n@meSonalee\n \n@prosenjitbumba\n #ShivaRajkumar & \n@diljitdosanjh\n. \nSupported by #SonyPicturesNetworksIndia & #KalyanJewellers.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_66_1752678067.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
       "retweet_main_content": "#YesBank shareholders should get an 80C benefit given the 3 year lock-in :)",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_51.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "dhh",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "“We’re all beginning to understand better that algorithms are only as good as the data that gets packed into them. And if a lot of discriminatory data gets packed in... then the discrimination is perpetuated.\" - \n@ewarren\n knows what’s up ",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_52.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_53.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "codinghorror",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Whenever I see a founder feeling down and beaten, I love sharing the story of Batman with them. \nAnd by Batman, I mean the story of the Boy who saved Batman. \n\nI heard this three years ago but kept coming back to it because it’s so incredible.   Thread!  1/9",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_54.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_67_1752678068.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "The MMC survey needs to be checked, no way 60% of the AI startups actually use AI https://entrackr.com/2019/08/engineer-ai-faked-ai-capabilites/…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_55.png"
+      "retweet_main_content": "More startups have a chance of becoming really big than their founders realize (or want to admit to themselves). The reason for this apparent paradox is that it would take an enormous amount of work.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_68_1752678071.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": ":)\nBig news for Indian tech Twitter... many use cases for this one x.com/Emojipedia/sta…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_56.png"
+      "retweet_main_content": "Kudos to \n@nsitharaman\n for addressing the tax scrutiny related to funds raised by startups and more importantly the valuation premiums. Hope the implementation is smooth #Budget2019forStartups",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_69_1752678500.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "Gyan_Dhan",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Our research team is tracking the actions taken by universities across the world for the abroad fall 2020 aspirants! We request others who have more information to contribute to help the student community! \nhttps://bit.ly/2UNYzay\n\n#COVID19 #CoronaUpdate #CoronavirusOutbreak",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_57.png"
+      "retweet_main_content": "Work from home was for social distancing, not for people to travel long distances to potentially increase contagion risk",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_70_1752678502.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "anandmahindra",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "In a world burdened by natural calamities, trade battles, social upheavals & pandemics, this viral clip showing a child’s unrestrained enthusiasm is a breath of fresh air. He didn’t give a hoot about the celebrity in front & the nervous secret service agent behind! Balle balle!",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_71_1752678505.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "paulg",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Something I told my 11 yo recently: The apparently random collection of things you learn when you're young makes you into a sort of key. Then you have to find the lock it matches. But that's not as hard as it sounds, because the matching lock is usually nearby.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_58.png"
+      "retweet_main_content": "More startups have a chance of becoming really big than their founders realize (or want to admit to themselves). The reason for this apparent paradox is that it would take an enormous amount of work.",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_72_1752678506.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Income Share Agreements (ISA) will not address the problem of quality in educational institutes",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_59.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "philipsindia",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Plan to meet us at #IRIA2020\nEmpowering you to realize Precision Diagnosis at IRIA2020. Experience #Radiology and AI #ArtificialIntelligence",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_60.png"
+      "retweet_main_content": "Augurs well for the future of education system in Indonesia. Kudos to him on taking this step",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_73_1752678506.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "Gyan_Dhan",
       "retweet_profile_bio": "",
       "retweet_main_content": "@Gyan_Dhan\n & \n@TheOfficialSBI\n present MS in US info sessions:\nMumbai (23rd Sep): http://bit.ly/2Q2zLrW \nBangalore (23rd Sep): http://bit.ly/2MKFR21\nHyderabad (30th Sep): http://bit.ly/2CfVDgF\nPune (7th Oct): http://bit.ly/2NMHPvq\nChennai(7th Oct): http://bit.ly/2xAHPYq https://pic.x.com/QYxCVsEGqc",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_61.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_74_1752678511.png"
     },
     {
       "retweet_content": "",
-      "retweet_username": "DakshanaIndia",
+      "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "255 Dakshana scholars score above 99 percentile at the JEE Mains 2019!\nCongratulations to all Dakshana scholars!\n\n@MohnishPabrai\n\n\n#TheDakshanaFoundation #SelflessGiving #InfiniteGood",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_62.png"
+      "retweet_main_content": "Reasons not to attend the Davos summit regularly :P Companies that regularly attend Davos underperform the S&P 500 by a lot",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_75_1752678512.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "ForbesIndia",
       "retweet_profile_bio": "",
       "retweet_main_content": "We will have some #fintech companies that will displace the incumbents and some incumbents who will adapt: Ankit Mehra, CEO, Gyandhan #ForbesIndiaConversations #Innovation",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_63.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "paraschopra",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Internal consistency of values is a recipe for suffering but is necessary for meaning. \n\nInternal inconsistency of values is neccessary for happiness but dissolves meaning.\n\nPick one: happiness or meaning.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_64.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "kushalbhagia",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Whenever I see a founder feeling down and beaten, I love sharing the story of Batman with them. \nAnd by Batman, I mean the story of the Boy who saved Batman. \n\nI heard this three years ago but kept coming back to it because it’s so incredible.   Thread!  1/9",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_65.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "kushalbhagia",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Whenever I see a founder feeling down and beaten, I love sharing the story of Batman with them. \nAnd by Batman, I mean the story of the Boy who saved Batman. \n\nI heard this three years ago but kept coming back to it because it’s so incredible.   Thread!  1/9",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_66.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "deepigoyal",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "It takes a village to raise a child. And while a village is ideal, a world where both parents are allowed to assume equal responsibility is a fair start. We'll never have truly gender-neutral organisations unless we have gender-neutral communities & gender-neutral nations. [6/n]",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_67.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_76_1752678513.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Heights of shitty journalism... Or is it another tabloid \n@ZeeBusiness\n https://zeebiz.com/india/news-rakesh-jhunjhunwala-set-to-get-richer-by-whopping-87-with-this-newly-added-stock-an-airline-set-to-fly-85470…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_68.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Bittersweet: #Farewell cake for our chief tech developer who is headed to the US for #gradschool #DataScience.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_69.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Fuel that drives us\nGyanDhan's Customer's review - \"You helped a lot and wherever I will be in my life credits to you\"",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_70.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Gyan_Dhan",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "GyanDhan's MS in US admitted Students Networking Event, Chennai\n#GyanDhan #ms_in_us #networking #Fall18 #chennai",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_71.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Gyan_Dhan",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "@Gyan_Dhan\n & \n@TheOfficialSBI\n present MS in US info sessions:\nMumbai (23rd Sep): http://bit.ly/2Q2zLrW \nBangalore (23rd Sep): http://bit.ly/2MKFR21\nHyderabad (30th Sep): http://bit.ly/2CfVDgF\nPune (7th Oct): http://bit.ly/2NMHPvq\nChennai(7th Oct): http://bit.ly/2xAHPYq https://pic.x.com/QYxCVsEGqc",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_72.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "1kunalbahl",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "How prescient can someone be? Both Arthur C. Clarke and especially, the person questioning him. \n\nhttps://youtu.be/sTdWQAKzESA",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_73.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Gyan_Dhan",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "India’s first ever exclusive Networking Event for MS Students Going to US in Fall’18\nhttp://bit.ly/GD_networking_events…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_74.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "#almamater\nAnyone considering an #MBA should try to meet #IESE Business School in #Delhi #Mumbai #Bangalore. Register via link below. https://x.com/iesemba/status/785424517581725696…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_75.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Need to courier documents to get a sub-AUA license #irony #Aadhaar",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_76.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Need to courier documents to get a sub-AUA license #irony #Aadhaar",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_77.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "williamair1",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "Always an inspiration listening to people who have actually made a difference \n@ekospeaks\n @abhisheksinha6d #FZ18",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_78.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Gyan_Dhan",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "India’s first ever exclusive Networking Event for MS Students Going to US in Fall’18\nhttp://bit.ly/GD_networking_events…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_79.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "Gyan_Dhan",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "#CustomerExperience 2 https://gyandhan.com/blogs/Pradeep-went-to-UCSB-from-IIT-Madras…",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_80.png"
+      "retweet_main_content": "Plan to meet us at #IRIA2020\nEmpowering you to realize Precision Diagnosis at IRIA2020. Experience #Radiology and AI #ArtificialIntelligence",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_77_1752678515.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "Gyan_Dhan",
       "retweet_profile_bio": "",
       "retweet_main_content": "#ICCChampionsTrophy #workinghard #workhardplayhard our office for the semifinal",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_81.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_78_1752678521.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Need help #rubyonrails Mailer facility not working in #devise gem",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_82.png"
+      "retweet_main_content": "Students, including interns, coming back requesting help in realizing their higher education dreams \n@Gyan_Dhan\n  is doing something right [1/2]",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_79_1752678522.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Always an inspiration listening to people who have actually made a difference \n@ekospeaks\n @abhisheksinha6d #FZ18",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_80_1752678522.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "Gyan_Dhan",
       "retweet_profile_bio": "",
-      "retweet_main_content": "#Education #Loans Feels great to have the first review, even better to have helped a student",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_83.png"
+      "retweet_main_content": "Why take a loan from GyanDhan #StudentLoans #CustomerService",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_81_1752678523.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "Gyan_Dhan",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "India’s first ever exclusive Networking Event for MS Students Going to US in Fall’18\nhttp://bit.ly/GD_networking_events…",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_82_1752678523.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Flashback to #IESE days https://youtu.be/951m1GINDSc #TipsFromSeniors  What do you miss most about India?",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_83_1752678524.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "Gyan_Dhan",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Be part of our team ! Help students secure financing for a better future! \n #GyanDhan #StudentLoans #HigherEducation",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_84_1752678525.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Power of sponsorships #OGN #LeagueOfLegends: 2 hours at #MWC15, spent most of it #sktelecom. Worth it",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_85_1752678526.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_86_1752678527.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "#almamater Anyone considering an #MBA should try to meet #IESE Business School in #Delhi #Mumbai #Bangalore. Register via link below. https://x.com/iesemba/status/785424517581725696…",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_87_1752679282.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Need to courier documents to get a sub-AUA license #irony #Aadhaar",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_88_1752679283.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Need to courier documents to get a sub-AUA license #irony #Aadhaar",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_89_1752679284.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "Gyan_Dhan",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "#ICCChampionsTrophy #workinghard #workhardplayhard our office for the semifinal",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_90_1752679285.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "williamair1",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "Looking for data scientists and full-stack developers to join the \n@Gyan_Dhan\n team\nhttps://lnkd.in/fmY2JeM\nhttps://lnkd.in/fhZBfs8",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_91_1752679291.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "MayraBuxeres",
       "retweet_profile_bio": "",
       "retweet_main_content": "\"It seems that activist shareholders have, as a group, made the companies better and not worse\" - @iesebs Prof. Simon http://bit.ly/1Rs4A1P",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_84.png"
-    },
-    {
-      "retweet_content": "",
-      "retweet_username": "GSElevator",
-      "retweet_profile_bio": "",
-      "retweet_main_content": "#1: Some people assume I am quiet, boring, or shy, without ever realizing that I just don't like them.",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_85.png"
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_92_1752679292.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "williamair1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "A candid panel discussion on 'The U.S. Economy - is it really recovering ?' by U.S. Advisory council. Great start to the day @iesemba",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_86.png"
+      "retweet_main_content": "Need help #rubyonrails Mailer facility not working in #devise gem",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_93_1752679297.png"
+    },
+    {
+      "retweet_content": "",
+      "retweet_username": "mashable",
+      "retweet_profile_bio": "",
+      "retweet_main_content": "11 Minutes of Pure Beatboxing Genius http://on.mash.to/15kA82w",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/williamair1_retweet_94_1752679312.png"
     }
   ]
 }
