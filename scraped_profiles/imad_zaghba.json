@@ -14,7 +14,7 @@
     },
     {
       "following_name": "hehe_samir",
-      "following_bio": "Parody account"
+      "following_bio": "Global headlines, political turns, and world drama told straight. No fluff. Just reality."
     },
     {
       "following_name": "Docker",
@@ -82,7 +82,8 @@
   "tweets": [
     {
       "tweet_content": "test I vibe coded Gumloop over the weekend!!\nPresenting Agent Flow - an open-source alternative to Gumloop!\n\nWe built a free no-code AI Agent builder with @composiohq and @langchainai's Langgraph that lets you automate workflows and complex agentic patterns with drag-and-drop nodes.",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_tweet_1_1752790651.png"
+      "tweet_date": "2025-06-27T15:42:34.000Z",
+      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_tweet_1_1752950027.png"
     }
   ],
   "retweets": [
@@ -91,14 +92,16 @@
       "retweet_username": "imad_zaghba",
       "retweet_profile_bio": "",
       "retweet_main_content": "test ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_retweet_1_1752790650.png"
+      "retweet_date": "2025-06-28T11:30:26.000Z",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_retweet_1_1752950026.png"
     },
     {
       "retweet_content": "",
       "retweet_username": "clcoding",
       "retweet_profile_bio": "",
       "retweet_main_content": "ITS WEEKEND AND GIVEAWAY TIME! \n\nI’m giving away hard copies of   \n\nGenerative AI with Python and PyTorch\n\nBook Review: https://clcoding.com/2025/06/book-review-generative-ai-with-python.html…\n\nWant to WIN one?\n\n Like  \n Retweet  \n Comment \"Python\"  \n Follow me\n\n Winners announced soon!",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_retweet_2_1752790650.png"
+      "retweet_date": "2025-06-28T08:29:57.000Z",
+      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/imad_zaghba_retweet_2_1752950027.png"
     }
   ]
 }

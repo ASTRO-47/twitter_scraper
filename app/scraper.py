@@ -251,6 +251,75 @@ async def get_main_tweet_content(tweet_element) -> str:
     
     return ""
 
+async def get_tweet_date(tweet_element) -> str:
+    """Extract the date/time when the tweet was posted."""
+    try:
+        # Method 1: Try to get datetime from time element
+        time_element = tweet_element.locator('time').first
+        if await time_element.count() > 0:
+            datetime_attr = await time_element.get_attribute('datetime')
+            if datetime_attr:
+                return datetime_attr
+    except Exception:
+        pass
+    
+    # Method 2: Try to get from title attribute of time element
+    try:
+        time_element = tweet_element.locator('time').first
+        if await time_element.count() > 0:
+            title_attr = await time_element.get_attribute('title')
+            if title_attr:
+                return title_attr
+    except Exception:
+        pass
+    
+    # Method 3: Try to get text content from time element
+    try:
+        time_element = tweet_element.locator('time').first
+        if await time_element.count() > 0:
+            time_text = await time_element.inner_text()
+            if time_text:
+                return time_text.strip()
+    except Exception:
+        pass
+    
+    # Method 4: Look for any timestamp in the tweet
+    try:
+        # Look for common date/time patterns in the tweet
+        timestamp_selectors = [
+            'a[href*="/status/"] time',
+            'time[datetime]',
+            '[data-testid*="time"]',
+            '[aria-label*="time"]',
+            '[title*="AM"]',
+            '[title*="PM"]'
+        ]
+        
+        for selector in timestamp_selectors:
+            try:
+                element = tweet_element.locator(selector).first
+                if await element.count() > 0:
+                    # Try datetime attribute first
+                    datetime_attr = await element.get_attribute('datetime')
+                    if datetime_attr:
+                        return datetime_attr
+                    
+                    # Try title attribute
+                    title_attr = await element.get_attribute('title')
+                    if title_attr:
+                        return title_attr
+                    
+                    # Try text content
+                    text = await element.inner_text()
+                    if text:
+                        return text.strip()
+            except Exception:
+                continue
+    except Exception:
+        pass
+    
+    return ""
+
 async def get_tweet_id(tweet_element) -> str:
     """Get a unique identifier for a tweet with improved robustness."""
     # Method 1: Try to get tweet status ID from URL
@@ -447,14 +516,14 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
         print(f"Could not get retweet info: {str(e)}")
         return None
 
-async def scrape_tweets(page: Page, username: str) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
+async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_retweets: int = 100) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
     """Scrape tweets and retweets with improved efficiency and error handling."""
     tweets = []
     retweets = []
     processed_ids: Set[str] = set()
     
     try:
-        print(f"\nStarting to scrape tweets for user: {username}")
+        print(f"\nStarting to scrape tweets for user: {username} (max {max_tweets} tweets, {max_retweets} retweets)")
         
         # Clean up existing screenshots to prevent duplicates
         cleanup_existing_screenshots(username)
@@ -507,7 +576,15 @@ async def scrape_tweets(page: Page, username: str) -> Tuple[List[Dict[str, str]]
                         is_retweet = await is_repost(tweet)
                         
                         if is_retweet:
+                            # Check retweet limit
+                            if len(retweets) >= max_retweets:
+                                print(f"Reached maximum retweets limit ({max_retweets}), skipping further retweets")
+                                continue
+                                
                             print(f"Processing retweet #{len(retweets)+1} (ID: {tweet_id})")
+                            
+                            # Get retweet date
+                            retweet_date = await get_tweet_date(tweet)
                             
                             # Take screenshot with unique filename
                             screenshot_filename = generate_unique_screenshot_filename(username, "retweet", len(retweets)+1)
@@ -517,9 +594,15 @@ async def scrape_tweets(page: Page, username: str) -> Tuple[List[Dict[str, str]]
                             # Get retweet info
                             retweet_info = await get_retweet_info(tweet)
                             if retweet_info:
+                                retweet_info["retweet_date"] = retweet_date
                                 retweet_info["retweet_screenshot"] = screenshot_path
                                 retweets.append(retweet_info)
-                                print(f"Successfully added retweet {len(retweets)}")
+                                print(f"Successfully added retweet {len(retweets)} with date: {retweet_date}")
+                            continue
+
+                        # Check tweet limit
+                        if len(tweets) >= max_tweets:
+                            print(f"Reached maximum tweets limit ({max_tweets}), skipping further tweets")
                             continue
 
                         # Process as regular tweet
@@ -527,6 +610,9 @@ async def scrape_tweets(page: Page, username: str) -> Tuple[List[Dict[str, str]]
                         content = await get_main_tweet_content(tweet)
                         
                         if content:
+                            # Get tweet date
+                            tweet_date = await get_tweet_date(tweet)
+                            
                             # Take screenshot with unique filename
                             screenshot_filename = generate_unique_screenshot_filename(username, "tweet", len(tweets)+1)
                             screenshot_path = os.path.join(SCREENSHOTS_DIR, screenshot_filename)
@@ -534,6 +620,7 @@ async def scrape_tweets(page: Page, username: str) -> Tuple[List[Dict[str, str]]
 
                             tweet_data = {
                                 "tweet_content": content,
+                                "tweet_date": tweet_date,
                                 "tweet_screenshot": screenshot_path
                             }
 
@@ -543,7 +630,7 @@ async def scrape_tweets(page: Page, username: str) -> Tuple[List[Dict[str, str]]
                                 tweet_data.update(quoted_info)
 
                             tweets.append(tweet_data)
-                            print(f"Successfully added tweet {len(tweets)}")
+                            print(f"Successfully added tweet {len(tweets)} with date: {tweet_date}")
                         else:
                             # Handle tweets without detectable content
                             print(f"Tweet {tweet_id} has no detectable content, skipping")
@@ -555,6 +642,11 @@ async def scrape_tweets(page: Page, username: str) -> Tuple[List[Dict[str, str]]
                 # Check progress
                 current_count = len(tweets) + len(retweets)
                 print(f"Batch {scroll_attempts}: Processed {processed_in_batch} new items. Total: {len(tweets)} tweets, {len(retweets)} retweets")
+                
+                # Check if we've reached both limits
+                if len(tweets) >= max_tweets and len(retweets) >= max_retweets:
+                    print(f"Reached both limits: {len(tweets)} tweets (max: {max_tweets}), {len(retweets)} retweets (max: {max_retweets})")
+                    break
                 
                 if current_count == initial_count:
                     no_new_items_count += 1
@@ -599,13 +691,13 @@ async def scrape_likes(page, username: str) -> List[Dict]:
     # Commented out for now as it needs further investigation
     return []
 
-async def scrape_social_users(page: Page, username: str, user_type: str) -> List[Dict[str, str]]:
+async def scrape_social_users(page: Page, username: str, user_type: str, max_users: int = 300) -> List[Dict[str, str]]:
     """Generic function to scrape followers or following with improved efficiency."""
     users = []
     try:
         # Navigate to the appropriate page
         url = f"https://twitter.com/{username}/{user_type}"
-        print(f"Navigating to {url}")
+        print(f"Navigating to {url} (max: {max_users} users)")
         await page.goto(url, wait_until="domcontentloaded", timeout=TIMEOUT)
         await rate_limit_delay()
 
@@ -644,6 +736,11 @@ async def scrape_social_users(page: Page, username: str, user_type: str) -> List
                         cell_username = await extract_username_from_cell(cell)
                         if not cell_username or cell_username in processed_usernames:
                             continue
+                        
+                        # Check if we've reached the user limit
+                        if len(users) >= max_users:
+                            print(f"Reached maximum {user_type} limit ({max_users}), stopping collection")
+                            break
                             
                         processed_usernames.add(cell_username)
                         processed_in_batch += 1
@@ -676,9 +773,14 @@ async def scrape_social_users(page: Page, username: str, user_type: str) -> List
                         print(f"Error processing {user_type} cell: {str(e)}")
                         continue
 
-                # Check progress
+                # Check progress and limits
                 current_count = len(users)
                 print(f"Batch {scroll_attempts}: Processed {processed_in_batch} new {user_type}. Total: {current_count}")
+                
+                # Check if we've reached the user limit
+                if len(users) >= max_users:
+                    print(f"Reached maximum {user_type} limit ({max_users}), stopping")
+                    break
                 
                 if current_count == initial_count:
                     no_new_users_count += 1
@@ -782,17 +884,18 @@ async def extract_bio_from_cell(cell) -> str:
     
     return ""
 
-async def scrape_followers(page: Page, username: str) -> List[Dict[str, str]]:
+async def scrape_followers(page: Page, username: str, max_followers: int = 300) -> List[Dict[str, str]]:
     """Scrape followers using the generic social scraping function."""
-    return await scrape_social_users(page, username, "followers")
+    return await scrape_social_users(page, username, "followers", max_followers)
 
-async def scrape_following(page: Page, username: str) -> List[Dict[str, str]]:
+async def scrape_following(page: Page, username: str, max_following: int = 300) -> List[Dict[str, str]]:
     """Scrape following using the generic social scraping function."""
-    return await scrape_social_users(page, username, "following")
+    return await scrape_social_users(page, username, "following", max_following)
 
-async def scrape_retweets(page, username: str) -> List[Dict]:
+async def scrape_retweets(page, username: str, max_retweets: int = 100) -> List[Dict]:
     retweets = []
     try:
+        print(f"Starting to scrape retweets for {username} (max: {max_retweets})")
         # Navigate to profile with better error handling
         try:
             await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded", timeout=30000)
@@ -833,10 +936,18 @@ async def scrape_retweets(page, username: str) -> List[Dict]:
                         if not await is_repost(tweet):
                             continue
                         
+                        # Check if we've reached the retweet limit
+                        if len(retweets) >= max_retweets:
+                            print(f"Reached maximum retweets limit ({max_retweets}), stopping retweet collection")
+                            break
+                        
                         # Get retweet data
                         original_content = await get_main_tweet_content(tweet)
                         retweeted_username = ""
                         retweeted_bio = ""
+                        
+                        # Get retweet date
+                        retweet_date = await get_tweet_date(tweet)
                         
                         # Get username of retweeted content
                         try:
@@ -862,16 +973,21 @@ async def scrape_retweets(page, username: str) -> List[Dict]:
                                 "retweet_content": "",  # Retweet itself has no content
                                 "retweet_username": retweeted_username,
                                 "retweet_profile_bio": retweeted_bio,
+                                "retweet_date": retweet_date,
                                 "retweet_screenshot": screenshot_path,
                                 "retweet_main_content": original_content
                             })
-                            print(f"Added retweet {len(retweets)} from {retweeted_username}")
+                            print(f"Added retweet {len(retweets)} from {retweeted_username} with date: {retweet_date}")
                     
                     except Exception as e:
                         print(f"Error processing retweet: {str(e)}")
                         continue
                 
-                # Check if we found any new retweets
+                # Check if we found any new retweets or reached limit
+                if len(retweets) >= max_retweets:
+                    print(f"Reached maximum retweets limit ({max_retweets}), stopping")
+                    break
+                    
                 if len(retweets) == initial_retweet_count:
                     no_new_retweets_count += 1
                 else:
@@ -913,7 +1029,7 @@ async def scrape_retweets(page, username: str) -> List[Dict]:
     print(f"Total retweets scraped: {len(retweets)}")
     return retweets
 
-async def scrape_twitter(username: str) -> Dict:
+async def scrape_twitter(username: str, max_tweets: int = 100, max_retweets: int = 100, max_followers: int = 300, max_following: int = 300) -> Dict:
     result = {
         "user_profile": {"username": username, "bio": ""},
         "following": [],
@@ -1108,7 +1224,7 @@ async def scrape_twitter(username: str) -> Dict:
                 
                 # Get tweets and retweets
                 print(f"\nFetching tweets and retweets for @{username}...")
-                tweets, retweets = await scrape_tweets(page, username)
+                tweets, retweets = await scrape_tweets(page, username, max_tweets, max_retweets)
                 if tweets:
                     result["tweets"] = tweets
                     print(f"Found {len(tweets)} tweets")
@@ -1127,7 +1243,7 @@ async def scrape_twitter(username: str) -> Dict:
                 
                 # Get followers first
                 print(f"\nFetching followers for @{username}...")
-                followers = await scrape_followers(social_page, username)
+                followers = await scrape_followers(social_page, username, max_followers)
                 if followers:
                     result["followers"] = followers
                     print(f"Found {len(followers)} followers")
@@ -1139,7 +1255,7 @@ async def scrape_twitter(username: str) -> Dict:
                 
                 # Get following
                 print(f"\nFetching following for @{username}...")
-                following = await scrape_following(social_page, username)
+                following = await scrape_following(social_page, username, max_following)
                 if following:
                     result["following"] = following
                     print(f"Found {len(following)} following")
