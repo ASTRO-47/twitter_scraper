@@ -17,10 +17,10 @@ os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
 COOKIES_FILE = os.path.join(os.path.dirname(__file__), 'twitter_cookies.json')
 
 # Rate limiting configuration
-SCROLL_DELAY = 2  # seconds between scrolls
-REQUEST_DELAY = 1  # seconds between requests
-MAX_RETRIES = 3
-TIMEOUT = 30000  # 30 seconds
+SCROLL_DELAY = 1  # seconds between scrolls  
+REQUEST_DELAY = 0.5  # seconds between requests
+MAX_RETRIES = 2
+TIMEOUT = 3000  # 3 seconds
 
 async def safe_wait_for_selector(page: Page, selector: str, timeout: int = TIMEOUT, description: str = "element") -> bool:
     """Safely wait for a selector with proper error handling."""
@@ -103,16 +103,16 @@ async def wait_for_profile_load(page: Page, username: str) -> bool:
     """Wait for profile to load with multiple fallback strategies."""
     try:
         # Strategy 1: Wait for tweets
-        if await safe_wait_for_selector(page, 'article[data-testid="tweet"]', timeout=15000, description="tweets"):
+        if await safe_wait_for_selector(page, 'article[data-testid="tweet"]', timeout=3000, description="tweets"):
             return True
         
         # Strategy 2: Wait for empty state
-        if await safe_wait_for_selector(page, 'div[data-testid="emptyState"]', timeout=5000, description="empty state"):
+        if await safe_wait_for_selector(page, 'div[data-testid="emptyState"]', timeout=2000, description="empty state"):
             print(f"Profile {username} has no tweets or is empty")
             return True
             
         # Strategy 3: Check if profile header exists (private or protected account)
-        if await safe_wait_for_selector(page, 'div[data-testid="UserName"]', timeout=5000, description="profile header"):
+        if await safe_wait_for_selector(page, 'div[data-testid="UserName"]', timeout=3000, description="profile header"):
             print(f"Profile {username} loaded but may be private")
             return True
             
@@ -496,14 +496,33 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
             except Exception:
                 continue
 
-        # Get bio (usually not available in retweet context)
+        # Get bio with improved selectors for retweet context
         bio = ""
-        try:
-            bio_element = tweet_element.locator('div[data-testid="UserDescription"]')
-            if await bio_element.count() > 0:
-                bio = await bio_element.inner_text()
-        except Exception:
-            pass
+        bio_selectors = [
+            'div[data-testid="UserDescription"]',
+            'div[data-testid="UserBio"]',
+            'div[data-testid="UserProfessionalCategory"]',
+            'div[dir="ltr"][data-testid]:not([data-testid="tweetText"])',
+            'div[dir="auto"]:has-text("·"):not([data-testid="tweetText"])',
+            'div:has(> span):not([data-testid="tweetText"]):not([data-testid="User-Name"])',
+        ]
+        
+        for selector in bio_selectors:
+            try:
+                bio_element = tweet_element.locator(selector)
+                if await bio_element.count() > 0:
+                    potential_bio = await bio_element.inner_text()
+                    # Filter out non-bio content
+                    if (potential_bio and 
+                        len(potential_bio.strip()) > 0 and 
+                        not potential_bio.strip().startswith('@') and
+                        'reposted' not in potential_bio.lower() and
+                        'retweeted' not in potential_bio.lower() and
+                        len(potential_bio.strip()) > 5):
+                        bio = potential_bio.strip()
+                        break
+            except Exception:
+                continue
 
         return {
             "retweet_content": "",  # Pure retweets have no additional content
@@ -540,12 +559,18 @@ async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_re
         # Scrolling variables
         last_height = await page.evaluate("document.body.scrollHeight")
         no_new_items_count = 0
-        max_no_new_items = 3
+        max_no_new_items = 2  # Reduced from 3 to 2
         scroll_attempts = 0
-        max_scroll_attempts = 50  # Prevent infinite scrolling
+        max_scroll_attempts = 10  # Reduced from 50 to 10
 
         while scroll_attempts < max_scroll_attempts:
             scroll_attempts += 1
+            
+            # Check if we've reached both limits early
+            if len(tweets) >= max_tweets and len(retweets) >= max_retweets:
+                print(f"Both limits reached: {len(tweets)} tweets, {len(retweets)} retweets. Stopping.")
+                break
+                
             try:
                 # Wait for content to load
                 await rate_limit_delay(SCROLL_DELAY)
@@ -702,14 +727,14 @@ async def scrape_social_users(page: Page, username: str, user_type: str, max_use
         await rate_limit_delay()
 
         # Wait for content to load
-        if not await safe_wait_for_selector(page, 'div[data-testid="cellInnerDiv"]', timeout=15000, description=f"{user_type} cells"):
+        if not await safe_wait_for_selector(page, 'div[data-testid="cellInnerDiv"]', timeout=3000, description=f"{user_type} cells"):
             print(f"No {user_type} cells found")
             return users
 
         # Initialize tracking variables
         processed_usernames: Set[str] = set()
         no_new_users_count = 0
-        max_no_new_users = 3
+        max_no_new_users = 2  # Reduced from 3 to 2
         scroll_attempts = 0
         max_scroll_attempts = 30
 
@@ -909,7 +934,7 @@ async def scrape_retweets(page, username: str, max_retweets: int = 100) -> List[
         last_height = await page.evaluate("document.body.scrollHeight")
         processed_retweets = set()
         no_new_retweets_count = 0
-        max_no_new_retweets = 3
+        max_no_new_retweets = 2  # Reduced from 3 to 2
         
         while True:
             try:
@@ -1002,7 +1027,7 @@ async def scrape_retweets(page, username: str, max_retweets: int = 100) -> List[
                 # Scroll down with timeout
                 try:
                     await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(1)
                     
                     # Check if we've reached the bottom
                     new_height = await page.evaluate("document.body.scrollHeight")
@@ -1029,7 +1054,7 @@ async def scrape_retweets(page, username: str, max_retweets: int = 100) -> List[
     print(f"Total retweets scraped: {len(retweets)}")
     return retweets
 
-async def scrape_twitter(username: str, max_tweets: int = 100, max_retweets: int = 100, max_followers: int = 300, max_following: int = 300) -> Dict:
+async def scrape_twitter(username: str, max_tweets: int = 40, max_retweets: int = 40, max_followers: int = 300, max_following: int = 300) -> Dict:
     result = {
         "user_profile": {"username": username, "bio": ""},
         "following": [],
@@ -1038,10 +1063,25 @@ async def scrape_twitter(username: str, max_tweets: int = 100, max_retweets: int
     
     try:
         async with async_playwright() as p:
-            # Launch browser in headless mode
+            # Detect if we have a display available
+            has_display = os.environ.get('DISPLAY') is not None
+            
+            # Launch browser with appropriate settings
+            launch_args = [
+                '--disable-extensions',
+                '--disable-dev-shm-usage',
+                '--no-sandbox',
+                '--disable-gpu' if not has_display else '',
+            ]
+            # Remove empty strings
+            launch_args = [arg for arg in launch_args if arg]
+            
+            print(f"🖥️  Display available: {has_display} (DISPLAY={os.environ.get('DISPLAY', 'None')})")
+            print(f"🚀 Browser args: {launch_args}")
+            
             browser = await p.chromium.launch(
-                headless=True,  # Run in headless mode
-                args=['--disable-extensions']
+                headless=not has_display,  # Headless if no display, headed if display available
+                args=launch_args
             )
             
             # Create context with larger viewport and modern user agent
@@ -1081,13 +1121,13 @@ async def scrape_twitter(username: str, max_tweets: int = 100, max_retweets: int
                     return result
 
                 # Short wait for initial load
-                await asyncio.sleep(2)
+                await asyncio.sleep(1)
                 
                 # Check for login state using multiple indicators
                 print("Verifying login status...")
                 try:
                     # Wait a bit longer for the page to load completely
-                    await asyncio.sleep(3)
+                    await asyncio.sleep(1)
                     
                     login_verified = False
                     
@@ -1177,7 +1217,7 @@ async def scrape_twitter(username: str, max_tweets: int = 100, max_retweets: int
                 print(f"\nNavigating to profile @{username}...")
                 try:
                     await page.goto(f"https://twitter.com/{username}", wait_until="domcontentloaded")
-                    await asyncio.sleep(3)
+                    await asyncio.sleep(1)
                 except Exception as e:
                     print(f"Error navigating to profile: {str(e)}")
                     await browser.close()
@@ -1251,7 +1291,7 @@ async def scrape_twitter(username: str, max_tweets: int = 100, max_retweets: int
                     print("No followers found or error occurred")
                 
                 # Small delay between operations
-                await asyncio.sleep(2)
+                await asyncio.sleep(1)
                 
                 # Get following
                 print(f"\nFetching following for @{username}...")
