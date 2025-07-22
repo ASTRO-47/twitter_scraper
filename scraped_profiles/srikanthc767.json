@@ -215,10 +215,6 @@
       "follower_bio": ""
     },
     {
-      "follower_name": "bell_amber64125",
-      "follower_bio": ""
-    },
-    {
       "follower_name": "Muhdfarhan075",
       "follower_bio": "Alhamdulilah"
     },
@@ -256,7 +252,7 @@
     },
     {
       "follower_name": "house_of_SWHNY",
-      "follower_bio": "Venture Partner \n@CoFoundr\n | IIT Roorkee | Entrepreneur First W23"
+      "follower_bio": "IIT Roorkee | Entrepreneur First W23"
     },
     {
       "follower_name": "arlene_hayes_",
@@ -279,42 +275,42 @@
     {
       "tweet_content": "What a time to be alive. I vibe coded Gumloop over the weekend!!\nPresenting Agent Flow - an open-source alternative to Gumloop!\n\nWe built a free no-code AI Agent builder with @composiohq and @langchainai's Langgraph that lets you automate workflows and complex agentic patterns with drag-and-drop nodes.",
       "tweet_date": "2025-06-09T10:54:03.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_1_1752931619.png"
+      "tweet_screenshot": ""
     },
     {
       "tweet_content": "to your marketing team or whosoever’s idea this was. my card number is 4216-8701-5010-2349\nthe expiration date is 12/30\nthe security code is 207\n\nhappy sextember everyone!",
       "tweet_date": "2024-09-02T17:28:54.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_2_1752931619.png"
+      "tweet_screenshot": ""
     },
     {
       "tweet_content": "Vendors charging 2x, 3x, or more for SSO push companies toward weaker security practices. SSO should be a standard feature or offered at a reasonable cost, not a premium add-on.",
       "tweet_date": "2024-08-19T14:44:44.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_3_1752931619.png"
+      "tweet_screenshot": ""
     },
     {
       "tweet_content": "Check out https://sso.tax to see how much vendors charge for this essential feature. It highlights the disparity in pricing and the impact on security budgets.",
       "tweet_date": "2024-08-19T14:44:45.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_4_1752931620.png"
+      "tweet_screenshot": ""
     },
     {
       "tweet_content": "Hey fellow founders! \nIntroducingCap Table Simulator—a tool I created to help visualize your cap table and dilution through multiple funding rounds. Originally, I built this while fundraising for \n@zevodotai\n using a simple Excel sheet.\n\nMore on how it came together below",
       "tweet_date": "2024-08-17T06:11:21.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_5_1752931620.png"
+      "tweet_screenshot": ""
     },
     {
       "tweet_content": "What started as an Excel project quickly became a web app with the help of \n@OpenAI\n—took me just 30 minutes to get the logic working! The UI, though, was a bit rough around the edges (to say the least).\n\nI simply input the excel formula and gave a prompt to generate this logic",
       "tweet_date": "2024-08-17T06:11:21.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_6_1752931620.png"
+      "tweet_screenshot": ""
     },
     {
       "tweet_content": "What is Zevo?\nZevo is a code visualization and dependency-finding tool that constructs comprehensive visual diagrams of your codebase, from infrastructure to functionality. It facilitates code exploration at a feature level.\n\nIn short, Google maps for your complex code.",
       "tweet_date": "2024-01-19T13:38:58.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_7_1752931630.png"
+      "tweet_screenshot": ""
     },
     {
       "tweet_content": "Let's see how it goes...",
       "tweet_date": "2022-12-14T07:07:28.000Z",
-      "tweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_tweet_8_1752931631.png"
+      "tweet_screenshot": ""
     }
   ],
   "retweets": [
@@ -324,7 +320,7 @@
       "retweet_profile_bio": "",
       "retweet_main_content": "Thankfully, \n@kmrrohit2001\n stepped in and turned it into something both functional and good-looking, plus handled the hosting! \n\nLink to captable simulator : https://shareholding-calci.vercel.app",
       "retweet_date": "2024-08-17T06:11:22.000Z",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_retweet_1_1752931621.png"
+      "retweet_screenshot": ""
     },
     {
       "retweet_content": "",
@@ -332,7 +328,7 @@
       "retweet_profile_bio": "",
       "retweet_main_content": "Use Case:                               Solution:\n- chat completion              -gpt-4o\n- image generation            -midjourney,runwayML\n- code completion             -Claude,Gemini\n- pdf interaction                 -Mistral AI\n\nAll at once with just one subs at OnePriceAI.",
       "retweet_date": "2024-08-12T09:12:22.000Z",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_retweet_2_1752931621.png"
+      "retweet_screenshot": ""
     },
     {
       "retweet_content": "",
@@ -340,7 +336,7 @@
       "retweet_profile_bio": "",
       "retweet_main_content": "taking one step at a time. we are finally live and ready to kick off ops for \n@OnepriceAI\n \n\nPaddle billing gateway setup integration done.(using https://paddle.com) .",
       "retweet_date": "2024-08-08T12:09:04.000Z",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_retweet_3_1752931621.png"
+      "retweet_screenshot": ""
     },
     {
       "retweet_content": "",
@@ -348,15 +344,15 @@
       "retweet_profile_bio": "",
       "retweet_main_content": "ideas are mere thoughts if not executed. \n@_buildspace\n \n@_nightsweekends\n gave a good clarity on how to turn ideas into toy version of product and then to final MVP. \n\nSay hello to http://OnepriceAi.com , which we built on the sidelines of nights & weekend s5. Continued ...",
       "retweet_date": "2024-08-01T13:24:44.000Z",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_retweet_4_1752931625.png"
+      "retweet_screenshot": ""
     },
     {
       "retweet_content": "",
-      "retweet_username": "srikanthc767",
+      "retweet_username": "AkshatRaiLaddh1",
       "retweet_profile_bio": "",
-      "retweet_main_content": "Hey fellow founders! \nIntroducingCap Table Simulator—a tool I created to help visualize your cap table and dilution through multiple funding rounds. Originally, I built this while fundraising for \n@zevodotai\n using a simple Excel sheet.\n\nMore on how it came together below",
+      "retweet_main_content": "Comparing/testing which model works out for your use case is really tough when they charge you 20$/month. open source models serves best in this case but again require resources to build it(apt for personal projects though)",
       "retweet_date": "2024-08-01T08:25:12.000Z",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_retweet_5_1752931626.png"
+      "retweet_screenshot": ""
     },
     {
       "retweet_content": "",
@@ -364,15 +360,15 @@
       "retweet_profile_bio": "",
       "retweet_main_content": "“i’m going to learn about investing” journey \n\nphase 1: intelligent investor \n\n> ben graham & warren buffet, value investing, some peter lynch stuff, maybe even some greenblatt & klarman if you’re adventurous \n\n“ok i’ll buy good companies at fair prices, what else is out there?”",
       "retweet_date": "2022-10-18T15:11:36.000Z",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_retweet_6_1752931635.png"
+      "retweet_screenshot": ""
     },
     {
       "retweet_content": "",
-      "retweet_username": "netcapgirl",
+      "retweet_username": "litcapital",
       "retweet_profile_bio": "",
-      "retweet_main_content": "“i’m going to learn about investing” journey \n\nphase 1: intelligent investor \n\n> ben graham & warren buffet, value investing, some peter lynch stuff, maybe even some greenblatt & klarman if you’re adventurous \n\n“ok i’ll buy good companies at fair prices, what else is out there?”",
+      "retweet_main_content": "Humanity in the 1960s: “I bet we’ll have flying cars and solve world hunger by 2022”\n\nReality: *ass shaking holograms*",
       "retweet_date": "2022-08-29T00:46:12.000Z",
-      "retweet_screenshot": "/root/twitter_scraper/app/../screenshots/srikanthc767_retweet_7_1752931635.png"
+      "retweet_screenshot": ""
     }
   ]
 }

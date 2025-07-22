@@ -16,6 +16,9 @@ os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
 # Use relative path for cookies file
 COOKIES_FILE = os.path.join(os.path.dirname(__file__), 'twitter_cookies.json')
 
+# Bio cache to avoid refetching same user's bio - DISABLED (bio fetching disabled to prevent hanging)
+# bio_cache = {}
+
 # Rate limiting configuration
 SCROLL_DELAY = 1  # seconds between scrolls  
 REQUEST_DELAY = 0.5  # seconds between requests
@@ -25,8 +28,14 @@ TIMEOUT = 3000  # 3 seconds
 async def safe_wait_for_selector(page: Page, selector: str, timeout: int = TIMEOUT, description: str = "element") -> bool:
     """Safely wait for a selector with proper error handling."""
     try:
-        await page.wait_for_selector(selector, timeout=timeout, state="attached")
+        await asyncio.wait_for(
+            page.wait_for_selector(selector, timeout=timeout, state="attached"),
+            timeout=timeout/1000 + 2  # Convert to seconds and add buffer
+        )
         return True
+    except asyncio.TimeoutError:
+        print(f"Timeout waiting for {description} (selector: {selector})")
+        return False
     except TimeoutError:
         print(f"Timeout waiting for {description} (selector: {selector})")
         return False
@@ -37,11 +46,35 @@ async def safe_wait_for_selector(page: Page, selector: str, timeout: int = TIMEO
 async def safe_screenshot(element, path: str, description: str = "element") -> str:
     """Safely take a screenshot with error handling."""
     try:
-        await element.screenshot(path=path)
+        await asyncio.wait_for(element.screenshot(path=path), timeout=5)
         return path
+    except asyncio.TimeoutError:
+        print(f"Screenshot timeout for {description}")
+        return ""
     except Exception as e:
         print(f"Could not take screenshot for {description}: {str(e)}")
         return ""
+
+async def safe_operation(operation, timeout_seconds=10, description="operation"):
+    """Safely execute an operation with timeout."""
+    try:
+        return await asyncio.wait_for(operation, timeout=timeout_seconds)
+    except asyncio.TimeoutError:
+        print(f"Operation timeout: {description}")
+        return None
+    except Exception as e:
+        print(f"Operation error: {description} - {str(e)}")
+        return None
+
+async def safe_browser_close(browser):
+    """Safely close browser with timeout."""
+    try:
+        await asyncio.wait_for(browser.close(), timeout=5)
+        print("Browser closed successfully")
+    except asyncio.TimeoutError:
+        print("Browser close timeout - force terminating")
+    except Exception as e:
+        print(f"Error closing browser: {str(e)}")
 
 async def rate_limit_delay(delay: float = REQUEST_DELAY) -> None:
     """Add delay for rate limiting."""
@@ -212,7 +245,7 @@ async def get_quoted_tweet_info(tweet_element) -> Optional[Dict[str, str]]:
     return None
 
 async def get_main_tweet_content(tweet_element) -> str:
-    """Get the main tweet content with improved selector robustness."""
+    """Get the main tweet content with improved selector robustness and timeout protection."""
     content_selectors = [
         'div[data-testid="tweetText"]',
         'div[lang]:not([data-testid])',
@@ -225,62 +258,66 @@ async def get_main_tweet_content(tweet_element) -> str:
     for selector in content_selectors:
         try:
             elements = tweet_element.locator(selector)
-            count = await elements.count()
+            count = await asyncio.wait_for(elements.count(), timeout=3)
             if count > 0:
                 texts = []
-                for i in range(min(count, 5)):  # Limit to avoid memory issues
+                for i in range(min(count, 3)):  # Limit to first 3 elements to avoid hanging
                     try:
-                        text = await elements.nth(i).inner_text()
+                        element = elements.nth(i)
+                        text = await asyncio.wait_for(element.inner_text(), timeout=2)
                         if text and len(text.strip()) > 0:
                             texts.append(text.strip())
-                    except Exception:
+                    except (asyncio.TimeoutError, Exception):
                         continue
                 
                 if texts:
                     return " ".join(texts)
-        except Exception:
+        except (asyncio.TimeoutError, Exception):
             continue
     
-    # Final fallback
+    # Final fallback with timeout
     try:
-        text = await tweet_element.inner_text()
+        text = await asyncio.wait_for(tweet_element.inner_text(), timeout=3)
         if text and len(text.strip()) > 10:  # Avoid getting just metadata
             return text.strip()[:500]  # Limit length
-    except Exception:
+    except (asyncio.TimeoutError, Exception):
         pass
     
     return ""
 
 async def get_tweet_date(tweet_element) -> str:
-    """Extract the date/time when the tweet was posted."""
+    """Extract the date/time when the tweet was posted with timeout protection."""
     try:
-        # Method 1: Try to get datetime from time element
+        # Method 1: Try to get datetime from time element with timeout
         time_element = tweet_element.locator('time').first
-        if await time_element.count() > 0:
-            datetime_attr = await time_element.get_attribute('datetime')
+        count = await asyncio.wait_for(time_element.count(), timeout=2)
+        if count > 0:
+            datetime_attr = await asyncio.wait_for(time_element.get_attribute('datetime'), timeout=2)
             if datetime_attr:
                 return datetime_attr
-    except Exception:
+    except (asyncio.TimeoutError, Exception):
         pass
     
-    # Method 2: Try to get from title attribute of time element
+    # Method 2: Try to get from title attribute of time element with timeout
     try:
         time_element = tweet_element.locator('time').first
-        if await time_element.count() > 0:
-            title_attr = await time_element.get_attribute('title')
+        count = await asyncio.wait_for(time_element.count(), timeout=2)
+        if count > 0:
+            title_attr = await asyncio.wait_for(time_element.get_attribute('title'), timeout=2)
             if title_attr:
                 return title_attr
-    except Exception:
+    except (asyncio.TimeoutError, Exception):
         pass
     
-    # Method 3: Try to get text content from time element
+    # Method 3: Try to get text content from time element with timeout
     try:
         time_element = tweet_element.locator('time').first
-        if await time_element.count() > 0:
-            time_text = await time_element.inner_text()
+        count = await asyncio.wait_for(time_element.count(), timeout=2)
+        if count > 0:
+            time_text = await asyncio.wait_for(time_element.inner_text(), timeout=2)
             if time_text:
                 return time_text.strip()
-    except Exception:
+    except (asyncio.TimeoutError, Exception):
         pass
     
     # Method 4: Look for any timestamp in the tweet
@@ -369,8 +406,21 @@ async def get_tweet_id(tweet_element) -> str:
     except Exception:
         pass
     
-    # Method 5: Last resort - timestamp with random
-    return f"fallback_{int(time.time())}_{random.randint(1000, 9999)}"
+    # Method 5: Last resort - use element position and content snippet hash
+    try:
+        # Create a more stable ID based on element properties
+        element_text = await tweet_element.inner_text()
+        if element_text and len(element_text.strip()) > 5:
+            # Use first 100 chars of text to create stable hash
+            text_snippet = element_text.strip()[:100]
+            content_hash = hashlib.md5(text_snippet.encode()).hexdigest()[:12]
+            return f"stable_{content_hash}"
+    except Exception:
+        pass
+    
+    # If we reach here, the element probably has no useful content
+    # Return None to indicate this element should be skipped
+    return None
 
 async def is_repost(tweet_element) -> bool:
     """Check if tweet is a repost (retweet without comment) with improved detection."""
@@ -456,8 +506,8 @@ async def is_quote_tweet(tweet_element) -> bool:
         pass
     return False
 
-async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
-    """Get information about a retweet with improved extraction."""
+async def get_retweet_info(tweet_element, page: Page) -> Optional[Dict[str, str]]:
+    """Get information about a retweet WITHOUT bio fetching (to prevent hanging)."""
     try:
         # Get the original tweet content
         main_content = await get_main_tweet_content(tweet_element)
@@ -472,62 +522,51 @@ async def get_retweet_info(tweet_element) -> Optional[Dict[str, str]]:
         
         for selector in username_selectors:
             try:
+                # Add timeout protection for element counting and access
                 elements = tweet_element.locator(selector)
-                count = await elements.count()
-                for i in range(count):
-                    element = elements.nth(i)
-                    
-                    # Try to get username from href
-                    href = await element.get_attribute('href')
-                    if href and '/' in href and not '/status/' in href:
-                        potential_username = href.strip('/').split('/')[-1]
-                        if potential_username and not potential_username.startswith('http'):
-                            username = potential_username
-                            break
-                    
-                    # Try to get username from text content
-                    text = await element.inner_text()
-                    if text and '@' in text:
-                        username = text.strip('@').split()[0]
-                        break
+                count = await asyncio.wait_for(elements.count(), timeout=3)
+                
+                for i in range(min(count, 5)):  # Limit to first 5 elements
+                    try:
+                        element = elements.nth(i)
+                        
+                        # Try to get username from href with timeout
+                        try:
+                            href = await asyncio.wait_for(element.get_attribute('href'), timeout=2)
+                            if href and '/' in href and not '/status/' in href:
+                                potential_username = href.strip('/').split('/')[-1]
+                                if potential_username and not potential_username.startswith('http'):
+                                    username = potential_username
+                                    break
+                        except (asyncio.TimeoutError, Exception):
+                            pass
+                        
+                        # Try to get username from text content with timeout
+                        try:
+                            text = await asyncio.wait_for(element.inner_text(), timeout=2)
+                            if text and '@' in text:
+                                username = text.strip('@').split()[0]
+                                break
+                        except (asyncio.TimeoutError, Exception):
+                            pass
+                            
+                    except Exception:
+                        continue
                         
                 if username:
                     break
-            except Exception:
+            except (asyncio.TimeoutError, Exception) as e:
+                print(f"Timeout/error in username extraction with selector {selector}: {str(e)}")
                 continue
 
-        # Get bio with improved selectors for retweet context
+        # NO BIO FETCHING - leave empty as requested
         bio = ""
-        bio_selectors = [
-            'div[data-testid="UserDescription"]',
-            'div[data-testid="UserBio"]',
-            'div[data-testid="UserProfessionalCategory"]',
-            'div[dir="ltr"][data-testid]:not([data-testid="tweetText"])',
-            'div[dir="auto"]:has-text("·"):not([data-testid="tweetText"])',
-            'div:has(> span):not([data-testid="tweetText"]):not([data-testid="User-Name"])',
-        ]
-        
-        for selector in bio_selectors:
-            try:
-                bio_element = tweet_element.locator(selector)
-                if await bio_element.count() > 0:
-                    potential_bio = await bio_element.inner_text()
-                    # Filter out non-bio content
-                    if (potential_bio and 
-                        len(potential_bio.strip()) > 0 and 
-                        not potential_bio.strip().startswith('@') and
-                        'reposted' not in potential_bio.lower() and
-                        'retweeted' not in potential_bio.lower() and
-                        len(potential_bio.strip()) > 5):
-                        bio = potential_bio.strip()
-                        break
-            except Exception:
-                continue
+        print(f"Skipped bio fetching for @{username} (disabled to prevent hanging)")
 
         return {
             "retweet_content": "",  # Pure retweets have no additional content
             "retweet_username": username,
-            "retweet_profile_bio": bio,
+            "retweet_profile_bio": bio,  # Always empty - no bio fetching
             "retweet_main_content": main_content
         }
 
@@ -559,29 +598,59 @@ async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_re
         # Scrolling variables
         last_height = await page.evaluate("document.body.scrollHeight")
         no_new_items_count = 0
-        max_no_new_items = 2  # Reduced from 3 to 2
+        max_no_new_items = 3  # Restored from 2 to 3
         scroll_attempts = 0
-        max_scroll_attempts = 10  # Reduced from 50 to 10
+        max_scroll_attempts = 50  # Restored from 10 to 50
 
         while scroll_attempts < max_scroll_attempts:
             scroll_attempts += 1
             
-            # Check if we've reached both limits early
-            if len(tweets) >= max_tweets and len(retweets) >= max_retweets:
-                print(f"Both limits reached: {len(tweets)} tweets, {len(retweets)} retweets. Stopping.")
-                break
-                
             try:
                 # Wait for content to load
                 await rate_limit_delay(SCROLL_DELAY)
                 
-                # Get all visible tweets
-                tweet_elements = await page.locator('article[data-testid="tweet"]').all()
-                print(f"[DEBUG] Found {len(tweet_elements)} tweet elements on scroll {scroll_attempts}")
+                # Get all visible tweets with timeout protection
+                try:
+                    tweet_elements = await asyncio.wait_for(
+                        page.locator('article[data-testid="tweet"]').all(),
+                        timeout=5
+                    )
+                    print(f"[DEBUG] Found {len(tweet_elements)} tweet elements on scroll {scroll_attempts}")
+                except (asyncio.TimeoutError, Exception) as e:
+                    print(f"[DEBUG] Timeout/error getting tweet elements on scroll {scroll_attempts}: {str(e)}")
+                    tweet_elements = []
                 
+                # If no tweets found, wait and try again before giving up
                 if not tweet_elements:
-                    print("No tweets found on page")
-                    break
+                    print(f"No tweets found on attempt {scroll_attempts}, waiting and retrying...")
+                    await asyncio.sleep(3)  # Wait longer
+                    
+                    # Try a different scroll method with timeout
+                    try:
+                        await asyncio.wait_for(
+                            page.evaluate("window.scrollBy(0, window.innerHeight * 2)"),
+                            timeout=3
+                        )
+                        await asyncio.sleep(2)
+                        
+                        # Try again with timeout
+                        tweet_elements = await asyncio.wait_for(
+                            page.locator('article[data-testid="tweet"]').all(),
+                            timeout=5
+                        )
+                        print(f"[DEBUG] After retry: Found {len(tweet_elements)} tweet elements")
+                    except (asyncio.TimeoutError, Exception) as e:
+                        print(f"[DEBUG] Retry scroll/detection timeout: {str(e)}")
+                        tweet_elements = []
+                    
+                    if not tweet_elements:
+                        print("Still no tweets found, but continuing...")
+                        no_new_items_count += 1
+                        # Don't break here, continue to scroll more
+                        if no_new_items_count >= max_no_new_items:
+                            print("Multiple attempts failed, ending tweets scraping")
+                            break
+                        continue
 
                 initial_count = len(tweets) + len(retweets)
                 processed_in_batch = 0
@@ -591,13 +660,17 @@ async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_re
                         # Get unique tweet ID
                         tweet_id = await get_tweet_id(tweet)
                         
+                        # Skip elements with no valid ID (probably no useful content)
+                        if tweet_id is None:
+                            continue
+                        
                         if tweet_id in processed_ids:
                             continue
                         
                         processed_ids.add(tweet_id)
                         processed_in_batch += 1
                         
-                        # Check if it's a retweet
+                        # Check if it's a retweet (simplified)
                         is_retweet = await is_repost(tweet)
                         
                         if is_retweet:
@@ -608,21 +681,50 @@ async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_re
                                 
                             print(f"Processing retweet #{len(retweets)+1} (ID: {tweet_id})")
                             
-                            # Get retweet date
-                            retweet_date = await get_tweet_date(tweet)
+                            # Get retweet date with timeout
+                            try:
+                                print(f"Getting date for retweet {tweet_id}...")
+                                retweet_date = await asyncio.wait_for(
+                                    get_tweet_date(tweet),
+                                    timeout=3
+                                )
+                                print(f"Date extracted for retweet {tweet_id}: {retweet_date}")
+                            except asyncio.TimeoutError:
+                                print(f"Timeout getting date for retweet {tweet_id}")
+                                retweet_date = "Unknown"
+                            except Exception as e:
+                                print(f"Error getting date for retweet {tweet_id}: {str(e)}")
+                                retweet_date = "Unknown"
                             
-                            # Take screenshot with unique filename
+                            # Screenshot disabled to prevent hanging
                             screenshot_filename = generate_unique_screenshot_filename(username, "retweet", len(retweets)+1)
                             screenshot_path = os.path.join(SCREENSHOTS_DIR, screenshot_filename)
-                            screenshot_path = await safe_screenshot(tweet, screenshot_path, "retweet")
+                            # screenshot_path = await safe_screenshot(tweet, screenshot_path, "retweet")
+                            screenshot_path = ""  # Disabled to prevent hanging
+                            print(f"Screenshot disabled for retweet {tweet_id}")
 
-                            # Get retweet info
-                            retweet_info = await get_retweet_info(tweet)
+                            # Get retweet info with timeout and debugging
+                            try:
+                                print(f"Getting retweet info for {tweet_id}...")
+                                retweet_info = await asyncio.wait_for(
+                                    get_retweet_info(tweet, page),
+                                    timeout=15  # Longer timeout as this includes bio fetching
+                                )
+                                print(f"Retweet info extracted for {tweet_id}")
+                            except asyncio.TimeoutError:
+                                print(f"Timeout getting retweet info for {tweet_id}")
+                                retweet_info = None
+                            except Exception as e:
+                                print(f"Error getting retweet info for {tweet_id}: {str(e)}")
+                                retweet_info = None
+                            
                             if retweet_info:
                                 retweet_info["retweet_date"] = retweet_date
                                 retweet_info["retweet_screenshot"] = screenshot_path
                                 retweets.append(retweet_info)
                                 print(f"Successfully added retweet {len(retweets)} with date: {retweet_date}")
+                            else:
+                                print(f"Could not extract retweet info for {tweet_id}")
                             continue
 
                         # Check tweet limit
@@ -630,18 +732,46 @@ async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_re
                             print(f"Reached maximum tweets limit ({max_tweets}), skipping further tweets")
                             continue
 
-                        # Process as regular tweet
+                        # Process as regular tweet with simpler handling
                         print(f"Processing tweet #{len(tweets)+1} (ID: {tweet_id})")
-                        content = await get_main_tweet_content(tweet)
+                        
+                        # Get content with timeout protection
+                        try:
+                            print(f"Getting content for tweet {tweet_id}...")
+                            content = await asyncio.wait_for(
+                                get_main_tweet_content(tweet),
+                                timeout=5
+                            )
+                            print(f"Content extracted for tweet {tweet_id}: {len(content) if content else 0} chars")
+                        except asyncio.TimeoutError:
+                            print(f"Timeout getting content for tweet {tweet_id}")
+                            content = None
+                        except Exception as e:
+                            print(f"Error getting content for tweet {tweet_id}: {str(e)}")
+                            content = None
                         
                         if content:
-                            # Get tweet date
-                            tweet_date = await get_tweet_date(tweet)
+                            # Get tweet date with timeout
+                            try:
+                                print(f"Getting date for tweet {tweet_id}...")
+                                tweet_date = await asyncio.wait_for(
+                                    get_tweet_date(tweet),
+                                    timeout=3
+                                )
+                                print(f"Date extracted for tweet {tweet_id}: {tweet_date}")
+                            except asyncio.TimeoutError:
+                                print(f"Timeout getting date for tweet {tweet_id}")
+                                tweet_date = "Unknown"
+                            except Exception as e:
+                                print(f"Error getting date for tweet {tweet_id}: {str(e)}")
+                                tweet_date = "Unknown"
                             
-                            # Take screenshot with unique filename
+                            # Screenshot disabled to prevent hanging
                             screenshot_filename = generate_unique_screenshot_filename(username, "tweet", len(tweets)+1)
                             screenshot_path = os.path.join(SCREENSHOTS_DIR, screenshot_filename)
-                            screenshot_path = await safe_screenshot(tweet, screenshot_path, "tweet")
+                            # screenshot_path = await safe_screenshot(tweet, screenshot_path, "tweet")
+                            screenshot_path = ""  # Disabled to prevent hanging
+                            print(f"Screenshot disabled for tweet {tweet_id}")
 
                             tweet_data = {
                                 "tweet_content": content,
@@ -650,9 +780,12 @@ async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_re
                             }
 
                             # Check for quoted tweet
-                            quoted_info = await get_quoted_tweet_info(tweet)
-                            if quoted_info:
-                                tweet_data.update(quoted_info)
+                            try:
+                                quoted_info = await get_quoted_tweet_info(tweet)
+                                if quoted_info:
+                                    tweet_data.update(quoted_info)
+                            except Exception as e:
+                                print(f"Error getting quoted tweet info: {str(e)}")
 
                             tweets.append(tweet_data)
                             print(f"Successfully added tweet {len(tweets)} with date: {tweet_date}")
@@ -683,16 +816,68 @@ async def scrape_tweets(page: Page, username: str, max_tweets: int = 100, max_re
                     print("Reached end of timeline (no new items)")
                     break
 
-                # Scroll down
+                # Scroll down with multiple methods (with timeout protection)
                 print(f"Scrolling for more content... (attempt {scroll_attempts})")
-                await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                
+                try:
+                    # Try multiple scrolling approaches with timeouts
+                    await asyncio.wait_for(
+                        page.evaluate("window.scrollTo(0, document.body.scrollHeight)"),
+                        timeout=3
+                    )
+                    await asyncio.sleep(1)
+                    
+                    # Additional scroll methods for stubborn pages
+                    await asyncio.wait_for(
+                        page.evaluate("window.scrollBy(0, window.innerHeight * 3)"),
+                        timeout=3
+                    )
+                    await asyncio.sleep(1)
+                    
+                    # Keyboard scroll as well
+                    try:
+                        await asyncio.wait_for(page.keyboard.press('End'), timeout=2)
+                        await asyncio.sleep(0.5)
+                    except (asyncio.TimeoutError, Exception):
+                        pass
+                    
+                except (asyncio.TimeoutError, Exception) as e:
+                    print(f"Scroll operation timeout/error: {str(e)}")
+                
                 await rate_limit_delay(SCROLL_DELAY)
 
-                # Check if page height changed
-                new_height = await page.evaluate("document.body.scrollHeight")
+                # Check if page height changed (with timeout)
+                try:
+                    new_height = await asyncio.wait_for(
+                        page.evaluate("document.body.scrollHeight"),
+                        timeout=3
+                    )
+                except (asyncio.TimeoutError, Exception) as e:
+                    print(f"Page height check timeout: {str(e)}")
+                    new_height = last_height  # Assume no change
+                
                 if new_height == last_height:
-                    no_new_items_count += 1
-                    print("Page height unchanged, may have reached end")
+                    # Try one more aggressive scroll before giving up (with timeout)
+                    try:
+                        await asyncio.wait_for(
+                            page.evaluate("window.scrollTo(0, document.body.scrollHeight + 1000)"),
+                            timeout=3
+                        )
+                        await asyncio.sleep(2)
+                        new_height = await asyncio.wait_for(
+                            page.evaluate("document.body.scrollHeight"),
+                            timeout=3
+                        )
+                    except (asyncio.TimeoutError, Exception) as e:
+                        print(f"Aggressive scroll timeout: {str(e)}")
+                        new_height = last_height
+                    
+                    if new_height == last_height:
+                        no_new_items_count += 1
+                        print("Page height unchanged, may have reached end")
+                    else:
+                        last_height = new_height
+                        print("Additional scroll worked, continuing...")
                 else:
                     last_height = new_height
 
@@ -734,7 +919,7 @@ async def scrape_social_users(page: Page, username: str, user_type: str, max_use
         # Initialize tracking variables
         processed_usernames: Set[str] = set()
         no_new_users_count = 0
-        max_no_new_users = 2  # Reduced from 3 to 2
+        max_no_new_users = 5  # Increased to get more followers/following
         scroll_attempts = 0
         max_scroll_attempts = 30
 
@@ -934,7 +1119,7 @@ async def scrape_retweets(page, username: str, max_retweets: int = 100) -> List[
         last_height = await page.evaluate("document.body.scrollHeight")
         processed_retweets = set()
         no_new_retweets_count = 0
-        max_no_new_retweets = 2  # Reduced from 3 to 2
+        max_no_new_retweets = 3  # Restored from 2 to 3
         
         while True:
             try:
@@ -1054,7 +1239,7 @@ async def scrape_retweets(page, username: str, max_retweets: int = 100) -> List[
     print(f"Total retweets scraped: {len(retweets)}")
     return retweets
 
-async def scrape_twitter(username: str, max_tweets: int = 40, max_retweets: int = 40, max_followers: int = 300, max_following: int = 300) -> Dict:
+async def scrape_twitter(username: str, max_tweets: int = 100, max_retweets: int = 100, max_followers: int = 1000, max_following: int = 1000) -> Dict:
     result = {
         "user_profile": {"username": username, "bio": ""},
         "following": [],
@@ -1240,12 +1425,42 @@ async def scrape_twitter(username: str, max_tweets: int = 40, max_retweets: int 
                             await browser.close()
                             return result
                             
-                    # Verify profile content is visible
-                    profile_header = page.locator('div[data-testid="UserName"]')
-                    if not await profile_header.count() > 0:
-                        print(f"Could not access profile @{username}")
-                        await browser.close()
-                        return result
+                    # Verify profile content is visible with retry logic
+                    profile_accessed = False
+                    for attempt in range(3):  # Try 3 times
+                        try:
+                            # Try multiple selectors to detect profile
+                            profile_selectors = [
+                                'div[data-testid="UserName"]',
+                                'h2[aria-level="2"]',
+                                'div[data-testid="UserDescription"]',
+                                'article[data-testid="tweet"]',
+                                'div[data-testid="primaryColumn"]'
+                            ]
+                            
+                            for selector in profile_selectors:
+                                try:
+                                    await page.wait_for_selector(selector, timeout=3000)
+                                    profile_accessed = True
+                                    print(f"✅ Profile @{username} accessed successfully (detected via {selector})")
+                                    break
+                                except:
+                                    continue
+                            
+                            if profile_accessed:
+                                break
+                            else:
+                                if attempt < 2:  # Not the last attempt
+                                    print(f"Profile detection attempt {attempt + 1}/3 failed, retrying...")
+                                    await asyncio.sleep(2)
+                        except Exception as e:
+                            if attempt < 2:
+                                print(f"Profile verification attempt {attempt + 1}/3 failed: {e}, retrying...")
+                                await asyncio.sleep(2)
+                    
+                    if not profile_accessed:
+                        print(f"⚠️  Could not reliably detect profile @{username}, but continuing anyway...")
+                        # Don't return - continue with scraping as profile might still be accessible
                         
                 except Exception as e:
                     print(f"Error verifying profile: {str(e)}")
@@ -1311,7 +1526,7 @@ async def scrape_twitter(username: str, max_tweets: int = 40, max_retweets: int 
                 print(f"Error during scraping: {str(e)}")
             finally:
                 print("\nClosing browser...")
-                await browser.close()
+                await safe_browser_close(browser)
                     
     except Exception as e:
         print(f"Critical error: {str(e)}")
